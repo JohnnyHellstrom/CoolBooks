@@ -41,4 +41,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Relationship
+    public function roles(){
+        return $this->hasMany(Role::class, 'role_id');
+    }
+    public function books(){
+        return $this->belongsTo(Book::class, 'user_id');
+    }
+    public function reviews(){
+        return $this->belongsTo(Review::class, 'user_id');
+    }
 }
