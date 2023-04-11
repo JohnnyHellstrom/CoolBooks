@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -11,7 +12,9 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        return view('reviews.index');
+        $allReviews = Review::all();
+        return view('reviews.index', [
+            'reviews' => $allReviews]);
     }
 
     /**
@@ -19,7 +22,7 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+        // Is now shown on index. So Probobly delete this method
     }
 
     /**
