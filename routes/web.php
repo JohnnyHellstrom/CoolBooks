@@ -40,6 +40,8 @@ Route::get('/genres', [GenreController::class, 'index']);
 //Reviews
 Route::get('/reviews', [ReviewController::class, 'index']);
 
+Route::post('/reviews', [ReviewController::class, 'store']);
+
 
 //Home
 Route::get('/',[HomeController::class, 'index']);
