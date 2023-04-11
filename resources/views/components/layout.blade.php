@@ -54,7 +54,7 @@
                </li>
                <li>
                   <a href="/reviews" class="hover:text-laravel"
-                      ><i class="fa-solid fa-gear"></i>
+                      ><i class="fa-solid fa-pen-to-square"></i>
                       Reviews</a
                   >
               </li>
