@@ -20,6 +20,9 @@ use App\Http\Controllers\ReviewController;
 */
 // Books //
 Route::get('/books', [BookController::class, 'index']);
+Route::get('/books/create', [BookController::class, 'create']);
+Route::post('/books', [BookController::class, 'store']);
+Route::get('/books/{book}', [BookController::class, 'show']);
 
 
 // Authors
