@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +17,25 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Books //
+Route::get('/books', [BookController::class, 'index']);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+// Authors
+Route::get('/authors', [AuthorController::class, 'index']);
+
+
+// Users
+Route::get('/users', [UserController::class, 'index']);
+
+
+//Genres
+Route::get('/genres', [GenreController::class, 'index']);
+
+
+//Reviews
+Route::get('/reviews', [ReviewController::class, 'index']);
+
+
+//Home
+Route::get('/',[HomeController::class, 'index']);
