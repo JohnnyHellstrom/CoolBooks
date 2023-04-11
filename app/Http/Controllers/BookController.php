@@ -11,7 +11,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return 'Hej';
+        return view('books.index');
     }
 
     /**

@@ -9,3 +9,8 @@ After downloading files from github to VS Code via Github desktop
 6. In terminal, run "php artisan migrate" to migrate database
 7. In terminal, run "php artisan serve" to start your server/environment
 8. Open projekt in browser and click refresh to generate new app key
+
+
+To refresh and seed DB in terminal
+1. php artisan migrate:fresh
+2. php artisan db:seed    
