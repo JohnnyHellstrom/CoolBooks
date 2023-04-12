@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,10 +16,10 @@ class HomeController extends Controller
     // {
     //     return view('home.index');
     // }
-    public function index()
+    public function index(Book $book)
     {
-        $rand_book = random_int(0, 8);
-        return view('/home.index', ['books' => Book::all(), 'one_book' => Book::find($rand_book)]);
+        $rand_book = random_int(1, 9);
+        return view('/home.index', ['books' => Book::all(), 'one_book' => Book::find($rand_book), 'rand_rating' => Review::find(2), 'rating' => Review::find(2)]);
     }
 
     /**
