@@ -40,9 +40,9 @@
             <div class="min-w-200 border-solid border-2 border-grey-600 p-5">
                <h4 class="text-2xl"> {{$review->headline}} <h4>
                
-               for loopa
-
-               <p> rating: {{$review->rating}} </p>
+               {{-- Rating component --}}
+               <x-rating :rating="$review->rating" />
+ 
                <p> {{$review->review_text}} </p>
             </div>
     
