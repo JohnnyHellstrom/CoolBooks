@@ -63,8 +63,7 @@
                <x-rating :rating="$review->rating" />
  
                <p> {{$review->review_text}} </p>
-            </div>
-    
+            </div>    
          @endforeach
       </div>
 

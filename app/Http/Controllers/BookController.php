@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\User;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 
@@ -19,11 +20,12 @@ class BookController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Genre $genre)
+    public function create(Genre $genre, User $user)
     {
         return view('books.create',
         [
-            'genres' => $genre->all()
+            'genres' => $genre->all(),
+            'users' => $user->all()
         ]);
     }
 
