@@ -9,6 +9,8 @@ class Review extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['book_id', 'user_id' , 'headline', 'review_text', 'rating', 'is_deleted'];
+
     //Relationship
     public function users(){
         return $this->hasMany(User::class, 'user_id');

@@ -22,7 +22,16 @@
               <option value="{{$genre->id}}">{{$genre->name}}</option>
             @endforeach
             </select>
-        </div>         
+        </div>
+        
+        <div class="mb-6">
+          <label for="user" class="inline-block text-lg mb-2">User</label>
+          <select name="user" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-2.5 mb-2 text-lg">
+          @foreach ($users as $user)
+            <option value="{{$user->id}}">{{$user->name}}</option>
+          @endforeach
+          </select>
+        </div>  
      
         <div class="mb-6">
             <label for="ISBN" class="inline-block text-lg mb-2">ISBN</label>

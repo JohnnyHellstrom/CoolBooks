@@ -9,12 +9,31 @@
       <div class="w-1/2 flex flex-col">
          <form method="POST" action="/reviews">
             @csrf 
+               {{-- CHANGE VALUE TO BOOK_ID --}}
+            <input type="hidden" name="book_id" value="1">
+
             <h3 class="text-2xl text-center"> Post a review </h3>
             <div class="flex flex-col p-10 border-solid border-2 border-grey-600">
+               
+               {{-- Input headline --}}
                <div class="mb-6">
                   <label for="headline" class="inline-block">Headline:</label>
                   <input type="text" class="border border-gray-200 rounded" name="headline" value="{{old('headline')}}">
                </div>
+
+               {{-- Add/input rating --}}
+               <div class="mb-6">
+                  @for ($i = 1; $i < 6; $i++)
+                  <label>
+                     <input class="" type="radio" name="rating" value="{{$i}}"/>
+                     <img class="w-12 inline-block" 
+                           src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">
+                  </label>
+                  
+                  @endfor               
+               </div>
+
+               {{-- Input review text --}}
                <div class="mb-6">
                   <label for="review_text" class="block">Review</label>
                   <textarea class="w-full border border-gray-200 rounded" 
@@ -22,9 +41,11 @@
                      rows="5"
                      placeholder="Type your review">{{old('review_text')}}</textarea>
                </div>
-               <button class="w-1/4 bg-emerald-300 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded">
-               Save
-            </button>
+
+               {{-- Create - Button component --}}
+               <x-create-button>
+               Submit Review
+               </x-create-button>
             </div>
          </form>
 
@@ -40,12 +61,11 @@
             <div class="min-w-200 border-solid border-2 border-grey-600 p-5">
                <h4 class="text-2xl"> {{$review->headline}} <h4>
                
-               for loopa
-
-               <p> rating: {{$review->rating}} </p>
+               {{-- Rating component --}}
+               <x-rating :rating="$review->rating" />
+ 
                <p> {{$review->review_text}} </p>
-            </div>
-    
+            </div>    
          @endforeach
       </div>
 

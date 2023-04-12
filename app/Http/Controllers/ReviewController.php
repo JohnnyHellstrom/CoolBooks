@@ -12,7 +12,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $allReviews = Review::all();
+        $allReviews = Review::orderByDesc('created_at')->get();
         return view('reviews.index', [
             'reviews' => $allReviews]);
     }
@@ -30,7 +30,23 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formFields = $request->validate([
+            'book_id' => 'required',
+            'headline' => 'required',
+            'rating' => 'required',
+            'review_text' => 'required',
+        ]);
+        // $formFields['user_id'] = auth()->id();
+        $formFields['user_id'] = 1;
+
+        $formFields['is_deleted'] = 0;
+
+        
+        
+
+        Review::create($formFields);
+
+        return redirect('/reviews')->with('message', 'New Review created');
     }
 
     /**
