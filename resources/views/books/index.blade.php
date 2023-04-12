@@ -19,7 +19,9 @@
                     <a href="/books/{{$book->id}}/edit" class="text-blue-400 px-6 py-2 rounded-xl"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
                 </td>
                 <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
-                  <form method="POST" action="/">
+                  <form method="POST" action="/books/{{$book->id}}">
+                    @csrf
+                    @method('delete')
                     <button class="text-red-500"><i class="fa-solid fa-trash"></i>Delete</button>
                   </form>
                 </td>               
@@ -36,3 +38,7 @@
    </table>
 
 </x-layout>
+
+<div class="mt-6 p-4">
+  {{$books->links()}}
+</div>

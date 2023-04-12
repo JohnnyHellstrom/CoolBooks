@@ -15,7 +15,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('books.index', ['books' => Book::all()]);
+        return view('books.index', ['books' => Book::latest()->paginate(4)]);
     }
 
     /**
@@ -99,8 +99,10 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Book $book)
     {
-        //
+        // dd($book);
+        $book->delete();
+        return redirect('/')->with('message', 'Book deleted successfully');
     }
 }
