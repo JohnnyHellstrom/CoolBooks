@@ -20,37 +20,53 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $genre = Genre::create([
+        Genre::create([
             'name' => 'comedy',
             'description' => 'funny stuff'
-        ],
-        [
+        ]);
+        Genre::create([
             'name' => 'horror',
             'description' => 'scary stuff'
         ]);
 
-        $author = Author::create([
+        Author::create([
             'first_name' => 'Peter',
             'last_name' => 'Strömberg',
         ]);
-
-        $role = Role::create([
-            'name' => 'admin'
+        Author::create([
+            'first_name' => 'Johnny',
+            'last_name' => 'Hellström',
         ]);
 
-        $user = User::create([
+        Role::create([
+            'name' => 'admin'
+        ]);
+        Role::create([
+            'name' => 'user'
+        ]);
+
+        User::create([
             'role_id' => 1,
             'user_name' => 'admin',
             'name' => 'admin',
-            'email' => 'admin@admin.se',
+            'email' => 'admin@coolbooks.se',
             'phone' => '555-555-555',
             'password' => '12345',
+            'is_deleted' => 0,
+        ]);
+        User::create([
+            'role_id' => 2,
+            'user_name' => 'user',
+            'name' => 'user',
+            'email' => 'user@coolbooks.se',
+            'phone' => '666-666-666',
+            'password' => '98765',
             'is_deleted' => 0,
         ]);
 
         $book = Book::factory(9)->create();
 
-        $review = Review::create([
+        Review::create([
             'book_id' => 1,
             'user_id' => 1,
             'headline' => 'my review',
@@ -58,11 +74,20 @@ class DatabaseSeeder extends Seeder
             'rating' => 4,
             'is_deleted' => 0
         ]);
-
-        $author_book = AuthorBook::create([
-            'author_id' => 1,
-            'book_id' => 1
+        Review::create([
+            'book_id' => 2,
+            'user_id' => 2,
+            'headline' => 'my opinion',
+            'review_text' => 'this is good stuff',
+            'rating' => 4,
+            'is_deleted' => 0
         ]);
+
+        $author_book = AuthorBook::factory(2)->create();
+        // AuthorBook::create([
+        //     'author_id' => 1,
+        //     'book_id' => 1
+        // ]);
 
 
 
