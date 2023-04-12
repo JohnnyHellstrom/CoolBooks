@@ -74,7 +74,8 @@
 
         <div class="mb-6">
             <x-create-button><a href="/books/create">Create Book</a></x-create-button>
-            <a href="/" class="text-black ml-4">Back</a>
+            <a href="/books" class="w-48 py-2 px-16 rounded-full text-white-400 bg-gradient-to-r from-cyan-500 to-blue-500">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>Back</a>            
         </div>
     </form>
   </div>

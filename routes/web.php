@@ -23,6 +23,8 @@ use App\Http\Controllers\LoginController;
 Route::get('/books', [BookController::class, 'index']);
 Route::get('/books/create', [BookController::class, 'create']);
 Route::post('/books', [BookController::class, 'store']);
+Route::get('/books/{book}/edit', [BookController::class, 'edit']);
+Route::put('/books/{book}', [BookController::class, 'update']);
 Route::get('/books/{book}', [BookController::class, 'show']);
 
 

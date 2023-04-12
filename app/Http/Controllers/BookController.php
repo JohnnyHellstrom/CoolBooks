@@ -66,17 +66,34 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
+    public function edit(Book $book, Genre $genre, User $user)
+    {        
+        return view('books.edit',
+        [
+            'books' => $book,
+            'genres' => $genre->all(),
+            'users' => $user->all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
+     * -Add something for the admin if its deleted or not?
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, Book $book)
+    {       
+        $formFields = $request->validate([
+            'genre_id' => 'required',
+            'user_id' => 'required',            
+            'title' => 'required',
+            'ISBN' => ['required'],
+            'tags' => 'required',
+            'description' => 'required',
+        ]);            
+        
+        $book->update($formFields);
+      
+        return back()->with('message', 'Book updated successfully!');
     }
 
     /**
