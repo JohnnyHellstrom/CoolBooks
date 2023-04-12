@@ -35,10 +35,10 @@
                     <a href="/books" class="hover:text-laravel"><i class="fa fa-book"></i>Books</a>
                 </li>
                 <li>
-                  <a href="/authors" class="hover:text-laravel"><i class="fa-solid fa-gear"></i>Authors</a>
+                  <a href="/authors" class="hover:text-laravel"><i class="fa-solid fa-pen-nib"></i>Authors</a>
                 </li>
                 <li>
-                  <a href="/genres" class="hover:text-laravel"><i class="fa-solid fa-gear"></i>Genres</a>
+                  <a href="/genres" class="hover:text-laravel"><i class="fa-solid fa-masks-theater"></i>Genres</a>
                 </li>
                 <li>
                   <a href="/reviews" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square"></i>Reviews</a>
