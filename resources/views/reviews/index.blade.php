@@ -39,6 +39,9 @@
          @foreach ($reviews as $review)
             <div class="min-w-200 border-solid border-2 border-grey-600 p-5">
                <h4 class="text-2xl"> {{$review->headline}} <h4>
+               
+               for loopa
+
                <p> rating: {{$review->rating}} </p>
                <p> {{$review->review_text}} </p>
             </div>
