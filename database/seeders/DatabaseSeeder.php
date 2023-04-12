@@ -24,10 +24,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'comedy',
             'description' => 'funny stuff'
         ]);
-<<<<<<< HEAD
-=======
-        
->>>>>>> 99ee436404a62adbbf5711760a72b5e4208d1922
+
         Genre::create([
             'name' => 'horror',
             'description' => 'scary stuff'
