@@ -32,7 +32,7 @@
             <a href="/"><img class="w-24" src="{{asset('images/logo.png')}}" alt="" class="logo"/></a>
             <ul class="flex space-x-6 mr-6 text-lg">
                 <li>
-                    <a href="/books" class="hover:text-laravel"><i class="fa fa-eye"></i>Books</a>
+                    <a href="/books" class="hover:text-laravel"><i class="fa fa-book"></i>Books</a>
                 </li>
                 <li>
                   <a href="/authors" class="hover:text-laravel"><i class="fa-solid fa-gear"></i>Authors</a>
