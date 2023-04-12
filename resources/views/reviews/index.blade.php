@@ -7,81 +7,44 @@
 
       {{-- Column with Create new review and/or Edit review --}}
       <div class="w-1/2 flex flex-col">
-         <form method="POST" action="/reviews">
-            @csrf 
-               {{-- CHANGE VALUE TO BOOK_ID --}}
-            <input type="hidden" name="book_id" value="1">
+         <div class="p-6">
+            @include('partials._create-review')
+         </div>
 
-            <h3 class="text-2xl text-center"> Post a review </h3>
-            <div class="flex flex-col p-10 border-solid border-2 border-grey-600">
-               
-               {{-- Input headline --}}
-               <div class="mb-6">
-                  <label for="headline" class="inline-block">Headline:</label>
-                  <input type="text" class="border border-gray-200 rounded" name="headline" value="{{old('headline')}}">
-               </div>
-
-               {{-- Add/input rating --}}
-               <div class="mb-6">
-                  @for ($i = 1; $i < 6; $i++)
-                  <label>
-                     <input class="" type="radio" name="rating" value="{{$i}}"/>
-                     <img class="w-12 inline-block" 
-                           src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">
-                  </label>
-                  
-                  @endfor               
-               </div>
-
-               {{-- Input review text --}}
-               <div class="mb-6">
-                  <label for="review_text" class="block">Review</label>
-                  <textarea class="w-full border border-gray-200 rounded" 
-                     name="review_text" 
-                     rows="5"
-                     placeholder="Type your review">{{old('review_text')}}</textarea>
-               </div>
-
-               {{-- Create - Button component --}}
-               <x-create-button>
-               Submit Review
-               </x-create-button>
-            </div>
-         </form>
-
-         <h3 class="text-2xl text-center" > Edit my review </h3>
-         <div class="p-10 border-solid border-2 border-grey-600">           
+         <div class="p-6">   
+            @include('partials._edit-review')        
          </div>
       </div>
 
       {{-- Column with all reviews for a book --}}
       <div class="w-1/2 flex flex-col">
-         <h3 class="text-2xl text-center" > Show all reviews for this book </h3>
+         <div class="p-6">
+            <h3 class="text-2xl text-center" > Show all reviews for this book </h3>
 
-         @foreach ($reviews as $review)
-            <div class="min-w-200 border-solid border-2 border-grey-600 p-5">
-               <div class="flex place-content-between">
-                  <h4 class="text-2xl inline:block"> {{$review->headline}} <h4>
-                  
-                  <div>
-                     <a href="/" class="text-blue-400 px-6 py-2 rounded-xl"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
-
-                     <form class="inline-block" method="POST" action="/reviews/{{$review->id}}">
-                        <x-delete-button>
-                           Delete
-                        </x-delete-button>
-                     </form>
+            @foreach ($reviews as $review)
+               <div class="min-w-200 border-solid border-2 border-grey-600 p-6">
+                  <div class="flex place-content-between">
+                     <h4 class="text-2xl inline:block"> {{$review->headline}} <h4>
+                     
+                     <div>
+                        <x-edit-button><a href="/">Edit</a></x-edit-button>
+                        
+                        <form class="inline-block" method="POST" action="/reviews/{{$review->id}}">
+                           <x-delete-button>Delete</x-delete-button>
+                        </form>
+                     </div>
                   </div>
+                                  
+                  {{-- Rating component --}}
+                  <p class="text-xs"> {{$review->created_at}} </p>
+                  <x-rating :rating="$review->rating" />
+                  <p> {{$review->review_text}} </p>
+               </div>    
+            @endforeach
+         </div>
 
-               </div>
-               
-               
-               {{-- Rating component --}}
-               <p class="text-xs"> {{$review->created_at}} </p>
-               <x-rating :rating="$review->rating" />
-               <p> {{$review->review_text}} </p>
-            </div>    
-         @endforeach
+
+
       </div>
 
    </div>

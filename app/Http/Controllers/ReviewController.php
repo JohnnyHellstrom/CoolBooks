@@ -65,9 +65,23 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Review $review)
     {
-        //
+        $formFields = $request->validate([
+            'book_id' => 'required',
+            'headline' => 'required',
+            'rating' => 'required',
+            'review_text' => 'required',
+        ]);
+        
+        // $formFields['user_id'] = auth()->id();
+        $formFields['user_id'] = 1;
+
+        $formFields['is_deleted'] = 0;
+
+        Review::create($formFields);
+        
+        return redirect('/')->with('message', "The review has been updated successfully");
     }
 
     /**
@@ -75,7 +89,6 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        // dd($review);
         $review->delete();
         return redirect('/')->with('message', 'Review deleted successfully');
     }

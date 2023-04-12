@@ -44,6 +44,7 @@ Route::get('/genres', [GenreController::class, 'index']);
 //Reviews
 Route::get('/reviews', [ReviewController::class, 'index']);
 Route::post('/reviews', [ReviewController::class, 'store']);
+Route::put('/reviews/{review}', [ReviewController::class, 'update']);
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
 
 //Login
