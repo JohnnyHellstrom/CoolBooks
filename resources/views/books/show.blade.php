@@ -10,7 +10,8 @@
               <h3 class="text-3xl font-bold mb-4">Book Description</h3>
               <div class="text-lg space-y-6">
                   {{$books->description}}                               
-              </div>              
+              </div>             
+              <x-books-tags :tagsCsv="$books->tags" />                         
           </div>
         </div>      
     </div>

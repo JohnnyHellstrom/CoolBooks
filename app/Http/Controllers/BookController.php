@@ -15,7 +15,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('books.index', ['books' => Book::latest()->paginate(4)]);
+        // only returns the books that are not set "deleted" in the database...
+        return view('books.index', ['books' => Book::where('is_deleted', false)->latest()->filter(request(['tag', 'search']))->paginate(4)]);
     }
 
     /**
@@ -99,10 +100,16 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    // public function destroy(Book $book)
+    // {        
+    //     $book->delete();
+    //     return redirect('/')->with('message', 'Book deleted successfully');
+    // }
+
     public function destroy(Book $book)
     {
-        // dd($book);
-        $book->delete();
+        $book->update(['is_deleted' => '1']);
+
         return redirect('/')->with('message', 'Book deleted successfully');
     }
 }

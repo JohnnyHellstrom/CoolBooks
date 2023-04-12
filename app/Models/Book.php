@@ -11,6 +11,21 @@ class Book extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'ISBN', 'genre_id', 'user_id', 'tags', 'description', 'is_deleted'];
+
+    public function scopeFilter($query, array $filters)
+    {
+        if($filters['tag'] ?? false)
+        { // sql lite query 
+            $query->where('tags', 'like', '%' . request('tag') . '%');
+        }
+
+        if($filters['search'] ?? false)
+        { // sql lite query 
+            $query->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('description', 'like', '%' . request('search') . '%')
+            ->orWhere('tags', 'like', '%' . request('search') . '%');
+        }
+    }
    
     public function users(){
         return $this->hasMany(User::class, 'user_id');

@@ -4,7 +4,7 @@
     </header>    
   <div class="flex justify-center md:justify-center">
     {{-- when uploading files etc you have to have the enctype="multipart/form-data" --}}
-    <form method="POST" action="/books" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form method="POST" action="/books/create" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       @csrf <!-- this is an directive, prevents cross-site scripting attacks -->
         <div class="mb-6">
             <label for="title" class="inline-block text-lg mb-2">Book Title</label>
@@ -73,7 +73,7 @@
         </div>         --}}
 
         <div class="mb-6">
-            <x-create-button><a href="/books/create">Create Book</a></x-create-button>
+            <x-create-button>Create Book</x-create-button>
             <a href="/books" class="w-48 py-2 px-16 rounded-full text-white-400 bg-gradient-to-r from-cyan-500 to-blue-500">
             <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>Back</a>            
         </div>
