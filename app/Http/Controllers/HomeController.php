@@ -17,7 +17,8 @@ class HomeController extends Controller
     // }
     public function index()
     {
-        return view('/home.index', ['books' => Book::all()]);
+        $rand_book = random_int(0, 8);
+        return view('/home.index', ['books' => Book::all(), 'one_book' => Book::find($rand_book)]);
     }
 
     /**
@@ -45,9 +46,11 @@ class HomeController extends Controller
     // }
     public function show(Book $book)
     {
-        return view('/home.show',
+        dd($book);
+        $randomBook = Book::find(random_int(1,4));
+        return view('/partials._hero',
         [
-            'books' => $book                       
+            'books' => $randomBook
         ]);
     }
 
