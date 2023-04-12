@@ -20,11 +20,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $genre = Genre::create([
+        Genre::create([
             'name' => 'comedy',
             'description' => 'funny stuff'
-        ],
-        [
+        ]);
+        
+        Genre::create([
             'name' => 'horror',
             'description' => 'scary stuff'
         ]);
