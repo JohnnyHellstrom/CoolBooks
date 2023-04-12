@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -18,9 +19,12 @@ class BookController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Genre $genre)
     {
-        return view('books.create');
+        return view('books.create',
+        [
+            'genres' => $genre->all()
+        ]);
     }
 
     /**
@@ -38,7 +42,7 @@ class BookController extends Controller
     {
         return view('books.show',
         [
-            'books' => $book
+            'books' => $book                       
         ]);
     }
 

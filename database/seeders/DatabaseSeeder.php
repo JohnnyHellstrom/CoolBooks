@@ -22,7 +22,11 @@ class DatabaseSeeder extends Seeder
     {
         $genre = Genre::create([
             'name' => 'comedy',
-            'description' => 'funny stuff',
+            'description' => 'funny stuff'
+        ],
+        [
+            'name' => 'horror',
+            'description' => 'scary stuff'
         ]);
 
         $author = Author::create([

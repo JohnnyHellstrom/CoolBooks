@@ -1,11 +1,19 @@
 <x-layout>     
-
+  
    <header>
       <h2 class="text-3xl text-center font-bold my-6 uppercase">Books</h2>
       <a href="/books/create" class="absolute top-10 right-10 mt-4 bg-blue-500 text-white rounded-full px-6 py-2"><i class="fa fa-plus" aria-hidden="true"></i>Create Book</a>
    </header>
 
    <table class="w-full table-auto rounded-sm">
+      <thead>
+        <tr>
+          <th>Title</th>             
+          <th>Edit</th>             
+          <th>Delete</th>             
+          <th>View</th>             
+        </tr>
+      </thead>
       <tbody>
         @if(!$books->isEmpty())
           @foreach($books as $book)
