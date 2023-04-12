@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,11 @@ Route::get('/reviews', [ReviewController::class, 'index']);
 
 Route::post('/reviews', [ReviewController::class, 'store']);
 
+//Login
+Route::get('/login', [App\Http\Controllers\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [App\Http\Controllers\LoginController::class, 'login']);
+
 
 //Home
 Route::get('/',[HomeController::class, 'index']);
+
