@@ -41,9 +41,11 @@
                      rows="5"
                      placeholder="Type your review">{{old('review_text')}}</textarea>
                </div>
-               <button class="w-1/4 bg-emerald-300 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded">
-               Save
-            </button>
+
+               {{-- Create - Button component --}}
+               <x-create-button>
+               Submit Review
+               </x-create-button>
             </div>
          </form>
 
