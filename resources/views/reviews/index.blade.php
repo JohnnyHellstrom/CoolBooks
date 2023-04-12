@@ -57,9 +57,27 @@
       {{-- Column with all reviews for a book --}}
       <div class="w-1/2 flex flex-col">
          <h3 class="text-2xl text-center" > Show all reviews for this book </h3>
+
          @foreach ($reviews as $review)
             <div class="min-w-200 border-solid border-2 border-grey-600 p-5">
-               <h4 class="text-2xl"> {{$review->headline}} <h4>
+               <div class="flex place-content-between">
+                  <h4 class="text-2xl inline:block"> {{$review->headline}} <h4>
+                  
+                  <div>
+                     <a href="/" class="text-blue-400 px-6 py-2 rounded-xl"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
+
+                     <form class="inline-block" method="POST" action="/">
+                        <x-delete-button>
+                           Delete
+                        </x-delete-button>
+                        {{-- @csrf
+                        @method('DELETE')
+                        <button class="text-red-500"><i class="fa-solid fa-trash"></i>Delete</button> --}}
+                     </form>
+                  </div>
+
+               </div>
+               
                
                {{-- Rating component --}}
                <x-rating :rating="$review->rating" />
