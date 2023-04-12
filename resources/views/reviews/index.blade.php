@@ -66,13 +66,10 @@
                   <div>
                      <a href="/" class="text-blue-400 px-6 py-2 rounded-xl"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
 
-                     <form class="inline-block" method="POST" action="/">
+                     <form class="inline-block" method="POST" action="/reviews/{{$review->id}}">
                         <x-delete-button>
                            Delete
                         </x-delete-button>
-                        {{-- @csrf
-                        @method('DELETE')
-                        <button class="text-red-500"><i class="fa-solid fa-trash"></i>Delete</button> --}}
                      </form>
                   </div>
 
@@ -80,8 +77,8 @@
                
                
                {{-- Rating component --}}
+               <p class="text-xs"> {{$review->created_at}} </p>
                <x-rating :rating="$review->rating" />
- 
                <p> {{$review->review_text}} </p>
             </div>    
          @endforeach

@@ -41,9 +41,6 @@ class ReviewController extends Controller
 
         $formFields['is_deleted'] = 0;
 
-        
-        
-
         Review::create($formFields);
 
         return redirect('/reviews')->with('message', 'New Review created');
@@ -76,8 +73,10 @@ class ReviewController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Review $review)
     {
-        //
+        // dd($review);
+        $review->delete();
+        return redirect('/')->with('message', 'Review deleted successfully');
     }
 }
