@@ -15,12 +15,12 @@ class Book extends Model
     public function scopeFilter($query, array $filters)
     {
         if($filters['tag'] ?? false)
-        { // sql lite query 
+        { // sql like query 
             $query->where('tags', 'like', '%' . request('tag') . '%');
         }
 
         if($filters['search'] ?? false)
-        { // sql lite query 
+        { // sql like query 
             $query->where('title', 'like', '%' . request('search') . '%')
             ->orWhere('description', 'like', '%' . request('search') . '%')
             ->orWhere('tags', 'like', '%' . request('search') . '%');
