@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\User;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
@@ -33,8 +34,22 @@ class BookController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+    {           
+        $formFields = $request->validate([
+            'genre_id' => 'required',
+            'user_id' => 'required',            
+            'title' => 'required',
+            'ISBN' => ['required', Rule::unique('books', 'ISBN')],
+            'tags' => 'required',
+            'description' => 'required',
+        ]);        
+        
+        $formFields['is_deleted'] = 0;
+        // $formFields['user_id'] = auth()->id();
+        
+        Book::create($formFields);
+      
+        return redirect('/')->with('message', 'Book created successfully!');
     }
 
     /**

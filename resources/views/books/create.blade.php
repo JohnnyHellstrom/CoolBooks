@@ -17,7 +17,7 @@
        
         <div class="mb-6">
             <label for="genre" class="inline-block text-lg mb-2">Genre</label>
-            <select name="genre" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-2.5 mb-2 text-lg">
+            <select name="genre_id" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-2.5 mb-2 text-lg">
             @foreach ($genres as $genre)
               <option value="{{$genre->id}}">{{$genre->name}}</option>
             @endforeach
@@ -26,7 +26,7 @@
         
         <div class="mb-6">
           <label for="user" class="inline-block text-lg mb-2">User</label>
-          <select name="user" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-2.5 mb-2 text-lg">
+          <select name="user_id" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-2.5 mb-2 text-lg">
           @foreach ($users as $user)
             <option value="{{$user->id}}">{{$user->name}}</option>
           @endforeach
@@ -73,7 +73,7 @@
         </div>         --}}
 
         <div class="mb-6">
-            <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">Create Book</button>
+            <x-create-button><a href="/books/create">Create Book</a></x-create-button>
             <a href="/" class="text-black ml-4">Back</a>
         </div>
     </form>

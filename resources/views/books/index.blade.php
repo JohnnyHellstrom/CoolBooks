@@ -2,8 +2,8 @@
   
    <header>
       <h2 class="text-3xl text-center font-bold my-2 uppercase">Books</h2>
-      <div class="flex justify-center md:justify-center mt-1">
-        <a href="/books/create" class="float-mid mt-4 bg-blue-500 text-white rounded-full px-6 py-2"><i class="fa fa-plus" aria-hidden="true"></i>Create Book</a>
+      <div class="flex justify-center md:justify-center mt-1">        
+        <x-create-button><a href="/books/create">Create Book</a></x-create-button>
       </div>      
    </header>
 
