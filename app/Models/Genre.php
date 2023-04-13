@@ -9,8 +9,10 @@ class Genre extends Model
 {
     use HasFactory;
 
-     //Relationship
-     public function books(){
+    protected $fillable = ['name', 'description'];
+
+    //Relationship
+    public function books(){
         return $this->belongsTo('genre_id');
-     }
+    }
 }

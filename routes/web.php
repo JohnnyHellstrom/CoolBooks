@@ -45,7 +45,14 @@ Route::get('/users', [UserController::class, 'index']);
 
 
 //Genres
-Route::get('/genres', [GenreController::class, 'index']);
+Route::get('/genres', [GenreController::class, 'index']);                               //Show all genres
+Route::get('/genres/create', [GenreController::class, 'create']);                       //Show create genre form
+Route::post('/genres', [GenreController::class, 'store']);                              //Store new genre
+Route::get('/genres/{genre}/edit', [GenreController::class, 'edit']);                   //Show edit genre form
+Route::put('/genres/{genre}', [GenreController::class, 'update']);                      //Update genre
+Route::get('/genres/{genre}/delete', [GenreController::class, 'confirm_delete']);       //Show delete genre form
+Route::delete('/genres/{genre}', [GenreController::class, 'destroy']);                  //Delete genre
+Route::get('/genres/{genre}', [GenreController::class, 'show']);                        //Show selected genre - keep as last
 
 
 //Reviews
