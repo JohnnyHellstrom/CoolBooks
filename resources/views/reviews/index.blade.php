@@ -27,10 +27,12 @@
                      <h4 class="text-2xl inline:block"> {{$review->headline}} <h4>
                      
                      <div>
-                        <x-edit-button><a href="/">Edit</a></x-edit-button>
+                        <x-button-edit><a href="/">Edit</a></x-button-edit>
                         
                         <form class="inline-block" method="POST" action="/reviews/{{$review->id}}">
-                           <x-delete-button>Delete</x-delete-button>
+                           @csrf
+                           @method('DELETE')
+                           <x-button-delete>Delete</x-button-delete>
                         </form>
                      </div>
                   </div>
@@ -42,8 +44,6 @@
                </div>    
             @endforeach
          </div>
-
-
 
       </div>
 

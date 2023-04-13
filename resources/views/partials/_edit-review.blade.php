@@ -40,8 +40,8 @@
       </div>
 
       {{-- Create - Button component --}}
-      <x-create-button>
+      <x-button-create>
       Edit Review
-      </x-create-button>
+      </x-button-create>
    </div>
 </form>
