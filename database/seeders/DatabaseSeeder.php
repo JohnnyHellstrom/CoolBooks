@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => 1,
             'headline' => 'my review',
             'review_text' => 'bla idafwrf lorem ipsum',
-            'rating' => 4,
+            'rating' => 3,
             'is_deleted' => 0
         ]);
         Review::create([
