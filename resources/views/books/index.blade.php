@@ -4,7 +4,7 @@
    <header>
       <h2 class="text-3xl text-center font-bold my-2 uppercase">Books</h2>
       <div class="flex justify-center md:justify-center mt-1 mb-1">        
-        <x-create-button><a href="/books/create">Create Book</a></x-create-button>
+        <x-button-create><a href="/books/create">Create Book</a></x-button-create>
       </div>      
    </header>
 

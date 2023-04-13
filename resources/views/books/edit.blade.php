@@ -75,7 +75,7 @@
       </div>         --}}
 
       <div class="mb-6">
-          <x-update-button>Update Book</x-update-button>
+          <x-button-update>Update Book</x-button-update>
           <a href="/books" class="w-48 py-2 px-16 rounded-full text-white-400 bg-gradient-to-r from-cyan-500 to-blue-500">
             <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>Back</a>
       </div>
