@@ -20,7 +20,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        return view('authors.create');
     }
 
     /**
@@ -28,38 +28,61 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formFields = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+        ]);
+
+        Author::create($formFields);
+
+        return redirect('/authors')->with('message', 'Author added successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Author $author)
     {
-        //
+        return view('authors.show', ['author' => $author]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Author $author)
     {
-        //
+        return view('authors.edit', ['author' => $author]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Author $author)
     {
-        //
+        $formFields = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+        ]);
+
+        $author->update($formFields);
+
+        return redirect('/authors')->with('message', 'Author updated successfully!');
+    }
+
+    /**
+     * Show the form to confirm removal of a specific resource.
+     */
+    public function delete(Author $author)
+    {
+        return view('authors.delete', ['author' => $author]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Author $author)
     {
-        //
+        $author->delete();
+        return redirect('/authors')->with('message', 'Author deleted successfully!');
     }
 }
