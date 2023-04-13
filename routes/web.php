@@ -31,14 +31,14 @@ Route::get('/books/{book}', [BookController::class, 'show']);
 
 
 // Authors
-Route::get('/authors', [AuthorController::class, 'index']);                     //Show all authors
-Route::get('/authors/create', [AuthorController::class, 'create']);             //Show create author form
-Route::post('/authors', [AuthorController::class, 'store']);                    //Store new author
-Route::get('/authors/{author}/edit', [AuthorController::class, 'edit']);        //Show edit author form
-Route::put('/authors/{author}', [AuthorController::class, 'update']);           //Update author
-Route::get('/authors/{author}/delete', [AuthorController::class, 'delete']);    //Show delete author form
-Route::delete('/authors/{author}', [AuthorController::class, 'destroy']);       //Delete author
-Route::get('/authors/{author}', [AuthorController::class, 'show']);             //Show selected author - keep as last
+Route::get('/authors', [AuthorController::class, 'index']);                             //Show all authors
+Route::get('/authors/create', [AuthorController::class, 'create']);                     //Show create author form
+Route::post('/authors', [AuthorController::class, 'store']);                            //Store new author
+Route::get('/authors/{author}/edit', [AuthorController::class, 'edit']);                //Show edit author form
+Route::put('/authors/{author}', [AuthorController::class, 'update']);                   //Update author
+Route::get('/authors/{author}/delete', [AuthorController::class, 'confirm_delete']);    //Show delete author form
+Route::delete('/authors/{author}', [AuthorController::class, 'destroy']);               //Delete author
+Route::get('/authors/{author}', [AuthorController::class, 'show']);                     //Show selected author - keep as last
 
 // Users
 Route::get('/users', [UserController::class, 'index']);

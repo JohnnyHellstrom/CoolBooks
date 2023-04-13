@@ -72,7 +72,7 @@ class AuthorController extends Controller
     /**
      * Show the form to confirm removal of a specific resource.
      */
-    public function delete(Author $author)
+    public function confirm_delete(Author $author)
     {
         return view('authors.delete', ['author' => $author]);
     }
