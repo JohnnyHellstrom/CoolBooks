@@ -20,46 +20,69 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        return view('genres.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Genre $genre)
     {
-        //
+        $formFields = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        Genre::create($formFields);
+
+        return redirect('/genres')->with('message', 'Genre added successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Genre $genre)
     {
-        //
+        return view('genres.show', ['genre' => $genre]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Genre $genre)
     {
-        //
+        return view('genres.edit', ['genre' => $genre]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Genre $genre)
     {
-        //
+        $formFields = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $genre->update($formFields);
+
+        return redirect('/genres')->with('message', 'Genre updated successfully!');
+    }
+
+    /**
+     * Show the form to confirm removal of a specific resource.
+     */
+    public function confirm_delete(Genre $genre)
+    {
+        return view('genres.delete', ['genre' => $genre]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Genre $genre)
     {
-        //
+        $genre->delete();
+        return redirect('/genres')->with('message', 'Genre deleted successfully!');
     }
 }
