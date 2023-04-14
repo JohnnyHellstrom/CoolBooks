@@ -4,6 +4,7 @@
 @if(!$books->isEmpty())
    <div class="grid gap-2 grid-cols-3 grid-rows-3 justify-item-center mt-10">
    @foreach($books as $book)
+   @if($book->is_deleted == 0)
    <div class="grid gap-2 grid-cols-2 grid-rows-1 self-center justify-item-center">
       <div class="grid justify-items-center align-content-center">
       <a class="self-center" href="/books/{{$book->id}}"><img
@@ -25,6 +26,7 @@
          {{-- <p>{{$book->author}}</p> --}}
       </div>
    </div>
+   @endif
    @endforeach
 @else
    <p class="text-center">No Books found</p>
