@@ -27,8 +27,8 @@
         </script>
         <title>CoolBooks</title>
     </head>
-    <body class="mb-48 bg-slate-50">
-        <nav class="flex justify-between mb-4 bg-slate-400" >
+    <body class="mb-48 bg-gray-400">
+        <nav class="flex justify-between mb-4 bg-slate-500" >
             <a href="/"><img class="w-32" src="{{asset('images/logo.png')}}" alt="" class="logo"/></a>
             <ul class="flex items-end space-x-6 mr-6 text-lg">
                 <li>
@@ -62,7 +62,7 @@
 </main>
 
 <footer
-    class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-slate-400 text-white h-20   md:justify-center">
+    class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-slate-500 text-white h-20   md:justify-center">
     <a href="/" class="absolute top-1/3 left-10 bg-black text-white py-2 px-5">About</a>
     <a href="/" class="absolute top-1/3 left-36 bg-black text-white py-2 px-5">Contact</a>
     <p class="ml-2">Copyright &copy; 2023, All Rights reserved</p>
