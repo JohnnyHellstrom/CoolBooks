@@ -34,7 +34,7 @@
                            @method('DELETE')
                            <x-button-delete>Delete</x-button-delete>
                         </form>
-                     </div>
+                     </div>   
                   </div>
                                   
                   {{-- Rating component --}}
