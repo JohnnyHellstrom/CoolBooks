@@ -1,4 +1,4 @@
-<section class="relative h-64 bg-slate-400 flex flex-col justify-center align-center space-y-4 mb-4">
+<section class="relative h-64 bg-slate-500 flex flex-col justify-center align-center space-y-4 mb-4">
     <div class="text-2 font-bold uppercase self-center">
         <h2>Inspirerande text!</h2>    
     </div>

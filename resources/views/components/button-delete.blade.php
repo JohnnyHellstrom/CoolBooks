@@ -1,3 +1,3 @@
-<button class="text-red-500"><i class="fa-solid fa-trash"></i>
+<button class="text-red-700"><i class="fa-solid fa-trash"></i>
    {{$slot}}
 </button>
