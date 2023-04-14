@@ -14,14 +14,7 @@
 
          {{-- Add/input rating --}}
          <div class="mb-6">
-            @for ($i = 1; $i < 6; $i++)
-            <label>
-               <input class="" type="radio" name="rating" value="{{$i}}"/>
-               <img class="w-8 inline-block" 
-                     src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">
-            </label>
-            
-            @endfor               
+             <x-rating-input />
          </div>
 
          {{-- Input review text --}}
