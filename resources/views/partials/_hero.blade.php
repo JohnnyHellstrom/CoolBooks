@@ -1,8 +1,8 @@
 <section class="relative h-64 bg-slate-500 flex flex-col justify-center align-center space-y-4 mb-4">
+    @if($one_book->is_deleted == 0)
     <div class="text-2 font-bold uppercase self-center">
         <h2>Inspirerande text!</h2>    
     </div>
-    @if($one_book->is_deleted == 0)
         <div class="grid gap-8 grid-cols-2 grid-rows-1 self-center justify-items-center">
         <div class="grid justify-items-center align-content-center">
             <a class="self-center"href="/books/{{$one_book->id}}"><img
@@ -22,8 +22,7 @@
             <p>{{$one_book->description}}</p>
         </div>
     </div>
-    @else
-    {{-- {{return :redirect()->back()}} --}}
-    skall ladda om hero
+    @else 
+     {{header("Refresh:0")}}
     @endif
 </section>

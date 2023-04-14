@@ -19,6 +19,7 @@ class HomeController extends Controller
     // }
     public function index(Book $book)
     {
+        // dd($book);
         $rand_book = random_int(1, 9);
         return view('/home.index', ['books' => Book::all(), 'one_book' => Book::find($rand_book), 'rand_rating' => Review::find($rand_book), 'rating' => Review::find(1), 'authors' => Author::all()]);
     }
