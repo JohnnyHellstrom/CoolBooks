@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name', 50);
             $table->string('last_name', 100);
-            $table->string('author_image', 100);
+            $table->string('author_image', 100)->nullable();
             $table->text('biography');
             $table->boolean('is_deleted');         
             $table->timestamps();

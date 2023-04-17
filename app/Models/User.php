@@ -57,5 +57,9 @@ class User extends Authenticatable
     } 
     public function comments(){
         return $this->belongsTo(Comment::class, 'user_id');
-    }   
+    }
+    public function subcomments(){
+        return $this->belongsTo(Subcomment::class, 'user_id');
+    }
+    
 }

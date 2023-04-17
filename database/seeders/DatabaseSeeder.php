@@ -9,7 +9,11 @@ use App\Models\AuthorBook;
 use App\Models\Book;
 use App\Models\Role;
 use App\Models\Genre;
+use App\Models\LikedReview;
 use App\Models\Review;
+use App\Models\Comment;
+use App\Models\SubComment;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Foundation\Auth\User;
 
@@ -22,21 +26,27 @@ class DatabaseSeeder extends Seeder
     {
         Genre::create([
             'name' => 'comedy',
-            'description' => 'funny stuff'
+            'description' => 'funny stuff',
+            'is_deleted' => 0,
         ]);
 
         Genre::create([
             'name' => 'horror',
-            'description' => 'scary stuff'
+            'description' => 'scary stuff',
+            'is_deleted' => 0,
         ]);
 
         Author::create([
             'first_name' => 'Peter',
             'last_name' => 'Strömberg',
+            'biography' => 'är inte ett arsle',
+            'is_deleted' => 0
         ]);
         Author::create([
             'first_name' => 'Johnny',
             'last_name' => 'Hellström',
+            'biography' => 'är inte ett arsle',
+            'is_deleted' => 0
         ]);
 
         Role::create([
@@ -85,6 +95,44 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $author_book = AuthorBook::factory(2)->create();
+
+        LikedReview::create([
+            'user_id' => 1,
+            'review_id' => 2,
+            'liked' => 1
+        ]);
+        LikedReview::create([
+            'user_id' => 2,
+            'review_id' => 1,
+            'liked' => 0
+        ]);
+
+        Comment::create([
+            'review_id' => 1,
+            'user_id' => 1,
+            'comment' => 'johnny is an ass',
+            'is_deleted' => 0
+        ]); 
+        Comment::create([
+            'review_id' => 1,
+            'user_id' => 1,
+            'comment' => 'erik is an ass',
+            'is_deleted' => 0
+        ]);
+
+        Subcomment::create([
+            'comment_id' => 1,
+            'user_id' => 1,
+            'subcomment' => 'johnny is an ass',
+            'is_deleted' => 0
+        ]);
+        Subcomment::create([
+            'comment_id' => 2,
+            'user_id' => 2,
+            'subcomment' => 'johnny is an ass',
+            'is_deleted' => 0
+        ]);
+
         // AuthorBook::create([
         //     'author_id' => 1,
         //     'book_id' => 1
