@@ -42,11 +42,16 @@ class BookController extends Controller
             'title' => 'required',
             'ISBN' => ['required', Rule::unique('books', 'ISBN')],
             'tags' => 'required',
-            'description' => 'required',
+            'description' => 'required',            
         ]);        
         
         $formFields['is_deleted'] = 0;
         // $formFields['user_id'] = auth()->id();
+
+        // for adding the image to the book
+        if($request->hasFile('book_img')){
+            $formFields['image'] = $request->file('book_img')->store('book_images', 'public');
+        }
         
         Book::create($formFields);
       

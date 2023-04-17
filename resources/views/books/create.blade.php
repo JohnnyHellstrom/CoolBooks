@@ -4,7 +4,7 @@
     </header>    
   <div class="flex justify-center md:justify-center">
     {{-- when uploading files etc you have to have the enctype="multipart/form-data" --}}
-    <form method="POST" action="/books/create" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form method="POST" action="/books" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       @csrf <!-- this is an directive, prevents cross-site scripting attacks -->
         <div class="mb-6">
             <label for="title" class="inline-block text-lg mb-2">Book Title</label>
@@ -63,14 +63,14 @@
           @enderror
         </div>        
 
-        {{-- <div class="mb-6">
-            <label for="logo" class="inline-block text-lg mb-2">Book picture</label>
-            <input type="file" class="border border-gray-200 rounded p-2 w-full" name="logo"/>
+        <div class="mb-6">
+            <label for="book_img" class="inline-block text-lg mb-2">Book picture</label>
+            <input type="file" class="border border-gray-200 rounded p-2 w-full" name="book_img"/>
 
-            @error('logo') <!-- another directive, this is an error directive -->
+            @error('book_img') <!-- another directive, this is an error directive -->
             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
             @enderror
-        </div>         --}}
+        </div>        
 
         <div class="mb-6">
             <x-button-create>Create Book</x-button-create>
