@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('genre_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('title');
-            $table->string('ISBN')->unique();
+            $table->string('title', 50);
+            $table->string('ISBN', 25)->unique();
             $table->string('image')->nullable();
             $table->string('tags')->nullable();
             $table->text('description');

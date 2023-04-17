@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
+            $table->string('name', 25);
+            $table->text('description', 500);
+            $table->boolean('is_deleted');            
             $table->timestamps();
         });
     }

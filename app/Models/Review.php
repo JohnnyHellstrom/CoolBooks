@@ -19,4 +19,10 @@ class Review extends Model
     public function books(){
         return $this->hasMany(Book::class, 'book_id');
     }
+    public function likedreviews(){
+        return $this->belongsTo(LikedReview::class, 'review_id');
+    }
+    public function comments(){
+        return $this->belongsTo(Comment::class, 'review_id');
+    }
 }

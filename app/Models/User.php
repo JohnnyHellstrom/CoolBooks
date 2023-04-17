@@ -52,4 +52,10 @@ class User extends Authenticatable
     public function reviews(){
         return $this->belongsTo(Review::class, 'user_id');
     }
+    public function likedreviews(){
+        return $this->belongsTo(LikedReview::class, 'user_id');
+    } 
+    public function comments(){
+        return $this->belongsTo(Comment::class, 'user_id');
+    }   
 }
