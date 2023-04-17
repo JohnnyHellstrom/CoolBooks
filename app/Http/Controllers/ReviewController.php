@@ -79,7 +79,7 @@ class ReviewController extends Controller
 
         $formFields['is_deleted'] = 0;
 
-        Review::create($formFields);
+        $review->update($formFields);
         
         return redirect('/')->with('message', "The review has been updated successfully");
     }
