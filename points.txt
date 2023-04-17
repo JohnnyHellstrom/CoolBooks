@@ -1,0 +1,59 @@
+när reviewtext skrivs skall antal tecken räknas ned från 500, max 500 tecken
+
+
+// vad vi bestämmer om sidor
+
+/- HomePAge -\
+bild å elefanter på card, sedan om man hovrar skall se titel och författare
+fixa till footern med mer länkar till facebook å annat? minska storleken ?
+centrera loggan 
+gör högstående kort
+minska heighten på headern/navbaren på valfritt sätt
+sök funktion 
+t ex skapa en navbar för bara admins så den inte syns för användaren
+(avståndet emellan knappar å text ? bra om det är homogent och "stilrent") om vi gör en nav bar så blir det bra för admins
+smala ihop main delen
+ändra ljus main bakgrund, html bakgrunder, å annat
+
+
+/- books -\
+fixa till tabellen så den läser in, genre å authors å description
+50 / 50 bookbild / bok information / review på enskild
+visa bild när man lägger på edit å create sidorna på sidan av formuläret så man får en preview
+få in all information som skall vara med
+kanske sådana drop down grejer för långa deskriptions
+drop down med scroll funktion för val utav författare å genre
+
+-- kan pilla så det kommer upp som pop up kanske
+när man skapar en bok, om inte författaren finns med skall det finnas en create new author knapp
+när man skapar en bok, om inte genre finns med skall det finns en create new genre knapp
+
+kunna sortera bokstavsordning eller på annat sätt
+
+
+/- Authors -\
+search bar för författare så man skall kunna editera dom
+pagination?
+bild osv ungefär samma tanke som boksidan där
+bok bild, där det står title,  hover med title och ej författare
+-> vart skall man lägga in författare? med en ny sida eller en popup grej eller dropdown grej när man trycker på den
+create new author -> 3 knappar
+på author tabell sidan, ha med genre eventuellt, bild på författaren 
+
+
+
+/- Reviews -\
+kunna kommentera review, sedan en subtråd på den kommentaren
+flagga reviews
+tumme upp tumme ner knappar(snabel upp snabel ner)
+
+
+/- Admin delen -\
+lägga till ny användare nivå, moderator
+
+--- databas ändringar ---
+författare skall ha biografi och bild + is_deleted
+2 extra tabell för å kunna sätta tummen upp / tummen ner och inte kunna sätta mer än 1 tumme
+
+
+
