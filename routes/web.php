@@ -69,3 +69,7 @@ Route::post('/login', [LoginController::class, 'login']);
 //Home
 Route::get('/',[HomeController::class, 'index']);
 
+
+/*Route::get('/', function () {
+    return view('welcome');
+});*/

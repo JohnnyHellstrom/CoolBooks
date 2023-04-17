@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use App\Models\User;
+
 
 class LoginController extends Controller
 {
@@ -20,12 +23,38 @@ class LoginController extends Controller
             'password' => ['required'],
             ]);*/
         $credentials = $request->only('email', 'password');
+
+        //dd($credentials);
+
+        if (!isset($credentials['email'])) {
+            return back()->withErrors([
+                'email' => 'The email field is required.',
+            ]);
+        }
+
+        $user = User::where('email', $credentials['email'])->first();
+        //dd($credentials);
+
+
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
+        }
         
 
-        if (Auth::attempt($credentials)) {
+        /*if (Auth::attempt($credentials)) {
             // Authentication was successful...
+            Session::put('user_id', Auth::user()->id);
             return redirect()->intended('/');
+        }*/
+        if (Auth::attempt($credentials, true)) {
+            // Authentication was successful...
+            Session::put('user_id', Auth::user()->id);
+            return redirect('/');
         }
+        
+        
         
 
         // Authentication failed...
