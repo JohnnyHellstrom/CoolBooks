@@ -17,18 +17,46 @@
       <p class="text-xs"> {{$review->created_at}} </p>
       <x-rating :rating="$review->rating" />   {{-- Rating component --}}
       <p> {{$review->review_text}} </p>
-      <div class="mt-4">
+      <div class="my-4">
          <i class="text-green-700 fa-solid fa-thumbs-up"></i>
          <i class="text-red-700  fa-regular fa-thumbs-up rotate-180"></i>
       </div>
+      <hr>
 
-      {{-- Comments for the review --}}
+      {{-- Post a comment --}}
+      <button class="mt-2 p-2 rounded-full bg-gray-500" onclick="showCommentInput()">Comment the Review</button>
+      <div id="comment-input" class="py-2 hidden">
+         <form action="/comments" method="POST">
+            @csrf 
+            <input type="hidden" name="review_id" value="{{$review->id}}">
+
+            <div class="mb-2">
+
+               <textarea class="w-full border border-gray-200 rounded" 
+                  name="comment" 
+                  rows="5"
+                  placeholder="Here..."></textarea>
+            </div>
+            <x-button-create>Post Comment</x-button-create>
+         </form>
+      </div>
+
+      {{-- Show Comments for the review --}}
       <div class="p-1 text-xs">
-         <h5 class="mt-4 font-bold">Comments <i class="fa-solid fa-plus"></i></h5>
+         <h5 class="font-bold">Comments <i class="fa-solid fa-plus"></i></h5>
          @foreach($review->commentRecursive as $comment)
          
-            <div class="min-w-200 border-solid border-2 border-grey-600">
-               <p> User_id: {{$comment->user_id}} </p>
+            <div class=" min-w-200 border-solid border-2 border-grey-600">
+               <div class="flex place-content-between">
+                  <span> User_id: {{$comment->user_id}} </span>
+                  <form class="inline-block" method="POST" action="/comments/{{$comment->id}}">
+                     @csrf
+                     @method('DELETE')
+                     <x-button-delete>Delete</x-button-delete>
+                  </form>
+               </div>
+
+
                <p> {{$comment->comment}} </p>
             </div>
 
@@ -46,3 +74,13 @@
 
    </div> 
 @endforeach
+<script>
+   function showCommentInput() {
+     var x = document.getElementById("comment-input");
+     if (x.style.display === "none") {
+       x.style.display = "block";
+     } else {
+       x.style.display = "none";
+     }
+   }
+</script>

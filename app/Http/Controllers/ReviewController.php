@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
@@ -93,7 +94,8 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
+        $book_id = $review->book_id;
         $review->delete();
-        return redirect('/')->with('message', 'Review deleted successfully');
+        return redirect("/books/{$book_id}")->with('message', 'Review deleted successfully');
     }
 }
