@@ -21,7 +21,7 @@
                     extend: {
                         colors: {
                             laravel: "#ef3b2d",
-                            background: "#315C7A",
+                            background: "#E5F0EC",
                         },
                     },
                 },
@@ -29,10 +29,9 @@
         </script>
         <title>CoolBooks</title>
     </head>
-    {{-- <body class="bg-gray-200 m-2"> --}}
-    <body class="backgrond m-2">
+    <body class="bg-background m-2 mb-24">
+        <a href="/"><img class="w-32 m-auto" src="{{asset('images/logo.png')}}" alt="" class="logo"/></a>
         <nav class="flex justify-between mb-4 bg-slate-500" >
-            <a href="/"><img class="w-32" src="{{asset('images/logo.png')}}" alt="" class="logo"/></a>
             <ul class="flex items-end space-x-6 mr-6 text-lg">
                 <li>
                     <a href="/books" class="hover:text-laravel"><i class="fa fa-book p-1"></i>Books</a>
@@ -60,7 +59,7 @@
                 </li>
             </ul>
         </nav>
-<main class="w-2/3 flex flex-col bg-gray-400 p-4 ml-10">
+<main class="w-2/3 flex flex-col bg-gray-400 p-4 m-auto mb-5">
    {{$slot}}
 </main>
 
