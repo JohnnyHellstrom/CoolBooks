@@ -29,10 +29,14 @@ class DatabaseSeeder extends Seeder
             'description' => 'funny stuff',
             'is_deleted' => 0,
         ]);
-
         Genre::create([
             'name' => 'horror',
             'description' => 'scary stuff',
+            'is_deleted' => 0,
+        ]);
+        Genre::create([
+            'name' => 'romance',
+            'description' => 'even scarier than horror',
             'is_deleted' => 0,
         ]);
 

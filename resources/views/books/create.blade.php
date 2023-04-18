@@ -13,7 +13,7 @@
             @error('title') <!-- another directive, this is an error directive -->
             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
             @enderror
-        </div>
+        </div>       
        
         <div class="mb-6">
             <label for="genre" class="inline-block text-lg mb-2">Genre</label>
@@ -25,14 +25,14 @@
         </div>
         
         <div class="mb-6">
-          <label for="user" class="inline-block text-lg mb-2">User</label>
-          <select name="user_id" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-2.5 mb-2 text-lg">
-          @foreach ($users as $user)
-            <option value="{{$user->id}}">{{$user->name}}</option>
+          <label for="author" class="inline-block text-lg mb-2">Author</label>
+          <select name="author_id" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-2.5 mb-2 text-lg">
+          @foreach ($authors as $author)
+            <option value="{{$author->id}}">{{$author->first_name . " " . $author->last_name}}</option>
           @endforeach
           </select>
-        </div>  
-     
+        </div> 
+      
         <div class="mb-6">
             <label for="ISBN" class="inline-block text-lg mb-2">ISBN</label>
             <input type="text" class="border border-gray-200 rounded p-2 w-full" name="ISBN" placeholder="Example: 269-86095-990-2455"
