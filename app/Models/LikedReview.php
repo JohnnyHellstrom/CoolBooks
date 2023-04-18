@@ -13,9 +13,9 @@ class LikedReview extends Model
 
     // Relationships
     public function users(){
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function reviews(){
-        return $this->hasMany(Review::class, 'review_id');
+        return $this->belongsTo(Review::class, 'review_id');
     }
 }

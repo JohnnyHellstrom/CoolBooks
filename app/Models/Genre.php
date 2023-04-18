@@ -13,6 +13,6 @@ class Genre extends Model
 
     //Relationship
     public function books(){
-        return $this->belongsTo('genre_id');
+        return $this->hasMany(Book::class, 'genre_id');
     }
 }

@@ -13,16 +13,20 @@ class Review extends Model
 
     //Relationship
     public function users(){
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function books(){
-        return $this->hasMany(Book::class, 'book_id');
+        return $this->belongsTo(Book::class, 'book_id');
     }
     public function likedreviews(){
-        return $this->belongsTo(LikedReview::class, 'review_id');
+        return $this->hasMany(LikedReview::class, 'review_id');
     }
     public function comments(){
-        return $this->belongsTo(Comment::class, 'review_id');
+        return $this->hasMany(Comment::class, 'review_id');
     }
+    public function commentRecursive(){
+        return $this->hasMany(Comment::class, 'review_id');
+    }
+
 }

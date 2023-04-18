@@ -13,6 +13,6 @@ class Author extends Model
 
     //Relationships
     public function books(){
-        return $this->belongsToMany(Book::class, 'author_book');
+        return $this->belongsToMany(Book::class, 'author_books');
     }
 }

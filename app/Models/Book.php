@@ -28,18 +28,18 @@ class Book extends Model
     }
    
     public function users(){
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function genres(){
-        return $this->hasMany(Genre::class, 'genre_id');
+        return $this->belongsTo(Genre::class, 'genre_id');
     }
 
     public function reviews(){
-        return $this->belongsTo(Review::class, 'book_id');
+        return $this->hasMany(Review::class, 'book_id');
     }
 
     public function authors(){
-        return $this->belongsTo(Author::class, 'author_book');
+        return $this->belongsToMany(Author::class, 'author_books');
     }
 }

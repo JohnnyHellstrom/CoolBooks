@@ -13,6 +13,9 @@
         @if(!$books->isEmpty())
           @foreach($books as $book)
             <tr class="border-gray-300">
+                <td class="px-4 py-8 border-t border-b border-gray-300">
+                    <a href="/books/{{$book->id}}"><img src="{{$book->image ? asset('storage/' . $book->image) : asset('images/no-image.png')}}" class="w-36"></a>
+                </td>
                 <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
                     <a href="/books/{{$book->id}}">{{$book->title}}</a>
                 </td>
