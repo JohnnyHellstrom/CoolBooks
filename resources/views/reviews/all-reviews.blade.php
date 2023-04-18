@@ -24,14 +24,13 @@
       <hr>
 
       {{-- Post a comment --}}
-      <button class="mt-2 p-2 rounded-full bg-gray-500" onclick="hideShow('comment-input')">Comment the Review</button>
-      <div id="comment-input" class="py-2 hidden">
+      <button class="mt-2 p-1 rounded-full bg-gray-500 text-xs" onclick="hideShow('comment-review-{{$review->id}}')">Comment the Review</button>
+      <div id="comment-review-{{$review->id}}" class="py-2 hidden">
          <form action="/comments" method="POST">
             @csrf 
             <input type="hidden" name="review_id" value="{{$review->id}}">
 
             <div class="mb-2">
-
                <textarea class="w-full border border-gray-200 rounded" 
                   name="comment" 
                   rows="5"
@@ -42,16 +41,20 @@
       </div>
 
       {{-- Show Comments for the review --}}
-      <button class="mt-2 p-2 rounded-full bg-gray-500" onclick="hideShow('comments-review-{{$review->id}}')">Read Comments <i class="fa-solid fa-plus"></i></button>
+      <button class="mt-2 p-1 text-xs rounded-full bg-gray-500" onclick="hideShow('comments-review-{{$review->id}}')">Read Comments <i class="fa-solid fa-plus"></i></button>
       <div id="comments-review-{{$review->id}}"class="p-1 text-xs hidden">
-         @foreach($review->commentRecursive as $comment)
-         
+         @foreach($review->comments as $comment)
+       
             <div class=" min-w-200 border-solid border-2 border-grey-600">
                <div class="flex place-content-between">
-                  <span> User_id: {{$comment->user_id}} </span>
+                  <span> {{$comment->users->email}}: </span>
+                  {{-- @php
+                     dd($comment->users);
+                  @endphp --}}
                   <form class="inline-block" method="POST" action="/comments/{{$comment->id}}">
                      @csrf
-                     @method('DELETE')
+                     {{-- <button><i class="fas fa-flag text-red-700 p-1"></i></button> --}}
+                     @method('DELETE')                    
                      <x-button-delete>Delete</x-button-delete>
                   </form>
                </div>
@@ -74,13 +77,27 @@
 
    </div> 
 @endforeach
+
 <script>
-   function hideShow(div) {
-     var x = document.getElementById(div);
-     if (x.style.display === "none") {
-       x.style.display = "block";
-     } else {
-       x.style.display = "none";
-     }
+   let divArray = [];
+   function hideShow(div){
+      if(divArray.includes(div)){
+         document.getElementById(div).style.display="none";
+         divArray = removeDiv(divArray, div);
+         return divArray;  
+      } else {
+         document.getElementById(div).style.display="block";
+         divArray.push(div);
+         return divArray;
+      }
    }
+
+   // Helpfunction to remove an item from an array
+   function removeDiv(array, div) {
+   let index = array.indexOf(div);
+   if (index > -1) {
+      array.splice(index, 1);
+   }
+   return array;
+}
 </script>
