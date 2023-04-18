@@ -24,9 +24,12 @@ class RegistrationController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
+            'role_id' => '1',
         ]);
 
         $user->save();
+
+
 
         return redirect()->route('login')->with('success', 'Registration successful!');
     }
