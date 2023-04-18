@@ -39,13 +39,19 @@ class DatabaseSeeder extends Seeder
         Author::create([
             'first_name' => 'Peter',
             'last_name' => 'Strömberg',
-            'biography' => 'är inte ett arsle',
+            'biography' => 'Bor i Lilla Edet',
             'is_deleted' => 0
         ]);
         Author::create([
             'first_name' => 'Johnny',
             'last_name' => 'Hellström',
-            'biography' => 'är inte ett arsle',
+            'biography' => 'Bor i Uddevalla',
+            'is_deleted' => 0
+        ]);
+        Author::create([
+            'first_name' => 'Erik',
+            'last_name' => 'Melin',
+            'biography' => 'Bor i Hamburgsund',
             'is_deleted' => 0
         ]);
 
@@ -62,7 +68,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@coolbooks.se',
             'phone' => '555-555-555',
-            'password' => '12345',
+            'password' => bcrypt('12345'),
             'is_deleted' => 0,
         ]);
         User::create([
@@ -71,7 +77,16 @@ class DatabaseSeeder extends Seeder
             'name' => 'user',
             'email' => 'user@coolbooks.se',
             'phone' => '666-666-666',
-            'password' => '98765',
+            'password' => bcrypt('987654'),
+            'is_deleted' => 0,
+        ]);
+        User::create([
+            'role_id' => 1,
+            'user_name' => 'new_admin',
+            'name' => 'new admin',
+            'email' => 'new_admin@coolbooks.se',
+            'phone' => '777-7777-777',
+            'password' => bcrypt('password'),
             'is_deleted' => 0,
         ]);
 
@@ -93,8 +108,52 @@ class DatabaseSeeder extends Seeder
             'rating' => 4,
             'is_deleted' => 0
         ]);
+        Review::create([
+            'book_id' => 3,
+            'user_id' => 2,
+            'headline' => 'crap',
+            'review_text' => 'this i not good',
+            'rating' => 1,
+            'is_deleted' => 0
+        ]);
 
-        $author_book = AuthorBook::factory(2)->create();
+        // $author_book = AuthorBook::factory(2)->create();
+        AuthorBook::create([
+            'author_id' => 1,
+            'book_id' => 1,
+        ]);
+        AuthorBook::create([
+            'author_id' => 2,
+            'book_id' => 2,
+        ]);
+        AuthorBook::create([
+            'author_id' => 1,
+            'book_id' => 3,
+        ]);
+        AuthorBook::create([
+            'author_id' => 2,
+            'book_id' => 4,
+        ]);
+        AuthorBook::create([
+            'author_id' => 1,
+            'book_id' => 5,
+        ]);
+        AuthorBook::create([
+            'author_id' => 2,
+            'book_id' => 6,
+        ]);
+        AuthorBook::create([
+            'author_id' => 1,
+            'book_id' => 7,
+        ]);
+        AuthorBook::create([
+            'author_id' => 2,
+            'book_id' => 8,
+        ]);
+        AuthorBook::create([
+            'author_id' => 1,
+            'book_id' => 9,
+        ]);
 
         LikedReview::create([
             'user_id' => 1,
@@ -110,41 +169,39 @@ class DatabaseSeeder extends Seeder
         Comment::create([
             'review_id' => 1,
             'user_id' => 1,
-            'comment' => 'johnny is an ass',
+            'comment' => 'Comment to review 1 (book 1) by user 1',
             'is_deleted' => 0
         ]); 
         Comment::create([
             'review_id' => 1,
-            'user_id' => 1,
-            'comment' => 'erik is an ass',
+            'user_id' => 2,
+            'comment' => 'Comment to review 1 (book 1) by user 2',
+            'is_deleted' => 0
+        ]);
+        Comment::create([
+            'review_id' => 2,
+            'user_id' => 2,
+            'comment' => 'Comment to review 2 (book 2) by user 2',
             'is_deleted' => 0
         ]);
 
         Subcomment::create([
             'comment_id' => 1,
-            'user_id' => 1,
-            'subcomment' => 'johnny is an ass',
+            'user_id' => 2,
+            'subcomment' => 'Subcomment to comment 1, review 1 (book 1) by user 2',
             'is_deleted' => 0
         ]);
         Subcomment::create([
             'comment_id' => 2,
             'user_id' => 2,
-            'subcomment' => 'johnny is an ass',
+            'subcomment' => 'Subcomment to comment 2, review 1 (book 1) by user 2',
             'is_deleted' => 0
         ]);
-
-        // AuthorBook::create([
-        //     'author_id' => 1,
-        //     'book_id' => 1
-        // ]);
-
-
-
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Subcomment::create([
+            'comment_id' => 3,
+            'user_id' => 1,
+            'subcomment' => 'Subcomment to comment 3, review 2 (book 2) by user 1',
+            'is_deleted' => 0
+        ]);
     }
 }
