@@ -24,7 +24,7 @@
       <hr>
 
       {{-- Post a comment --}}
-      <button class="mt-2 p-2 rounded-full bg-gray-500" onclick="showCommentInput()">Comment the Review</button>
+      <button class="mt-2 p-2 rounded-full bg-gray-500" onclick="hideShow('comment-input')">Comment the Review</button>
       <div id="comment-input" class="py-2 hidden">
          <form action="/comments" method="POST">
             @csrf 
@@ -42,8 +42,8 @@
       </div>
 
       {{-- Show Comments for the review --}}
-      <div class="p-1 text-xs">
-         <h5 class="font-bold">Comments <i class="fa-solid fa-plus"></i></h5>
+      <button class="mt-2 p-2 rounded-full bg-gray-500" onclick="hideShow('comments-review-{{$review->id}}')">Read Comments <i class="fa-solid fa-plus"></i></button>
+      <div id="comments-review-{{$review->id}}"class="p-1 text-xs hidden">
          @foreach($review->commentRecursive as $comment)
          
             <div class=" min-w-200 border-solid border-2 border-grey-600">
@@ -75,8 +75,8 @@
    </div> 
 @endforeach
 <script>
-   function showCommentInput() {
-     var x = document.getElementById("comment-input");
+   function hideShow(div) {
+     var x = document.getElementById(div);
      if (x.style.display === "none") {
        x.style.display = "block";
      } else {
