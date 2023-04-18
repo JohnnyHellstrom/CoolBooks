@@ -13,12 +13,16 @@ class Comment extends Model
 
     // Relationships
     public function reviews(){
-        return $this->hasMany(LikedReview::class, 'review_id');
+        return $this->belongsTo(Review::class, 'review_id');
     }
     public function users(){
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function subcomments(){
-        return $this->belongsTo(Subcomment::class, 'comment_id');
+        return $this->hasMany(Subcomment::class, 'comment_id');
+    }
+    // Is called from review to return a collection of subcomments to the collection of comments
+    public function commentRecursive(){
+        return $this->comments()->with('subcomments');
     }
 }

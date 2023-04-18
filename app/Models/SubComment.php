@@ -13,9 +13,9 @@ class Subcomment extends Model
 
     // Relationships
     public function comments(){
-        return $this->hasMany(Comment::class, 'comment_id');
+        return $this->belongsTo(Comment::class, 'comment_id');
     }
     public function users(){
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

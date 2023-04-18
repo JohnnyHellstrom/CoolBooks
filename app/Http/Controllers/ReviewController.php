@@ -12,9 +12,13 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $allReviews = Review::orderByDesc('created_at')->get();
+        // $allReviews = Review::orderByDesc('created_at')->get();
+
+        // CommentRecusrive is a function in commentmodell that retrievs a collection of subcomments
+        $allReviews = Review::with('commentRecursive')->get();
+        //dd($allReviews);
         return view('reviews.index', [
-            'reviews' => $allReviews]);
+        'reviews' => $allReviews]);
     }
 
     /**

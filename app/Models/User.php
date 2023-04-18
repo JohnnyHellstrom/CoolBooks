@@ -44,22 +44,22 @@ class User extends Authenticatable
 
     //Relationship
     public function roles(){
-        return $this->hasMany(Role::class, 'role_id');
+        return $this->belongsTo(Role::class, 'role_id');
     }
     public function books(){
-        return $this->belongsTo(Book::class, 'user_id');
+        return $this->hasMany(Book::class, 'user_id');
     }
     public function reviews(){
-        return $this->belongsTo(Review::class, 'user_id');
+        return $this->hasMany(Review::class, 'user_id');
     }
     public function likedreviews(){
-        return $this->belongsTo(LikedReview::class, 'user_id');
+        return $this->hasMany(LikedReview::class, 'user_id');
     } 
     public function comments(){
-        return $this->belongsTo(Comment::class, 'user_id');
+        return $this->hasMany(Comment::class, 'user_id');
     }
     public function subcomments(){
-        return $this->belongsTo(Subcomment::class, 'user_id');
+        return $this->hasMany(Subcomment::class, 'user_id');
     }
     
 }
