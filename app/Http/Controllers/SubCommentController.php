@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
+use App\Models\SubComment;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class SubCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +16,15 @@ class CommentController extends Controller
     }
 
     /**
-     * Edit a newly flagged comment.
+     * Show the form for creating a new resource.
      */
-    public function flag(string $id)
+    public function create()
     {
-        dd($id);
-        Comment::where('id', $id)->update(['flag' => "1"]);
+        //
     }
 
     /**
-     * Store a newly created comment in storage.
+     * Store a newly created subcomment in storage.
      */
     public function store(Request $request)
     {
@@ -33,16 +32,16 @@ class CommentController extends Controller
             'book_id' => 'required'
         ]);
         $formFields = $request->validate([
-            'review_id' => 'required',
-            'comment' => 'required',
+            'comment_id' => 'required',
+            'subcomment' => 'required',
         ]);
         // $formFields['user_id'] = auth()->id();
         $formFields['user_id'] = 1;
         $formFields['is_deleted'] = 0;
 
-        Comment::create($formFields);
+        SubComment::create($formFields);
 
-        return redirect("/books/{$book_id['book_id']}")->with('message', 'New comment created');
+        return redirect("/books/{$book_id['book_id']}")->with('message', 'New reply created');
     }
 
     /**
@@ -70,11 +69,10 @@ class CommentController extends Controller
     }
 
     /**
-     * Remove the specified comment from storage.
+     * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy(string $id)
     {
-        $comment->delete();
-        return redirect('/books/1')->with('message', 'Comment succesfully removed');
+        //
     }
 }

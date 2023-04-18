@@ -18,8 +18,19 @@
       <x-rating :rating="$review->rating" />   {{-- Rating component --}}
       <p> {{$review->review_text}} </p>
       <div class="my-4">
-         <i class="text-green-700 fa-solid fa-thumbs-up"></i>
-         <i class="text-red-700  fa-regular fa-thumbs-up rotate-180"></i>
+         <form action="/reviews/like/{{$review->id}}" method="POST" class="inline-block">
+            @csrf
+            <input type="hidden" name="liked" value="1" >
+            <input type="hidden" name="review_id" value="{{$review->id}}" >
+            <button><i class="text-green-700 fa-solid fa-thumbs-up"></i></button>             
+         </form>
+         <form action="/reviews/like/{{$review->id}}" method="POST" class="inline-block">
+            @csrf
+            <input type="hidden" name="liked" value="0" >
+            <input type="hidden" name="review_id" value="{{$review->id}}" >
+            <button><i class="text-red-700  fa-regular fa-thumbs-up rotate-180"></i></button> 
+         </form>
+
       </div>
       <hr>
 
@@ -29,7 +40,7 @@
          <form action="/comments" method="POST">
             @csrf 
             <input type="hidden" name="review_id" value="{{$review->id}}">
-
+            <input type="hidden" name="book_id" value="{{$books->id}}">
             <div class="mb-2">
                <textarea class="w-full border border-gray-200 rounded" 
                   name="comment" 
@@ -41,42 +52,59 @@
       </div>
 
       {{-- Show Comments for the review --}}
-      <button class="mt-2 p-1 text-xs rounded-full bg-gray-500" onclick="hideShow('comments-review-{{$review->id}}')">Read Comments </button>
-      <div id="comments-review-{{$review->id}}"class="p-1 text-xs hidden">
+      <button class="mt-2 p-1 text-xs rounded-full bg-gray-500" onclick="hideShow('comments-review-{{$review->id}}')">See/Hide Comments </button>
+      <div id="comments-review-{{$review->id}}"class="mt-1 text-xs hidden">
          @foreach($review->comments as $comment)
        
-            <div class=" min-w-200 border-solid border-2 border-grey-600 mb-1">
+            <div class=" min-w-200 border-solid border-2 border-grey-600">
                <div class="flex place-content-between">
                   <span> {{$comment->users->email}}: </span>
+                  <form method="POST" action="/comments/flag/{{$comment->id}}">
+                     @csrf
+                     <button><i class="fas fa-flag text-red-700 p-1"></i></button>
+                  </form>
 
                   <form class="inline-block" method="POST" action="/comments/{{$comment->id}}">
                      @csrf
-                     {{-- <button><i class="fas fa-flag text-red-700 p-1"></i></button> --}}
                      @method('DELETE')                    
                      <x-button-delete>Delete</x-button-delete>
                   </form>
                </div>
-
-
                <p> {{$comment->comment}} </p>
             </div>
 
-            {{-- Show subcomments for comment --}}
-            @if(!$comment->subcomments->isEmpty())
-               <div class="pl-6 pb-4">
-                     <button 
-                     class=" p-1 text-xs rounded-full bg-gray-500" 
-                     onclick="hideShow('subcomments-review-{{$comment->id}}')">
-                     Show replys
-                  </button>
-                  <div id="subcomments-review-{{$comment->id}}" class=" hidden">
-                     @foreach($comment->subcomments as $subcomment)
-                     <p> {{$subcomment->subcomment}} </p>
-                     @endforeach
-                  </div>
+            <div class="mb-2 pl-4">
+
+              {{-- Post a reply --}}
+               <button class="p-1 rounded-full bg-gray-500 " onclick="hideShow('subcomment-comment-{{$comment->id}}')">Reply</button>
+               <div id="subcomment-comment-{{$comment->id}}" class="py-2 hidden">
+                  <form action="/subcomments" method="POST">
+                     @csrf 
+                     <input type="hidden" name="comment_id" value="{{$comment->id}}">
+                     <input type="hidden" name="book_id" value="{{$books->id}}">
+                        <textarea class="w-full border border-gray-200 rounded" 
+                           name="subcomment" 
+                           rows="5"
+                           placeholder="Here..."></textarea>
+                     <x-button-create>Post Reply</x-button-create>
+                  </form>
                </div>
 
-            @endif
+               {{-- Show subcomments for comment --}}
+               @if(!$comment->subcomments->isEmpty())
+                        <button 
+                        class=" p-1 text-xs rounded-full bg-gray-500" 
+                        onclick="hideShow('subcomments-comment-{{$comment->id}}')">
+                        Show replys
+                     </button>
+                     <div id="subcomments-comment-{{$comment->id}}" class=" hidden">
+                        @foreach($comment->subcomments as $subcomment)
+                        <p> {{$subcomment->subcomment}} </p>
+                        @endforeach
+                     </div>
+               @endif
+            </div>
+
                                   
          @endforeach
       </div>   
