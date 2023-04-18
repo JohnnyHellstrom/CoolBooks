@@ -8,59 +8,18 @@
       {{-- Column with Create new review and/or Edit review --}}
       <div class="w-1/2 flex flex-col">
          <div class="p-6">
-            @include('partials._create-review')
+            @include('reviews.create-review')
          </div>
 
          <div class="p-6">   
-            @include('partials._edit-review')        
+            @include('reviews.edit-review')        
          </div>
       </div>
 
       {{-- Column with all reviews for a book --}}
       <div class="w-1/2 flex flex-col">
          <div class="p-6">
-
-            <h3 class="text-2xl text-center" > Show all reviews for this book </h3>
-            @foreach ($reviews as $review)
-               <div class="min-w-200 border-solid border-2 border-grey-600 p-6">
-                  <div class="flex place-content-between">
-                     <h4 class="text-2xl inline:block"> {{$review->headline}} <h4>
-                     
-                     <div>
-                        <x-button-edit><a href="/">Edit</a></x-button-edit>
-                        
-                        <form class="inline-block" method="POST" action="/reviews/{{$review->id}}">
-                           @csrf
-                           @method('DELETE')
-                           <x-button-delete>Delete</x-button-delete>
-                        </form>
-                     </div>   
-                  </div>                                 
-                  <p class="text-xs"> {{$review->created_at}} </p>
-                  <x-rating :rating="$review->rating" />   {{-- Rating component --}}
-                  <p> {{$review->review_text}} </p>
-                  <div>
-                     <i class="text-green-700 fa-solid fa-thumbs-up"></i>
-                     <i class="text-red-700  fa-regular fa-thumbs-up rotate-180"></i>
-                  </div>
-
-                  {{-- Comments for the review --}}
-                  @foreach($review->commentRecursive as $comment)
-                  <div class="p-2">
-                     <div class="min-w-200 border-solid border-2 border-grey-600">
-                        <p> User_id: {{$comment->id}} </p>
-                        <p> {{$comment->comment}} </p>
-                     </div>
-
-                     {{-- Subcomments for comment --}}
-                      @foreach($comment->subcomments as $subcomment)
-                        <p class="p-2"> {{$subcomment->subcomment}} </p>
-                      @endforeach
-                  </div>               
-                  @endforeach
-
-               </div> 
-            @endforeach
+            @include('reviews.all-reviews')
          </div>
 
       </div>
