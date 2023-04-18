@@ -1,20 +1,24 @@
 <x-layout>
+   
+   @include('partials._search')
    @include('partials._hero')
 
 @if(!$books->isEmpty())
    <div class="grid gap-2 grid-cols-3 grid-rows-3 justify-item-center mt-10">
+      {{--have a check if det database if empty--}}
    @foreach($books as $book)
    @if($book->is_deleted == 0)
-   <div class="grid gap-2 grid-cols-2 grid-rows-1 self-center justify-item-center">
-      <div class="grid justify-items-center align-content-center">
+   <div class="w-48 tooltip">
+      <div class="">
       <a class="self-center" href="/books/{{$book->id}}"><img
          class="w-36"
          src="{{$book->image ? asset('storage/' . $book->image) : asset('images/no-image.png')}}"
          alt=""/></a>
+         <span class="tooltiptext">{{$book->title}} <br> </span>
       </div>
-      <div>
-         <h2 class="text-2 font-bold uppercase">Title:</h2> 
-         <a href="/books/{{$book->id}}">{{$book->title}}</a>
+      <div class="w-36">
+         {{-- <h2 class="text-2 font-bold uppercase">Title:</h2> 
+         <a href="/books/{{$book->id}}">{{$book->title}}</a> --}}
          {{-- {{dd($rating)}} --}}
 
          {{--check to se if there is a rating for the book--}}
