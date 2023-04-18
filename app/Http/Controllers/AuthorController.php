@@ -12,7 +12,9 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view('authors.index', ['authors' => Author::all()]);
+        // returns authors, that are not set as deleted, in a sorted order and paginated
+        $authors = Author::where('is_deleted', false)->filter(request(['search']))->orderBy('first_name', 'desc')->paginate(4);
+        return view('authors.index', ['authors' => $authors]);
     }
 
     /**
@@ -31,7 +33,14 @@ class AuthorController extends Controller
         $formFields = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
+            'biography' => 'required',
         ]);
+
+        $formFields['is_deleted'] = 0;
+
+        if($request->hasFile('author_image')) {
+            $formFields['author_image'] = $request->file('author_image')->store('authors', 'public');
+        }
 
         Author::create($formFields);
 
@@ -62,7 +71,14 @@ class AuthorController extends Controller
         $formFields = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
+            'biography' => 'required',
         ]);
+
+        $formFields['is_deleted'] = 0;
+
+        if ($request->hasFile('author_image')) {
+            $formFields['author_image'] = $request->file('author_image')->store('authors', 'public');
+        }
 
         $author->update($formFields);
 
