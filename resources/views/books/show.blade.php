@@ -18,7 +18,7 @@
             <x-books-tags :tagsCsv="$books->tags" />   
             <div>
                 <div class="mr-10">
-                    @include('partials._create-review')
+                    @include('reviews.all-reviews')
                  </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
-<h3 class="text-2xl text-center" > Show all reviews for this book </h3>
-@foreach ($reviews as $review)
+<h3 class="text-2xl text-center pt-6" > Show all reviews for this book </h3>
+@foreach ($books->reviews as $review)
    <div class="min-w-200 border-solid border-2 border-grey-600 p-6">
       <div class="flex place-content-between">
          <h4 class="text-2xl inline:block"> {{$review->headline}} <h4>
@@ -23,7 +23,7 @@
       </div>
 
       {{-- Comments for the review --}}
-      <div class="p-1 ">
+      <div class="p-1 text-xs">
          <h5 class="mt-4 font-bold">Comments <i class="fa-solid fa-plus"></i></h5>
          @foreach($review->commentRecursive as $comment)
          
