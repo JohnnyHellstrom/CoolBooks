@@ -41,16 +41,14 @@
       </div>
 
       {{-- Show Comments for the review --}}
-      <button class="mt-2 p-1 text-xs rounded-full bg-gray-500" onclick="hideShow('comments-review-{{$review->id}}')">Read Comments <i class="fa-solid fa-plus"></i></button>
+      <button class="mt-2 p-1 text-xs rounded-full bg-gray-500" onclick="hideShow('comments-review-{{$review->id}}')">Read Comments </button>
       <div id="comments-review-{{$review->id}}"class="p-1 text-xs hidden">
          @foreach($review->comments as $comment)
        
-            <div class=" min-w-200 border-solid border-2 border-grey-600">
+            <div class=" min-w-200 border-solid border-2 border-grey-600 mb-1">
                <div class="flex place-content-between">
                   <span> {{$comment->users->email}}: </span>
-                  {{-- @php
-                     dd($comment->users);
-                  @endphp --}}
+
                   <form class="inline-block" method="POST" action="/comments/{{$comment->id}}">
                      @csrf
                      {{-- <button><i class="fas fa-flag text-red-700 p-1"></i></button> --}}
@@ -63,15 +61,23 @@
                <p> {{$comment->comment}} </p>
             </div>
 
-            {{-- Subcomments for comment --}}
-            <div class="pl-6">
-               <h5>Replys <i class="fa-solid fa-plus"></i></h5>
-               @foreach($comment->subcomments as $subcomment)
-               <p> {{$subcomment->subcomment}} </p>
-               @endforeach
-            </div>
+            {{-- Show subcomments for comment --}}
+            @if(!$comment->subcomments->isEmpty())
+               <div class="pl-6 pb-4">
+                     <button 
+                     class=" p-1 text-xs rounded-full bg-gray-500" 
+                     onclick="hideShow('subcomments-review-{{$comment->id}}')">
+                     Show replys
+                  </button>
+                  <div id="subcomments-review-{{$comment->id}}" class=" hidden">
+                     @foreach($comment->subcomments as $subcomment)
+                     <p> {{$subcomment->subcomment}} </p>
+                     @endforeach
+                  </div>
+               </div>
 
-                        
+            @endif
+                                  
          @endforeach
       </div>   
 
