@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -27,7 +28,18 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formFields = $request->validate([
+            'review_id' => 'required',
+            'comment' => 'required',
+        ]);
+        // $formFields['user_id'] = auth()->id();
+        $formFields['user_id'] = 1;
+
+        $formFields['is_deleted'] = 0;
+
+        Comment::create($formFields);
+
+        return redirect('/books/1')->with('message', 'New comment created');
     }
 
     /**
@@ -57,8 +69,9 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+        return redirect('/books/1')->with('message', 'Comment succesfully removed');
     }
 }

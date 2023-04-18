@@ -2,7 +2,7 @@
    <form method="POST" action="/reviews">
       @csrf 
          {{-- CHANGE VALUE TO BOOK_ID --}}
-      <input type="hidden" name="book_id" value="1">
+      <input type="hidden" name="book_id" value="{{$books->id}}">
 
       <div class="flex flex-col p-6 border-solid border-2 border-grey-600">
          
