@@ -12,7 +12,7 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
         />
-        <link rel="stylesheet" href="{{asset('css/app.css')}}" type="text/css">
+        <link rel="stylesheet" href="{{asset('css/main.css')}}" type="text/css">
         <script src="//unpkg.com/alpinejs" defer></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
@@ -22,6 +22,7 @@
                         colors: {
                             laravel: "#ef3b2d",
                             background: "#E5F0EC",
+                            logo: "#98A2A2",
                         },
                     },
                 },
@@ -30,8 +31,10 @@
         <title>CoolBooks</title>
     </head>
     <body class="bg-background m-2 mb-24">
-        <a href="/"><img class="w-32 m-auto" src="{{asset('images/logo.png')}}" alt="" class="logo"/></a>
-        <nav class="flex justify-between mb-4 bg-slate-500" >
+        <span class="flex justify-center mb-4 bg-logo">
+        <a href="/"><img class="w-32 " src="{{asset('images/logo.png')}}" alt="" class="logo"/></a>
+        </span>
+        <nav class="m-auto flex justify-end mb-4 bg-slate-500" >
             <ul class="flex items-end space-x-6 mr-6 text-lg">
                 <li>
                     <a href="/books" class="hover:text-laravel"><i class="fa fa-book p-1"></i>Books</a>
@@ -65,8 +68,8 @@
 
 <footer
     class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-slate-500 text-white h-20   md:justify-center">
-    <a href="/" class="absolute top-1/4 left-10 bg-black text-white py-2 px-5">About</a>
-    <a href="/" class="absolute top-1/4 left-36 bg-black text-white py-2 px-5">Contact</a>
+    <a href="/about" class="absolute top-1/4 left-10 bg-black text-white py-2 px-5">About</a>
+    <a href="/contact" class="absolute top-1/4 left-36 bg-black text-white py-2 px-5">Contact</a>
     <div class="absolute top-1/5 left-60 text-white py-2 px-5 flex">
     <a href="/"><img class="p-2" src="{{asset('/images/5296499_fb_facebook_facebook logo_icon.png')}}" alt="FaceBook" width="50"/></a>
     <a href="/"><img class="p-2" src="{{asset('/images/5296501_linkedin_network_linkedin logo_icon.png')}}" alt="LinkedIn" width="50"/></a>

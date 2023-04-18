@@ -12,8 +12,10 @@
         </div>
         <div class="w-60">
             <h2 class="text-2 font-bold uppercase ">Title:</h2> <a href="/books/{{$one_book->id}}">{{$one_book->title}}</a>
+            {{-- <h2 class="text-2 font-bold uppercase ">Author:</h2> <a href="/books/{{$one_book->id}}">{{$book->authors}}</a> --}}
             {{--For loop with a random generator inside, an if-statement to check if the book is deleted--}}
             {{--have a check if det database if empty--}}
+
             {{--check to se if there is a rating for the book --}}
             @unless($rand_rating == null)
                 <p><x-rating :rating="$rand_rating->rating" /></p>
