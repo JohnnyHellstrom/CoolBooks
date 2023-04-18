@@ -1,7 +1,7 @@
 <x-layout>    
     <a href="/books" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i>Back to All Books</a>   
-    <h3 class="text-3xl mb-2 text-center">Headline: {{$books->title}}</h3>    
-          
+    <h3 class="text-3xl mb-2 text-center">Headline: {{$books->title}}</h3>  
+     
     <div class="flex items-stretch">
         <div class="flex w-full items-center justify-center">
             <img src="{{$books->image ? asset('storage/' . $books->image) : asset('images/no-image.png')}}" >            

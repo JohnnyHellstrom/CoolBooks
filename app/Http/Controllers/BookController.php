@@ -9,6 +9,7 @@ use App\Models\Author;
 use App\Models\AuthorBook;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -82,13 +83,13 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book, Genre $genre, User $user)
+    public function edit(Book $book, Genre $genre, Author $author)
     {        
         return view('books.edit',
         [
             'books' => $book,
             'genres' => $genre->all(),
-            'users' => $user->all()
+            'authors' => $author->all(),            
         ]);
     }
 
@@ -97,16 +98,27 @@ class BookController extends Controller
      * -Add something for the admin if its deleted or not?
      */
     public function update(Request $request, Book $book)
-    {               
+    {    
         $formFields = $request->validate([
-            'genre_id' => 'required',
-            'user_id' => 'required',            
+            'genre_id' => 'required', 
+            'author_id' => 'required',                       
             'title' => 'required',
             'ISBN' => ['required'],
             'tags' => 'required',
             'description' => 'required',
-        ]);            
+        ]);    
         
+        // getting the logged in user id
+        $formFields['user_id'] = auth()->id();
+
+        // for adding the image to the book
+        if($request->hasFile('book_img')){
+            $formFields['image'] = $request->file('book_img')->store('book_images', 'public');
+        }      
+        
+        // updating the pivot table
+        AuthorBook::where('book_id', $book['id'])->update(['author_id' => $formFields['author_id']]);
+
         $book->update($formFields);
       
         return back()->with('message', 'Book updated successfully!');

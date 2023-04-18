@@ -6,6 +6,11 @@
     {{-- when uploading files etc you have to have the enctype="multipart/form-data" --}}
     <form method="POST" action="/books" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       @csrf <!-- this is an directive, prevents cross-site scripting attacks -->
+
+        <div>
+          <img id="imagepreview" style="max-height: 200px"/>
+        </div>
+
         <div class="mb-6">
             <label for="title" class="inline-block text-lg mb-2">Book Title</label>
             <input type="text" class="border border-gray-200 rounded p-2 w-full" name="title" value="{{old('title')}}"/>
@@ -65,7 +70,7 @@
 
         <div class="mb-6">
             <label for="book_img" class="inline-block text-lg mb-2">Book picture</label>
-            <input type="file" class="border border-gray-200 rounded p-2 w-full" name="book_img"/>
+            <input type="file" class="border border-gray-200 rounded p-2 w-full" name="book_img" id="previewimage"/>
 
             @error('book_img') <!-- another directive, this is an error directive -->
             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -80,3 +85,16 @@
     </form>
   </div>
 </x-layout>
+
+<script>
+  //  the URL.createObjectURL() function is used to generate an object URL for the selected file. This function creates a temporary URL that points to the selected file
+  $(document).ready(function (){
+    var output = document.getElementById('imagepreview');
+    output.src = URL.createObjectURL($("#previewimage")[0].files[0]);
+  });
+  
+  $("#previewimage").on("change", function (){
+      var output = document.getElementById('imagepreview');
+      output.src = URL.createObjectURL($(this)[0].files[0]);
+  });
+</script>

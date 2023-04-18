@@ -14,6 +14,7 @@
         />
         <link rel="stylesheet" href="{{asset('css/main.css')}}" type="text/css">
         <script src="//unpkg.com/alpinejs" defer></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
