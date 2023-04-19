@@ -1,4 +1,4 @@
-<section class="relative h-64 bg-slate-500 flex flex-col align-center space-y-4 mb-4">
+<section class="relative h-64 bg-hero flex flex-col align-center space-y-4 mb-4">
     @php
         $rand_book = random_int(1, (count($books)-1));
     @endphp
@@ -20,12 +20,17 @@
             {{--have a check if det database if empty--}}
 
             {{--check to se if there is a rating for the book --}}
-            {{-- {{dd($books[$rand_book])}} --}}
-            @unless($books[$rand_book]->ratings == null)
-                <p><x-rating :rating="$books[$rand_book]->ratings" /></p>
-                    @else
+            @if(!empty($rating[$rand_book]))
+            @unless($rating[$rand_book]->rating == null)
+                <span>
+                    <p class=" flex"><x-rating :rating="$rating[$rand_book]->rating" /></p>
+                </span>
+                        @else
                     <p>Rating: 0/5</p>
             @endunless
+          @else
+            <p>Not rated yet.</p>
+          @endif
         </div>
             <div class="h-48">
             <p class="text-2 font-bold uppercase ">Description:</p>

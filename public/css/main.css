@@ -3,7 +3,7 @@
     display: inline-block;
 }
       
-.tooltip .tooltiptext {
+.tooltip .tooltiptext_top {
     visibility: hidden;
     width: auto;
     background-color: #E5F0EC;
@@ -15,8 +15,74 @@
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
+    width: 120px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
 }
       
-.tooltip:hover .tooltiptext {
+.tooltip:hover .tooltiptext_top {
+    visibility: visible;
+}
+
+.tooltip .tooltiptext_right {
+    visibility: hidden;
+    width: auto;
+    background-color: #E5F0EC;
+    color: #000000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+      
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+}
+      
+.tooltip:hover .tooltiptext_right {
+    visibility: visible;
+}
+
+.tooltip .tooltiptext_left {
+    visibility: hidden;
+    width: auto;
+    background-color: #E5F0EC;
+    color: #000000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+      
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 105%;
+}
+      
+.tooltip:hover .tooltiptext_left {
+    visibility: visible;
+}
+
+.tooltip .tooltiptext_bottom {
+    visibility: hidden;
+    width: auto;
+    background-color: #E5F0EC;
+    color: #000000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+      
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    width: 120px;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+      
+.tooltip:hover .tooltiptext_bottom {
     visibility: visible;
 }

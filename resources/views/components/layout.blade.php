@@ -24,6 +24,11 @@
                             laravel: "#ef3b2d",
                             background: "#E5F0EC",
                             logo: "#98A2A2",
+                            nav: "#64748b",
+                            footer: "#64748b",
+                            main: "#9ca3af",
+                            hero: "#64748b",
+
                         },
                     },
                 },
@@ -32,10 +37,10 @@
         <title>CoolBooks</title>
     </head>
     <body class="bg-background m-2 mb-24">
-        <span class="flex justify-center mb-4 bg-logo">
+        <span class="flex justify-center mb-4 bg-main">
         <a href="/"><img class="w-32 " src="{{asset('images/logo.png')}}" alt="" class="logo"/></a>
         </span>
-        <nav class="m-auto flex justify-end mb-4 bg-slate-500" >
+        <nav class="m-auto flex justify-end mb-4 bg-nav" >
             <ul class="flex items-end space-x-6 mr-6 text-lg">
                 @auth
                 <li>
@@ -70,7 +75,7 @@
 </main>
 
 <footer
-    class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-slate-500 text-white h-20   md:justify-center">
+    class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-footer text-white h-20 md:justify-center">
     <a href="/about" class="absolute top-1/4 left-10 bg-black text-white py-2 px-5">About</a>
     <a href="/contact" class="absolute top-1/4 left-36 bg-black text-white py-2 px-5">Contact</a>
     <div class="absolute top-1/5 left-60 text-white py-2 px-5 flex">
