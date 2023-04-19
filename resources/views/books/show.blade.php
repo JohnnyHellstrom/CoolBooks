@@ -12,19 +12,18 @@
                 <p>Description: {{$books->description}}  </p> 
                 <p>Genre: {{$books->genres['name']}} </p>            
                 @foreach($books->authors as $bookauthor)                  
-                    <p>Author: {{$bookauthor->first_name ." " . $bookauthor->last_name}}</p>
+                    <a class="self-center w-55 py-2 px-16 rounded-full text-white-400 bg-gradient-to-r from-cyan-500 to-blue-500" href="/authors/{{$bookauthor->id}}">
+                        {{$bookauthor->first_name . " " . $bookauthor->last_name}}
+                    </a>
                     <p>Biography: {{$bookauthor->biography}}</p>                
                 @endforeach      
                                    
                 <x-books-tags :tagsCsv="$books->tags"/>   
-            </div>       
-            <div>
-                <div class="mr-10">
-                    @include('reviews.all-reviews')
-                 </div>
-            </div>
+            </div>                
         </div>
-    </div>         
-                   
- 
-  </x-layout>
+    </div>
+    <div class="mr-10 mt-20">
+        <h2 class="text-3xl font-bold mb-4 text-center">johnny's stuff</h2>
+        @include('reviews.all-reviews')
+     </div>        
+</x-layout>

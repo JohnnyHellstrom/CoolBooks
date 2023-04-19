@@ -14,6 +14,15 @@
       </div>
 
       <div class="mb-6">
+          <label for="book_img" class="inline-block text-lg mb-2">Book picture</label>
+          <input type="file" class="border border-gray-200 rounded p-2 w-full" name="book_img" id="previewimage"/>
+
+          @error('book_img') <!-- another directive, this is an error directive -->
+          <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+          @enderror
+      </div>
+             
+      <div class="mb-6">
           <label for="title" class="inline-block text-lg mb-2">Book Title</label>
           <input type="text" class="border border-gray-200 rounded p-2 w-full" name="title" value="{{$books->title}}"/>
           <!-- use this old() helper to store to data that was correct but something wasn't filled in correctly  -->
@@ -70,14 +79,6 @@
         @enderror
       </div>        
 
-      <div class="mb-6">
-          <label for="book_img" class="inline-block text-lg mb-2">Book picture</label>
-          <input type="file" class="border border-gray-200 rounded p-2 w-full" name="book_img" id="previewimage"/>
-
-          @error('book_img') <!-- another directive, this is an error directive -->
-          <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-          @enderror
-      </div>       
     
       <div class="mb-6">
           <x-button-update>Update Book</x-button-update>
