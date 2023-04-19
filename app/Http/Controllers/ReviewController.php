@@ -42,7 +42,7 @@ class ReviewController extends Controller
 
         Review::create($formFields);
 
-        return redirect('/reviews')->with('message', 'New Review created');
+        return redirect("/books/{$formFields['book_id']}")->with('message', 'New Review created');
     }
 
     /**
@@ -64,10 +64,9 @@ class ReviewController extends Controller
         /**
      * Store like info.
      */
-    public function like(Request $request, LikedReview $LikedReview)
+    public function like(Request $request)
     {
-        dd('Tänk länge om hur man kan förbättra formuläret för likes samt controllermetoden som inte funkar som den ska');
-        $formFields = $request->validate([
+       $formFields = $request->validate([
             'review_id' => 'required',
             'liked' => 'required'
         ]);
@@ -75,12 +74,19 @@ class ReviewController extends Controller
         // $formFields['user_id'] = auth()->id();
         $formFields['user_id'] = 1;
 
-        if(LikedReview::where(['user_id' => $formFields['user_id'], 'review_id' => $formFields['review_id']])->exists()){
-            $LikedReview->update($formFields);
+        $likedReview = LikedReview::where(['user_id' => $formFields['user_id'], 'review_id' => $formFields['review_id']])->first();
+        
+        // Add/Remove/Update liked-value
+        if(!$likedReview){
+            $likedReview = new LikedReview();
+            $likedReview->create($formFields);
+        } else if ($likedReview['liked'] == $formFields['liked']){
+            $likedReview->delete();
         } else {
-            $LikedReview->create($formFields);
+            $likedReview->update($formFields);
         }
-        return redirect("/books/1");
+
+        return redirect("/books/1")->with('message', 'FIX REDIRECT');
     }
     /**
      * Update the specified review in storage.

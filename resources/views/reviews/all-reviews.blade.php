@@ -1,4 +1,8 @@
 <h3 class="text-2xl text-center pt-6" > Show all reviews for this book </h3>
+
+{{-- FIX AUTH THING --}}
+@php $user_id = 1 @endphp
+
 @foreach ($books->reviews as $review)
    <div class="min-w-200 border-solid border-2 border-grey-600 p-6">
       <div class="flex place-content-between">
@@ -17,18 +21,40 @@
       <p class="text-xs"> {{$review->created_at}} </p>
       <x-rating :rating="$review->rating" />   {{-- Rating component --}}
       <p> {{$review->review_text}} </p>
-      <div class="my-4">
+      
+         {{-- Like/Dislike buttons --}}
+         <div class="my-4">
+            @php
+               $showThumbs;
+               $likedReview = $review->likedReviews->firstWhere('user_id',$user_id);
+               if(!$likedReview){
+                  $showThumbs = "blank";
+               } elseif ($likedReview->liked == 1){
+                  $showThumbs = "up";
+               } elseif ($likedReview->liked == 0){
+                  $showThumbs = "down";
+               }
+            @endphp
          <form action="/reviews/like/{{$review->id}}" method="POST" class="inline-block">
             @csrf
             <input type="hidden" name="liked" value="1" >
             <input type="hidden" name="review_id" value="{{$review->id}}" >
-            <button><i class="text-green-700 fa-solid fa-thumbs-up"></i></button>             
+            @if($showThumbs == "blank" || $showThumbs == "down")
+               <button><i class="text-white fa-regular fa-thumbs-up"></i></button> 
+            @else
+               <button><i class="text-green-700 fa-solid fa-thumbs-up"></i></button> 
+            @endif
          </form>
          <form action="/reviews/like/{{$review->id}}" method="POST" class="inline-block">
             @csrf
             <input type="hidden" name="liked" value="0" >
             <input type="hidden" name="review_id" value="{{$review->id}}" >
+            @if($showThumbs == "blank" || $showThumbs == "up")
+               <button><i class="text-white fa-regular fa-thumbs-up rotate-180"></i></button> 
+            @else
             <button><i class="text-red-700  fa-regular fa-thumbs-up rotate-180"></i></button> 
+            @endif
+            
          </form>
 
       </div>

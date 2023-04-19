@@ -27,8 +27,6 @@
          </div>
 
          {{-- Create - Button component --}}
-         <x-button-create>
-         Submit Review
-         </x-button-create>
+         <x-button-create>Submit Review</x-button-create>
       </div>
    </form>
