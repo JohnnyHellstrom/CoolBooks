@@ -65,6 +65,9 @@ Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
+//Logout
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
 
 //Home
 Route::get('/',[HomeController::class, 'index']);

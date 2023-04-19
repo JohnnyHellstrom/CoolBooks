@@ -56,10 +56,17 @@ class LoginController extends Controller
         
         
         
+        
 
         // Authentication failed...
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
+
 }

@@ -44,7 +44,7 @@
                   <a href="/reviews" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square"></i>Reviews</a>
                 </li>
                 <li>
-                    <form method="POST" class="inline" action="/logout">
+                    <form method="GET" class="inline" action="/logout">
                     @csrf
                     <button type="submit"><i class="fa-solid fa-door-closed"></i>Logout</button>
                     </form>
