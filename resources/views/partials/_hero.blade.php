@@ -1,34 +1,39 @@
-<section class="relative h-64 bg-slate-500 flex flex-col align-center space-y-4 p-4 mb-4">
-    @if($one_book->is_deleted == 0)
+<section class="relative h-64 bg-slate-500 flex flex-col align-center space-y-4 mb-4">
+    @php
+        $rand_book = random_int(1, (count($books)-1));
+    @endphp
+    @if($books[$rand_book]->is_deleted == 0)
     <div class="text-2 font-bold uppercase self-center">
-        <h2>Inspirerande text!</h2>    
+        <h2>Inspirerande text!</h2>
     </div>
-        <div class="grid gap-6 grid-cols-3 grid-rows-1 self-center justify-items-center mt-0">
+        <div class="grid grid-cols-3 grid-rows-1 self-center justify-items-center mt-0">
         <div class="grid justify-items-center align-content-center">
-            <a class="self-center"href="/books/{{$one_book->id}}"><img
-                class="w-60"
-                src="{{$one_book->image ? asset('storage/' . $one_book->image) : asset('images/no-image.png')}}"
+            <a class="self-center"href="/books/{{$books[$rand_book]->id}}"><img
+                class="h-48"
+                src="{{$books[$rand_book]->image ? asset('storage/' . $books[$rand_book]->image) : asset('images/no-image.png')}}"
                 alt=""/></a>
         </div>
-        <div class="w-60">
-            <h2 class="text-2 font-bold uppercase ">Title:</h2> <a href="/books/{{$one_book->id}}">{{$one_book->title}}</a>
+        <div class="h-48">
+            <h2 class="text-2 font-bold uppercase ">Title:</h2> <a href="/books/{{$books[$rand_book]->id}}">{{$books[$rand_book]->title}}</a>
             {{-- <h2 class="text-2 font-bold uppercase ">Author:</h2> <a href="/books/{{$one_book->id}}">{{$book->authors}}</a> --}}
             {{--For loop with a random generator inside, an if-statement to check if the book is deleted--}}
             {{--have a check if det database if empty--}}
 
             {{--check to se if there is a rating for the book --}}
-            @unless($rand_rating == null)
-                <p><x-rating :rating="$rand_rating->rating" /></p>
+            {{-- {{dd($books[$rand_book])}} --}}
+            @unless($books[$rand_book]->ratings == null)
+                <p><x-rating :rating="$books[$rand_book]->ratings" /></p>
                     @else
                     <p>Rating: 0/5</p>
             @endunless
         </div>
-            <div class="w-60">
-            <p class="text-2 font-bold uppercase ">Review:</p>
-            <p>{{$one_book->description}}</p>
+            <div class="h-48">
+            <p class="text-2 font-bold uppercase ">Description:</p>
+            <textarea class="bg-slate-500" name="comment" rows="5" cols="40"><?php echo $books[$rand_book]->description;?></textarea>
+            {{-- <p>{{$books[$rand_book]->description}}</p> --}}
             </div>
     </div>
-    @else 
+    @else
      {{header("Refresh:0")}}
     @endif
 </section>

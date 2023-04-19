@@ -37,6 +37,7 @@
         </span>
         <nav class="m-auto flex justify-end mb-4 bg-slate-500" >
             <ul class="flex items-end space-x-6 mr-6 text-lg">
+                @auth
                 <li>
                     <a href="/books" class="hover:text-laravel"><i class="fa fa-book p-1"></i>Books</a>
                 </li>
@@ -55,6 +56,7 @@
                     <button type="submit"><i class="fa-solid fa-door-closed p-1"></i>Logout</button>
                     </form>
                 </li>
+                @endauth
                 <li>
                     <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus p-1"></i> Register</a>
                 </li>

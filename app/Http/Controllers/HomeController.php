@@ -20,15 +20,15 @@ class HomeController extends Controller
     public function index(Book $book)
     {
         // dd($book);
-        $rand_book = random_int(1, 9);
-        return view('/home.index', ['books' => Book::all(), 'one_book' => Book::find($rand_book), 'rand_rating' => Review::find($rand_book), 'rating' => Review::find(1), 'authors' => Author::all()]);
+        // $rand_book = random_int(1, (count($books)-1));
+        return view('/home.index', ['books' => Book::all(), 'rating' => Review::all(), 'authors' => Author::all()]);
     }
 
     public function about()
     {
         return view('/home.about');
     }
-    
+
     public function contact()
     {
         return view('/home.contact');
