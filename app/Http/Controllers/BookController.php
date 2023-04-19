@@ -19,7 +19,12 @@ class BookController extends Controller
     public function index()
     {
         // only returns the books that are not set "deleted" in the database...
-        return view('books.index', ['books' => Book::where('is_deleted', false)->latest()->filter(request(['tag', 'search']))->paginate(4)]);
+        return view('books.index',
+        [                         
+            'books' => Book::with('authors')->with('genres')->get(),
+            // 'books' => Book::where('is_deleted', false)->latest()->filter(request(['tag', 'search']))->paginate(4),
+            // 'authors' => Author::with('books')->get(),
+        ]);
     }
 
     /**

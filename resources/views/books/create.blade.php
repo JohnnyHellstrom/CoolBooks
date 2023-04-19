@@ -10,7 +10,7 @@
         <div>
           <img id="imagepreview" style="max-height: 200px"/>
         </div>
-        
+
         <div class="mb-6">
             <label for="book_img" class="inline-block text-lg mb-2">Book picture</label>
             <input type="file" class="border border-gray-200 rounded p-2 w-full" name="book_img" id="previewimage"/>
@@ -50,7 +50,8 @@
         <div class="mb-6">
             <label for="ISBN" class="inline-block text-lg mb-2">ISBN</label>
             <input type="text" class="border border-gray-200 rounded p-2 w-full" name="ISBN" placeholder="Example: 269-86095-990-2455"
-            value="{{old('ISBN')}}"/>
+            value="{{old('ISBN')}}" />
+            
 
             @error('ISBN') <!-- another directive, this is an error directive -->
             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -68,10 +69,9 @@
 
         <div class="mb-6">
           <label for="description" class="inline-block text-lg mb-2">Book Description</label>
-          <textarea class="border border-gray-200 rounded p-2 w-full" name="description" rows="10" placeholder="What is the book about..">
-            {{old('description')}}
-          </textarea>
-
+          <textarea class="border border-gray-200 rounded p-2 w-full" name="description" rows="10" placeholder="What is the book about.." 
+            id="input-text" maxlength="500">{{old('description')}}</textarea>
+          <p id="charcounter">500 chars remaning</p>
           @error('description') <!-- another directive, this is an error directive -->
           <p class="text-red-500 text-xs mt-1">{{$message}}</p>
           @enderror
@@ -97,5 +97,14 @@
   $("#previewimage").on("change", function (){
       var output = document.getElementById('imagepreview');
       output.src = URL.createObjectURL($(this)[0].files[0]);
+  });
+
+
+  const inputText = document.getElementById('input-text');
+  const charCount = document.getElementById('charcounter');
+
+  inputText.addEventListener('input', function() {
+  const remainingChars = 500 - inputText.value.length;
+  charCount.textContent = remainingChars + ' chars remaining';
   });
 </script>

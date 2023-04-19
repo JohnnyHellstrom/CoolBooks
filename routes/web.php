@@ -12,6 +12,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SubCommentController;
 use App\Models\Role;
 use App\Models\Subcomment;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,11 +26,11 @@ use App\Models\Subcomment;
 */
 // Books //
 Route::get('/books', [BookController::class, 'index']);
-Route::get('/books/create', [BookController::class, 'create']);
-Route::post('/books', [BookController::class, 'store']);
-Route::get('/books/{book}/edit', [BookController::class, 'edit']);
-Route::put('/books/{book}', [BookController::class, 'update']);
-Route::delete('/books/{book}', [BookController::class, 'destroy']);
+Route::get('/books/create', [BookController::class, 'create'])->middleware('auth');
+Route::post('/books', [BookController::class, 'store'])->middleware('auth');
+Route::get('/books/{book}/edit', [BookController::class, 'edit'])->middleware('auth');
+Route::put('/books/{book}', [BookController::class, 'update'])->middleware('auth');
+Route::delete('/books/{book}', [BookController::class, 'destroy'])->middleware('auth');
 Route::get('/books/{book}', [BookController::class, 'show']);
 
 
