@@ -6,9 +6,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SubCommentController;
 use App\Models\Role;
+use App\Models\Subcomment;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +63,15 @@ Route::get('/reviews', [ReviewController::class, 'index']);
 Route::post('/reviews', [ReviewController::class, 'store']);
 Route::put('/reviews/{review}', [ReviewController::class, 'update']);
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
+Route::post('/reviews/like/{review}', [ReviewController::class, 'like']);
+
+//Comments
+Route::post('/comments', [CommentController::class, 'store']);
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
+Route::post('/comments/flag/{comment}', [CommentController::class, 'flag']);
+
+//SubComments
+Route::post('/subcomments', [SubCommentController::class, 'store']);
 
 //Login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -71,6 +83,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 //Home
 Route::get('/',[HomeController::class, 'index']);
+Route::get('/about', [HomeController::class, 'about']);
+Route::get('/contact', [HomeController::class, 'contact']);
 
 
 /*Route::get('/', function () {

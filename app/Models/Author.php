@@ -9,7 +9,16 @@ class Author extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['first_name', 'last_name'];
+    protected $fillable = ['first_name', 'last_name', 'author_image', 'biography', 'is_deleted'];
+
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
+            $query->where('first_name', 'like', '%' . request('search') . '%')
+                ->orWhere('last_name', 'like', '%' . request('search') . '%')
+                ->orWhere('biography', 'like', '%' . request('search') . '%');
+        }
+    }
 
     //Relationships
     public function books(){

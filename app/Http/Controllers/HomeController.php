@@ -24,6 +24,16 @@ class HomeController extends Controller
         return view('/home.index', ['books' => Book::all(), 'one_book' => Book::find($rand_book), 'rand_rating' => Review::find($rand_book), 'rating' => Review::find(1), 'authors' => Author::all()]);
     }
 
+    public function about()
+    {
+        return view('/home.about');
+    }
+    
+    public function contact()
+    {
+        return view('/home.contact');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

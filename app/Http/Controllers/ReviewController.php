@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\LikedReview;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
@@ -21,16 +23,9 @@ class ReviewController extends Controller
         'reviews' => $allReviews]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        // Is now shown on index. So Probobly delete this method
-    }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created review in storage.
      */
     public function store(Request $request)
     {
@@ -66,8 +61,29 @@ class ReviewController extends Controller
         //
     }
 
+        /**
+     * Store like info.
+     */
+    public function like(Request $request, LikedReview $LikedReview)
+    {
+        dd('Tänk länge om hur man kan förbättra formuläret för likes samt controllermetoden som inte funkar som den ska');
+        $formFields = $request->validate([
+            'review_id' => 'required',
+            'liked' => 'required'
+        ]);
+  
+        // $formFields['user_id'] = auth()->id();
+        $formFields['user_id'] = 1;
+
+        if(LikedReview::where(['user_id' => $formFields['user_id'], 'review_id' => $formFields['review_id']])->exists()){
+            $LikedReview->update($formFields);
+        } else {
+            $LikedReview->create($formFields);
+        }
+        return redirect("/books/1");
+    }
     /**
-     * Update the specified resource in storage.
+     * Update the specified review in storage.
      */
     public function update(Request $request, Review $review)
     {
@@ -85,15 +101,16 @@ class ReviewController extends Controller
 
         $review->update($formFields);
         
-        return redirect('/')->with('message', "The review has been updated successfully");
+        return redirect("/books/{$review->book_id}")->with('message', "The review has been updated successfully");
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified review from storage.
      */
     public function destroy(Review $review)
     {
+        $book_id = $review->book_id;
         $review->delete();
-        return redirect('/')->with('message', 'Review deleted successfully');
+        return redirect("/books/{$book_id}")->with('message', 'Review deleted successfully');
     }
 }

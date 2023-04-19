@@ -9,7 +9,7 @@ class LikedReview extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['liked'];
+    protected $fillable = ['user_id','review_id' ,'liked'];
 
     // Relationships
     public function users(){

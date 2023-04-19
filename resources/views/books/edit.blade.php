@@ -7,7 +7,12 @@
     {{-- when uploading files etc you have to have the enctype="multipart/form-data" --}}
     <form method="POST" action="/books/{{$books->id}}" enctype="multipart/form-data">
       @csrf <!-- this is an directive, prevents cross-site scripting attacks -->
-      @method('PUT') <!-- laravel has the @method('PUT') so it becomes a put request instead of a POST -->     
+      @method('PUT') <!-- laravel has the @method('PUT') so it becomes a put request instead of a POST -->
+      
+      <div>
+        <img src="{{asset('storage/' . $books->image)}}" id="imagepreview" style="max-height: 200px">        
+      </div>
+
       <div class="mb-6">
           <label for="title" class="inline-block text-lg mb-2">Book Title</label>
           <input type="text" class="border border-gray-200 rounded p-2 w-full" name="title" value="{{$books->title}}"/>
@@ -27,13 +32,13 @@
       </div>
       
       <div class="mb-6">
-        <label for="user" class="inline-block text-lg mb-2">User</label>
-        <select name="user_id" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-2.5 mb-2 text-lg">
-        @foreach ($users as $user)
-          <option value="{{$user->id}}">{{$user->name}}</option>
+        <label for="author" class="inline-block text-lg mb-2">Author</label>
+        <select name="author_id" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-2.5 mb-2 text-lg">
+        @foreach ($authors as $author)
+          <option value="{{$author->id}}">{{$author->first_name . " " . $author->last_name}}</option>
         @endforeach
         </select>
-      </div>  
+      </div>   
    
       <div class="mb-6">
           <label for="ISBN" class="inline-block text-lg mb-2">ISBN</label>
@@ -65,15 +70,15 @@
         @enderror
       </div>        
 
-      {{-- <div class="mb-6">
-          <label for="logo" class="inline-block text-lg mb-2">Book picture</label>
-          <input type="file" class="border border-gray-200 rounded p-2 w-full" name="logo"/>
+      <div class="mb-6">
+          <label for="book_img" class="inline-block text-lg mb-2">Book picture</label>
+          <input type="file" class="border border-gray-200 rounded p-2 w-full" name="book_img" id="previewimage"/>
 
-          @error('logo') <!-- another directive, this is an error directive -->
+          @error('book_img') <!-- another directive, this is an error directive -->
           <p class="text-red-500 text-xs mt-1">{{$message}}</p>
           @enderror
-      </div>         --}}
-
+      </div>       
+    
       <div class="mb-6">
           <x-button-update>Update Book</x-button-update>
           <a href="/books" class="w-48 py-2 px-16 rounded-full text-white-400 bg-gradient-to-r from-cyan-500 to-blue-500">
@@ -82,3 +87,32 @@
     </form>
   </div>
 </x-layout>
+
+<script>
+  // javascript for getting a preview then replacing the old picture with the new
+  $(document).ready(function (){
+    var output = document.getElementById('imagepreview');
+    output.src = URL.createObjectURL($("#previewimage")[0].files[0]);
+  });
+  
+  $("#previewimage").on("change", function (){
+      var output = document.getElementById('imagepreview');
+      output.src = URL.createObjectURL($(this)[0].files[0]);
+  });
+
+  // this hides the old picture and shows the new one when a file is selected
+  $("#previewimage").on("change", function (){
+      var oldImage = $("#imagepreview");
+      if(oldImage.attr("src")){
+          URL.revokeObjectURL(oldImage.attr("src"));
+      }
+      oldImage.hide();
+      var newImage = $("<img>").attr("id", "imagepreview");
+      newImage.insertBefore(oldImage);
+      newImage.on("load", function(){
+          oldImage.remove();
+          newImage.show();
+      });
+      newImage.attr("src", URL.createObjectURL($(this)[0].files[0]));
+  });
+</script>

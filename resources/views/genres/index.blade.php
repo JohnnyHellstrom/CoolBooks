@@ -1,7 +1,7 @@
 <x-layout>     
 
     <header>
-        <h2 class="text-3xl text-center font-bold my-6 uppercase">Genre</h2>
+        <h2 class="text-3xl text-center font-bold my-6 uppercase">Genres</h2>
         <div class="flex justify-center md:justify-center mt-1 mb-5">        
             <x-button-create><a href="/genres/create">Create New Genre</a></x-button-create>
         </div>      
@@ -18,10 +18,10 @@
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg capitalize">
                             <a href="/genres/{{$genre->id}}">{{$genre->description}}</a>
                         </td>
-                        <td>
-                            <x-button-edit><a href="/genres/{{$genre->id}}/edit">Edit</a></x-button-edit> |
-                            <x-button-delete><a href="/genres/{{$genre->id}}/delete">Delete</a></x-button-delete> |
-                            <x-button-view><a href="/genres/{{$genre->id}}">View</a></x-button-view>
+                        <td class="px-4 py-8 border-t border-b border-gray-300 text-lg capitalize text-right">
+                            <a href="/genres/{{$genre->id}}/edit"><x-button-edit>Edit</x-button-edit></a> |
+                            <a href="/genres/{{$genre->id}}/delete"><x-button-delete>Delete</x-button-delete></a> |
+                            <a href="/genres/{{$genre->id}}"><x-button-view>View</x-button-view></a>
                         </td>
                     </tr>  
                 @endforeach

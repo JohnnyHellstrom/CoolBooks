@@ -10,6 +10,14 @@
             @method('PUT')
 
             <div class="mb-6">
+                <label for="author_image" class="inline-block text-lg mb-2">Author Portrait</label>
+                <input type="file" class="border border-gray-200 rounded p-2 w-full" name="author_image"/>
+                <img class="w-48 mr-6 mb-6" src="{{$author->author_image ? asset('storage/' . $author->author_image) : asset('images/no-author_image.svg')}}" alt=""/>
+                @error('author_image')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>        
+            <div class="mb-6">
                 <label for="first_name" class="inline-block text-lg mb-2">First Name</label>
                 <input type="text" class="border border-gray-200 rounded p-2 w-full" name="first_name" value="{{$author->first_name}}"/>
                 @error('first_name')
@@ -20,6 +28,13 @@
                 <label for="last_name" class="inline-block text-lg mb-2">Last Name</label>
                 <input type="text" class="border border-gray-200 rounded p-2 w-full" name="last_name" value="{{$author->last_name}}"/>
                 @error('last_name')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+            <div class="mb-6">
+                <label for="biography" class="inline-block text-lg mb-2">Biography</label>
+                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="biography" value="{{$author->biography}}"/>
+                @error('biography')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>

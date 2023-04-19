@@ -25,8 +25,8 @@ class Review extends Model
     public function comments(){
         return $this->hasMany(Comment::class, 'review_id');
     }
-    public function commentRecursive(){
-        return $this->hasMany(Comment::class, 'review_id');
-    }
+    // public function commentRecursive(){
+    //     return $this->hasMany(Comment::class, 'review_id');
+    // }
 
 }
