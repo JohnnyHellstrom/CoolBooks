@@ -1,7 +1,7 @@
 {{-- Decide icons to show --}}
 @php
 $showThumbs;
-$likedReview = $review->likedReviews->firstWhere('user_id',$user_id);
+$likedReview = $review->likedReviews->firstWhere('user_id',auth()->id());
 if(!$likedReview){
    $showThumbs = "blank";
 } elseif ($likedReview->liked == 1){

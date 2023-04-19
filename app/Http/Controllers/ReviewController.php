@@ -35,14 +35,12 @@ class ReviewController extends Controller
             'rating' => 'required',
             'review_text' => 'required',
         ]);
-        // $formFields['user_id'] = auth()->id();
-        $formFields['user_id'] = 1;
-
+        $formFields['user_id'] = auth()->id();
         $formFields['is_deleted'] = 0;
 
         Review::create($formFields);
 
-        return redirect("/books/{$formFields['book_id']}")->with('message', 'New Review created');
+        return redirect()->back()->with('message', 'New Review created');
     }
 
     /**
@@ -79,8 +77,7 @@ class ReviewController extends Controller
             'liked' => 'required'
         ]);
   
-        // $formFields['user_id'] = auth()->id();
-        $formFields['user_id'] = 1;
+        $formFields['user_id'] = auth()->id();
 
         $likedReview = LikedReview::where(['user_id' => $formFields['user_id'], 'review_id' => $formFields['review_id']])->first();
         
@@ -94,7 +91,7 @@ class ReviewController extends Controller
             $likedReview->update($formFields);
         }
 
-        return redirect("/books/1")->with('message', 'FIX REDIRECT');
+        return redirect()->back();
     }
     /**
      * Update the specified review in storage.
@@ -108,9 +105,7 @@ class ReviewController extends Controller
             'review_text' => 'required',
         ]);
         
-        // $formFields['user_id'] = auth()->id();
-        $formFields['user_id'] = 1;
-
+        $formFields['user_id'] = auth()->id();
         $formFields['is_deleted'] = 0;
 
         $review->update($formFields);

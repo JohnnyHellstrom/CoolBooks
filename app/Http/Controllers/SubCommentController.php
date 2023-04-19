@@ -28,20 +28,16 @@ class SubCommentController extends Controller
      */
     public function store(Request $request)
     {
-        $book_id = $request->validate([
-            'book_id' => 'required'
-        ]);
         $formFields = $request->validate([
             'comment_id' => 'required',
             'subcomment' => 'required',
         ]);
-        // $formFields['user_id'] = auth()->id();
-        $formFields['user_id'] = 1;
+        $formFields['user_id'] = auth()->id();
         $formFields['is_deleted'] = 0;
 
         SubComment::create($formFields);
 
-        return redirect("/books/{$book_id['book_id']}")->with('message', 'New reply created');
+        return redirect()->back()->with('message', 'New reply created');
     }
 
     /**

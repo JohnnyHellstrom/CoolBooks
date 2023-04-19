@@ -29,20 +29,16 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $book_id = $request->validate([
-            'book_id' => 'required'
-        ]);
         $formFields = $request->validate([
             'review_id' => 'required',
             'comment' => 'required',
         ]);
-        // $formFields['user_id'] = auth()->id();
-        $formFields['user_id'] = 1;
+        $formFields['user_id'] = auth()->id();
         $formFields['is_deleted'] = 0;
 
         Comment::create($formFields);
 
-        return redirect("/books/{$book_id['book_id']}")->with('message', 'New comment created');
+        return redirect()->back()->with('message', 'New comment created');
     }
 
     /**
@@ -75,6 +71,6 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $comment->delete();
-        return redirect('/books/1')->with('message', 'Comment succesfully removed');
+        return redirect()->back()->with('message', 'Comment succesfully removed');
     }
 }
