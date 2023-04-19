@@ -39,6 +39,7 @@
             </div>
     </div>
     @else
-     {{header("Refresh:0")}}
+     {{-- {{header("Refresh:0")}} --}}
+     <p>Cool picture with inspiering text about books</p>
     @endif
 </section>

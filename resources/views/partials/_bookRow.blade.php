@@ -1,12 +1,12 @@
 <div class="grid gap-2 grid-cols-3 grid-rows-1 justify-items-center mt-10 ">
 @if(!$books->isEmpty())
-
-       {{--have a check if det database if empty--}}
-    {{-- @foreach($books as $book) --}}
-    @for($x = 0; $x <= 2; $x++)
-    @php
+{{--have a check if det database if empty--}}
+{{-- @foreach($books as $book) --}}
+@for($x = 0; $x <= 2; $x++)
+@php
         $rand_book = random_int(1, (count($books)-1));
-    @endphp
+        @endphp
+        @if($books[$rand_book]->is_deleted == 0)
   
     {{-- @if($book->is_deleted == 0) --}}
     <div class="w-48 tooltip pb-2">
@@ -36,9 +36,12 @@
           @endif
        </div>
     </div>
+    @endif
+    
     {{-- @endif --}}
     @endfor
     {{-- @endforeach --}}
+    
  @else
     <p class="text-center">No Books found</p>
     @endif  
