@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('headline', 50);
             $table->text('review_text', 500);
             $table->integer('rating');
+            $table->tinyInteger('is_flagged')->default('0');
             $table->boolean('is_deleted');
             $table->timestamps();
         });

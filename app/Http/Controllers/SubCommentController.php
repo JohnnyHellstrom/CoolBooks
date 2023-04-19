@@ -45,6 +45,15 @@ class SubCommentController extends Controller
     }
 
     /**
+     * Store flag on the review.
+     */
+    public function flag(string $id)
+    {
+        SubComment::where('id', $id)->update(['is_flagged' => "1"]);
+        return redirect()->back();
+    }
+
+    /**
      * Display the specified resource.
      */
     public function show(string $id)

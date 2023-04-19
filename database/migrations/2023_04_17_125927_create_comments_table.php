@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('review_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('comment', 500);
+            $table->tinyInteger('is_flagged')->default('0');
             $table->boolean('is_deleted');            
             $table->timestamps();
         });

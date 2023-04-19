@@ -20,8 +20,8 @@ class CommentController extends Controller
      */
     public function flag(string $id)
     {
-        dd($id);
-        Comment::where('id', $id)->update(['flag' => "1"]);
+        Comment::where('id', $id)->update(['is_flagged' => "1"]);
+        return redirect()->back();
     }
 
     /**

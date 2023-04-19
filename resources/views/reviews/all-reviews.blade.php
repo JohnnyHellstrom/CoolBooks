@@ -9,6 +9,11 @@
          <h4 class="text-2xl inline:block"> {{$review->headline}} <h4>
          
          <div>
+            <form class="inline-block" method="POST" action="/reviews/flag/{{$review->id}}">
+               @csrf
+               <button><i class="fas fa-flag text-red-700 px-4"></i></button>
+            </form>
+
             <x-button-edit><a href="/">Edit</a></x-button-edit>
             
             <form class="inline-block" method="POST" action="/reviews/{{$review->id}}">
@@ -23,41 +28,10 @@
       <p> {{$review->review_text}} </p>
       
          {{-- Like/Dislike buttons --}}
-         <div class="my-4">
-            @php
-               $showThumbs;
-               $likedReview = $review->likedReviews->firstWhere('user_id',$user_id);
-               if(!$likedReview){
-                  $showThumbs = "blank";
-               } elseif ($likedReview->liked == 1){
-                  $showThumbs = "up";
-               } elseif ($likedReview->liked == 0){
-                  $showThumbs = "down";
-               }
-            @endphp
-         <form action="/reviews/like/{{$review->id}}" method="POST" class="inline-block">
-            @csrf
-            <input type="hidden" name="liked" value="1" >
-            <input type="hidden" name="review_id" value="{{$review->id}}" >
-            @if($showThumbs == "blank" || $showThumbs == "down")
-               <button><i class="text-white fa-regular fa-thumbs-up"></i></button> 
-            @else
-               <button><i class="text-green-700 fa-solid fa-thumbs-up"></i></button> 
-            @endif
-         </form>
-         <form action="/reviews/like/{{$review->id}}" method="POST" class="inline-block">
-            @csrf
-            <input type="hidden" name="liked" value="0" >
-            <input type="hidden" name="review_id" value="{{$review->id}}" >
-            @if($showThumbs == "blank" || $showThumbs == "up")
-               <button><i class="text-white fa-regular fa-thumbs-up rotate-180"></i></button> 
-            @else
-            <button><i class="text-red-700  fa-regular fa-thumbs-up rotate-180"></i></button> 
-            @endif
-            
-         </form>
-
+      <div class="my-4">
+         @include('reviews.like-buttons');
       </div>
+
       <hr>
 
       {{-- Post a comment --}}
@@ -68,9 +42,10 @@
             <input type="hidden" name="review_id" value="{{$review->id}}">
             <input type="hidden" name="book_id" value="{{$books->id}}">
             <div class="mb-2">
-               <textarea class="w-full border border-gray-200 rounded" 
+               <textarea class=" border border-gray-200 rounded" 
                   name="comment" 
                   rows="5"
+                  cols="50"
                   placeholder="Here..."></textarea>
             </div>
             <x-button-create>Post Comment</x-button-create>
@@ -79,12 +54,12 @@
 
       {{-- Show Comments for the review --}}
       <button class="mt-2 p-1 text-xs rounded-full bg-gray-500" onclick="hideShow('comments-review-{{$review->id}}')">See/Hide Comments </button>
-      <div id="comments-review-{{$review->id}}"class="mt-1 text-xs hidden">
+      <div id="comments-review-{{$review->id}}"class="mt-1 text-s hidden">
          @foreach($review->comments as $comment)
        
             <div class=" min-w-200 border-solid border-2 border-grey-600">
                <div class="flex place-content-between">
-                  <span> {{$comment->users->email}}: </span>
+                  <p><b> {{$comment->users->user_name}}: </b></p>
                   <form method="POST" action="/comments/flag/{{$comment->id}}">
                      @csrf
                      <button><i class="fas fa-flag text-red-700 p-1"></i></button>
@@ -106,26 +81,38 @@
                <div id="subcomment-comment-{{$comment->id}}" class="py-2 hidden">
                   <form action="/subcomments" method="POST">
                      @csrf 
-                     <input type="hidden" name="comment_id" value="{{$comment->id}}">
-                     <input type="hidden" name="book_id" value="{{$books->id}}">
-                        <textarea class="w-full border border-gray-200 rounded" 
-                           name="subcomment" 
-                           rows="5"
-                           placeholder="Here..."></textarea>
+                     <div class="mb-2">
+                        <input type="hidden" name="comment_id" value="{{$comment->id}}">
+                        <input type="hidden" name="book_id" value="{{$books->id}}">
+                           <textarea class="border border-gray-200 rounded" 
+                              name="subcomment" 
+                              rows="5"
+                              cols="50"
+                              placeholder="Here..."></textarea>
+                     </div>
                      <x-button-create>Post Reply</x-button-create>
                   </form>
                </div>
 
-               {{-- Show subcomments for comment --}}
+               {{-- Show subcomments/replys for comment --}}
                @if(!$comment->subcomments->isEmpty())
                         <button 
-                        class=" p-1 text-xs rounded-full bg-gray-500" 
+                        class=" p-1 text-s rounded-full bg-gray-500" 
                         onclick="hideShow('subcomments-comment-{{$comment->id}}')">
                         Show replys
                      </button>
                      <div id="subcomments-comment-{{$comment->id}}" class=" hidden">
+
                         @foreach($comment->subcomments as $subcomment)
-                        <p> {{$subcomment->subcomment}} </p>
+                        <div class="flex">
+                           <p><b> {{$subcomment->users->user_name . ": "}} </b></p>
+                           <p> {{$subcomment->subcomment}} </p>
+                           <form method="POST" action="/subcomments/flag/{{$subcomment->id}}">
+                              @csrf
+                              <button><i class="fas fa-flag text-red-700 p-1"></i></button>
+                           </form>
+                        </div>
+ 
                         @endforeach
                      </div>
                @endif

@@ -64,6 +64,7 @@ Route::post('/reviews', [ReviewController::class, 'store']);
 Route::put('/reviews/{review}', [ReviewController::class, 'update']);
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
 Route::post('/reviews/like/{review}', [ReviewController::class, 'like']);
+Route::post('reviews/flag/{review}', [ReviewController::class, 'flag']);
 
 //Comments
 Route::post('/comments', [CommentController::class, 'store']);
@@ -72,6 +73,7 @@ Route::post('/comments/flag/{comment}', [CommentController::class, 'flag']);
 
 //SubComments
 Route::post('/subcomments', [SubCommentController::class, 'store']);
+Route::post('/subcomments/flag/{subcomment}', [SubCommentController::class, 'flag']);
 
 //Login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
