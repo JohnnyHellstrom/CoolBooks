@@ -20,10 +20,10 @@ class HomeController extends Controller
     public function index(Book $book)
     {
         //Get 3 random books in a genre
-        
+
         $genre_comedy = Book::where('is_deleted', false)->where('genre_id', 1)->inRandomOrder()->limit(3)->get();
         $genre_horror = Book::where('is_deleted', false)->where('genre_id', 2)->inRandomOrder()->limit(3)->get();
-        $genre_romance = Book::where('is_deleted', false)->where('genre_id', 3)->pinRandomOrder()->limit(3)->get();
+        $genre_romance = Book::where('is_deleted', false)->where('genre_id', 3)->inRandomOrder()->limit(3)->get();
 
         return view('/home.index', ['books' => Book::all(), 'rating' => Review::all(), 'authors' => Author::all(), 'horror' => $genre_horror, 'romance' => $genre_romance, 'comedy' => $genre_comedy]);
     }
