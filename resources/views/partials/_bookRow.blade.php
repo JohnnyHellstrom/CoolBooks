@@ -9,7 +9,7 @@
                     <div class="">
                         <a class="self-center" href="/books/{{$books[$rand_book]['id']}}"><img class="h-36" src="{{$books[$rand_book]->image ? asset('storage/' . $books[$rand_book]->image) : asset('images/no-image.png')}}" alt=""/></a>
                         {{--Text for the tooltips thing--}}
-                            <span class="tooltiptext_left">Title:<br><b>{{$books[$rand_book]->title}}</b> <br> Author:<br><b>{{$books[$rand_book]->authors[0]['first_name']}} {{$books[$rand_book]->authors[0]['last_name']}}</b> </span>
+                            <span class="tooltiptext tooltip_main">Title:<br><b>{{$books[$rand_book]->title}}</b> <br> Author:<br><b>{{$books[$rand_book]->authors[0]['first_name']}} {{$books[$rand_book]->authors[0]['last_name']}}</b> </span>
                     </div>
                     <div class="w-36">                
                         {{--check to se if there is a rating for the book--}}

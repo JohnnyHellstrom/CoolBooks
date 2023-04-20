@@ -27,7 +27,7 @@
                                     <a class="self-center" href="/books/{{$book->id}}">
                                         <img class="w-36" src="{{$book->image ? asset('storage/' . $book->image) : asset('images/no-image.png')}}" alt=""/>
                                     </a>
-                                    <span class="tooltiptext">
+                                    <span class="tooltiptext tooltip_author">
                                         <b>{{$book->title}}</b>
                                     </span>
                                 </div>

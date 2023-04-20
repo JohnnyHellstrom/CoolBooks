@@ -2,8 +2,49 @@
     position: relative;
     display: inline-block;
 }
-      
-.tooltip .tooltiptext_top {
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: #E5F0EC4f;
+    color: #000000;
+    text-align: center;
+    border-radius: 6px;
+    z-index: 1;
+    width: 120px;
+    padding: 5px 0;
+}
+
+
+.tooltip .tooltip_main
+{
+    /* Position the tooltip */
+    position: absolute;
+    top: -5px;
+    right: 105%;
+}
+.tooltip:hover .tooltip_main{
+    visibility: visible;
+}
+
+.tooltip .tooltip_author 
+{
+    /* Position the tooltip */
+    position: right;
+    height: auto;
+    width: 100px;
+    padding: 1px 0;
+}
+.tooltip:hover .tooltip_author{
+    visibility: visible;
+}
+
+
+
+
+
+
+
+/* .tooltip .tooltiptext_top {
     visibility: hidden;
     width: auto;
     background-color: #E5F0EC;
@@ -11,14 +52,14 @@
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
-      
-    /* Position the tooltip */
+    
+    
     position: absolute;
     z-index: 1;
     width: 120px;
     bottom: 100%;
     left: 50%;
-    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    margin-left: -60px; 
 }
       
 .tooltip:hover .tooltiptext_top {
@@ -34,7 +75,7 @@
     border-radius: 6px;
     padding: 5px 0;
       
-    /* Position the tooltip */
+    
     position: absolute;
     z-index: 1;
     width: 120px;
@@ -48,14 +89,14 @@
 
 .tooltip .tooltiptext_left {
     visibility: hidden;
-    width: auto;
-    background-color: #E5F0EC;
+    
+    background-color: #E5F0EC4f; 
     color: #000000;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
       
-    /* Position the tooltip */
+    
     position: absolute;
     z-index: 1;
     width: 120px;
@@ -76,15 +117,15 @@
     border-radius: 6px;
     padding: 5px 0;
       
-    /* Position the tooltip */
+    
     position: absolute;
     z-index: 1;
     width: 120px;
     top: 100%;
     left: 50%;
-    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    margin-left: -60px; 
 }
       
 .tooltip:hover .tooltiptext_bottom {
     visibility: visible;
-}
+} */
