@@ -12,7 +12,9 @@ class GenreController extends Controller
      */
     public function index()
     {
-        return view('genres.index', ['genres' => Genre::all()]);
+        // returns genres, that are not set as deleted, in alphabetical order
+        $genres = Genre::where('is_deleted', false)->orderBy('name', 'asc')->get();
+        return view('genres.index', ['genres' => $genres]);
     }
 
     /**
@@ -32,6 +34,8 @@ class GenreController extends Controller
             'name' => 'required',
             'description' => 'required',
         ]);
+
+        $formFields['is_deleted'] = 0;
 
         Genre::create($formFields);
 
@@ -84,5 +88,22 @@ class GenreController extends Controller
     {
         $genre->delete();
         return redirect('/genres')->with('message', 'Genre deleted successfully!');
+    }
+
+    /**
+     * Show the form to confirm hiding of a specific resource.
+     */
+    public function confirm_hide(Genre $genre)
+    {
+        return view('genres.hide', ['genre' => $genre]);
+    }
+
+    /**
+     * Hide the specified resource from storage.
+     */
+    public function hide(Genre $genre)
+    {
+        $genre->update(['is_deleted' => '1']);
+        return redirect('/genres')->with('message', 'Genre hidden successfully!');
     }
 }

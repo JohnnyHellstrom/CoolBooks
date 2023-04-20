@@ -42,6 +42,8 @@ Route::get('/authors/{author}/edit', [AuthorController::class, 'edit']);        
 Route::put('/authors/{author}', [AuthorController::class, 'update']);                   //Update author
 Route::get('/authors/{author}/delete', [AuthorController::class, 'confirm_delete']);    //Show delete author form
 Route::delete('/authors/{author}', [AuthorController::class, 'destroy']);               //Delete author
+Route::get('/authors/{author}/hide', [AuthorController::class, 'confirm_hide']);        //Show hide author form
+Route::put('/authors/{author}/hide', [AuthorController::class, 'hide']);                //Hide author
 Route::get('/authors/{author}', [AuthorController::class, 'show']);                     //Show selected author - keep as last
 
 // Users
@@ -56,6 +58,8 @@ Route::get('/genres/{genre}/edit', [GenreController::class, 'edit']);           
 Route::put('/genres/{genre}', [GenreController::class, 'update']);                      //Update genre
 Route::get('/genres/{genre}/delete', [GenreController::class, 'confirm_delete']);       //Show delete genre form
 Route::delete('/genres/{genre}', [GenreController::class, 'destroy']);                  //Delete genre
+Route::get('/genres/{genre}/hide', [GenreController::class, 'confirm_hide']);           //Show hide genre form
+Route::put('/genres/{genre}/hide', [GenreController::class, 'hide']);                   //Hide genre
 Route::get('/genres/{genre}', [GenreController::class, 'show']);                        //Show selected genre - keep as last
 
 

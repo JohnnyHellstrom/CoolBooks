@@ -7,12 +7,14 @@
     <div class="flex justify-center md:justify-center">    
         <form method="POST" action="/authors/{{$author->id}}" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
+            @method('put')
 
+            <div class="flex justify-center">
+                <img class="w-48 m-6" src="{{$author->author_image ? asset('storage/' . $author->author_image) : asset('images/no-author_image.svg')}}" alt="" id="imagepreview"/>
+            </div>
             <div class="mb-6">
                 <label for="author_image" class="inline-block text-lg mb-2">Author Portrait</label>
-                <input type="file" class="border border-gray-200 rounded p-2 w-full" name="author_image"/>
-                <img class="w-48 mr-6 mb-6" src="{{$author->author_image ? asset('storage/' . $author->author_image) : asset('images/no-author_image.svg')}}" alt=""/>
+                <input type="file" class="border border-gray-200 rounded p-2 w-full" name="author_image" id="previewimage"/>
                 @error('author_image')
                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
@@ -47,3 +49,16 @@
     </div>
 
 </x-layout>
+
+<script>
+  //  the URL.createObjectURL() function is used to generate an object URL for the selected file. This function creates a temporary URL that points to the selected file
+  $(document).ready(function (){
+    var output = document.getElementById('imagepreview');
+    output.src = URL.createObjectURL($("#previewimage")[0].files[0]);
+  });
+  
+  $("#previewimage").on("change", function (){
+      var output = document.getElementById('imagepreview');
+      output.src = URL.createObjectURL($(this)[0].files[0]);
+  });
+</script>

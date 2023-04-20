@@ -30,9 +30,12 @@
 {
     /* Position the tooltip */
     position: right;
-    height: auto;
     width: 100px;
-    padding: 1px 0;
+    padding: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 .tooltip:hover .tooltip_author{
     visibility: visible;

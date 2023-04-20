@@ -19,9 +19,11 @@
                             <a href="/genres/{{$genre->id}}">{{$genre->description}}</a>
                         </td>
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg capitalize text-right">
+                            <a href="/genres/{{$genre->id}}"><x-button-view>View</x-button-view></a> |
                             <a href="/genres/{{$genre->id}}/edit"><x-button-edit>Edit</x-button-edit></a> |
+                            <br>
+                            <a href="/genres/{{$genre->id}}/hide"><x-button-hide>Hide</x-button-hide></a> |
                             <a href="/genres/{{$genre->id}}/delete"><x-button-delete>Delete</x-button-delete></a> |
-                            <a href="/genres/{{$genre->id}}"><x-button-view>View</x-button-view></a>
                         </td>
                     </tr>  
                 @endforeach

@@ -30,13 +30,15 @@
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg capitalize">
                             <a href="/authors/{{$author->id}}">{{$author->first_name . ' ' . $author->last_name}}</a>
                         </td>
-                        <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
+                        <td class="px-4 py-8 border-t border-b border-gray-300 text-lg overflow-hidden truncate max-w-xs">
                             <p>{{$author->biography}}</p>
                         </td>
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg text-right">
+                            <a href="/authors/{{$author->id}}"><x-button-view>View</x-button-view></a> |
                             <a href="/authors/{{$author->id}}/edit"><x-button-edit>Edit</x-button-edit></a> |
+                            <br>
+                            <a href="/authors/{{$author->id}}/hide"><x-button-hide>Hide</x-button-hide></a> |
                             <a href="/authors/{{$author->id}}/delete"><x-button-delete>Delete</x-button-delete></a> |
-                            <a href="/authors/{{$author->id}}"><x-button-view>View</x-button-view></a>
                         </td>
                     </tr>  
                 @endforeach
