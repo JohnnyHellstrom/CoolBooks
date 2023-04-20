@@ -101,4 +101,21 @@ class AuthorController extends Controller
         $author->delete();
         return redirect('/authors')->with('message', 'Author deleted successfully!');
     }
+
+    /**
+     * Show the form to confirm hiding of a specific resource.
+     */
+    public function confirm_hide(Author $author)
+    {
+        return view('authors.hide', ['author' => $author]);
+    }
+
+    /**
+     * Hide the specified resource from all access.
+     */
+    public function hide(Author $author)
+    {
+        $author->update(['is_deleted' => '1']);
+        return redirect('/authors')->with('message', 'Author hidden successfully!');
+    }
 }
