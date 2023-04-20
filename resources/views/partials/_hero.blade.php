@@ -1,4 +1,5 @@
 <section class="relative h-64 bg-hero flex flex-col align-center space-y-4 mb-4">
+    @if(!$books->isEmpty())
     @php
         $rand_book = random_int(1, (count($books)-1));
     @endphp
@@ -15,9 +16,7 @@
         </div>
         <div class="h-48">
             <h2 class="text-2 font-bold uppercase ">Title:</h2> <a href="/books/{{$books[$rand_book]->id}}">{{$books[$rand_book]->title}}</a>
-            {{-- <h2 class="text-2 font-bold uppercase ">Author:</h2> <a href="/books/{{$one_book->id}}">{{$book->authors}}</a> --}}
-            {{--For loop with a random generator inside, an if-statement to check if the book is deleted--}}
-            {{--have a check if det database if empty--}}
+            <h2 class="text-2 font-bold uppercase ">Author:</h2> <a href="/books/{{$books[$rand_book]->id}}">{{$books[$rand_book]->authors[0]['first_name']}} {{$books[$rand_book]->authors[0]['last_name']}}</a>
 
             {{--check to se if there is a rating for the book --}}
             @if(!empty($rating[$rand_book]))
@@ -41,5 +40,6 @@
     @else
      {{-- {{header("Refresh:0")}} --}}
      <p>Cool picture with inspiering text about books</p>
+    @endif
     @endif
 </section>
