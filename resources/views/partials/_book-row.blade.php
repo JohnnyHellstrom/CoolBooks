@@ -34,4 +34,3 @@
         <p class="text-center">No Books found</p>
         @endif  
 </div>
-

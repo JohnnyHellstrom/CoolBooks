@@ -4,10 +4,10 @@
    @include('partials._hero')
    
 
-   @include('partials._bookRow')
+   @include('partials._comedy')
    <hr>
-   @include('partials._bookRow')
+   @include('partials._horror')
    <hr>
-   @include('partials._bookRow')
+   @include('partials._romance')
 
 </x-layout>
