@@ -17,7 +17,7 @@
                     <a href="/books/{{$book->id}}"><img src="{{$book->image ? asset('storage/' . $book->image) : asset('images/no-image.png')}}" class="w-36"></a>
                 </td>
                 <td class="px-2 py-4 border-t border-b border-gray-300 text-lg truncate max-w-xs">
-                    <a href="/books/{{$book->id}}">{{$book->description}}</a>
+                    <p class="truncate">{{$book->description}}</p>
                 </td>
                 @foreach($book->authors as $author)
                   <td class="py-4 border-t border-b border-gray-300 text-lg">

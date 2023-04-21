@@ -12,8 +12,7 @@
                 <p>Description: {{$books->description}}  </p> 
                 <p>Genre: {{$books->genres['name']}} </p>            
                 @foreach($books->authors as $bookauthor)                  
-                    <a href="/authors/{{$bookauthor->id}}">{{$bookauthor->first_name . " " . $bookauthor->last_name}}</a>
-                    <p>Biography: {{$bookauthor->biography}}</p>                
+                    <a href="/authors/{{$bookauthor->id}}">{{$bookauthor->first_name . " " . $bookauthor->last_name}}</a>                                 
                 @endforeach      
                                    
                 <x-books-tags :tagsCsv="$books->tags"/>   
