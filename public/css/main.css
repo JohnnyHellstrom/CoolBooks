@@ -30,7 +30,7 @@
 {
     /* Position the tooltip */
     position: right;
-    width: 100px;
+    background-color: #E5F0ECcc;
     padding: 1px;
     display: flex;
     justify-content: center;
@@ -42,6 +42,27 @@
 }
 
 
+.tooltip2 {
+    position: relative;
+}
+.tooltip2 .tooltip_author-bio 
+{
+    /* Position the tooltip */
+    width: auto;
+    text-align: left;
+    position: absolute;
+    top: 15px;
+    left: 10px;
+
+    visibility: hidden;
+    background-color: #e5f0ec;
+    color: #000000;
+    border-radius: 6px;
+    z-index: 1;
+}
+.tooltip2:hover .tooltip_author-bio {
+    visibility: visible;
+}
 
 
 

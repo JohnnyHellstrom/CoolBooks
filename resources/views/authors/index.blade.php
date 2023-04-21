@@ -1,4 +1,4 @@
-<x-layout>     
+<x-layout>
 
     <form action="/authors">
     <div class="relative border-2 border-gray-100 m-4 rounded-lg">
@@ -14,9 +14,9 @@
 
     <header>
         <h2 class="text-3xl text-center font-bold my-6 uppercase">Authors</h2>
-        <div class="flex justify-center md:justify-center mt-1 mb-5">        
+        <div class="flex justify-center md:justify-center mt-1 mb-5">
             <x-button-create><a href="/authors/create">Create New Author</a></x-button-create>
-        </div>      
+        </div>
     </header>
 
     <table class="w-full table-auto rounded-sm">
@@ -30,8 +30,11 @@
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg capitalize">
                             <a href="/authors/{{$author->id}}">{{$author->first_name . ' ' . $author->last_name}}</a>
                         </td>
-                        <td class="px-4 py-8 border-t border-b border-gray-300 text-lg overflow-hidden truncate max-w-xs">
-                            <p>{{$author->biography}}</p>
+                        <td class="px-4 py-8 border-t border-b border-gray-300 text-lg max-w-xs">
+                            <div class="tooltip2">
+                                <p class="truncate">{{$author->biography}}</p>
+                                <p class="tooltip_author-bio">{{$author->biography}}</p>
+                            </div>
                         </td>
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg text-right">
                             <a href="/authors/{{$author->id}}"><x-button-view>View</x-button-view></a> |
@@ -40,7 +43,7 @@
                             <a href="/authors/{{$author->id}}/hide"><x-button-hide>Hide</x-button-hide></a> |
                             <a href="/authors/{{$author->id}}/delete"><x-button-delete>Delete</x-button-delete></a> |
                         </td>
-                    </tr>  
+                    </tr>
                 @endforeach
             @else
                 <tr class="border-gray-300">
@@ -48,7 +51,7 @@
                     <p class="text-center">No authors found</p>
                 </td>
                 </tr>
-            @endif  
+            @endif
         </tbody>
    </table>
 
