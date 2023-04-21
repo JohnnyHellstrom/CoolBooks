@@ -27,23 +27,26 @@
       
          {{-- Like/Dislike buttons --}}
       <div class="my-4">
-         @include('reviews.like-buttons');
+         @include('reviews.like-buttons')
       </div>
       <p><i> {{"Posted by: " . $review->users->user_name}} </i></p>
       <hr>
 
       {{-- Post a comment --}}
-      <button class="mt-2 p-1 rounded-full bg-gray-500 text-xs" onclick="hideShow('comment-review-{{$review->id}}')">Comment the Review</button>
+      <button class="mt-2 p-1 text-xs" onclick="hideShow('comment-review-{{$review->id}}')">Comment the Review</button>
       @include('reviews.post-comment')
 
       {{-- Show Comments for the review --}}
-      <button class="mt-2 p-1 text-xs rounded-full bg-gray-500" onclick="hideShow('comments-review-{{$review->id}}')">See/Hide Comments </button>
+      <button class="mt-2 p-1 text-xs" onclick="hideShow('comments-review-{{$review->id}}')">See/Hide Comments </button>
       <div id="comments-review-{{$review->id}}"class="mt-1 text-s hidden">
          @foreach($review->comments as $comment)
        
             <div class=" min-w-200 border-solid border-2 border-grey-600">
                <div class="flex place-content-between">
-                  <p><b> {{$comment->users->user_name}}: </b></p>
+                  <div>
+                     <span><b> {{$comment->users->user_name}}: </b></span>
+                     <span class="text-xs"><i> {{$comment->timeSincePost()}} </i></span>
+                  </div>
                   <form method="POST" action="/comments/flag/{{$comment->id}}">
                      @csrf
                      <button><i class="fas fa-flag text-red-700 p-1"></i></button>
@@ -61,25 +64,28 @@
             <div class="mb-2 pl-8">
 
               {{-- Post a reply --}}
-               <button class="p-1 rounded-full bg-gray-500 " onclick="hideShow('subcomment-comment-{{$comment->id}}')">Reply</button>
-               @include('reviews.post-subcomment');
+               <button class="p-1 text-xs" onclick="hideShow('subcomment-comment-{{$comment->id}}')">Reply</button>
+               @include('reviews.post-subcomment')
 
                {{-- Show subcomments/replys for comment --}}
                @if(!$comment->subcomments->isEmpty())
                   <button 
-                  class=" p-1 text-s rounded-full bg-gray-500" 
+                  class=" p-1 text-xs" 
                   onclick="hideShow('subcomments-comment-{{$comment->id}}')">
                   Show replys</button>
 
                   <div id="subcomments-comment-{{$comment->id}}" class=" hidden">
                      @foreach($comment->subcomments as $subcomment)
-                     <div class="flex">
-                        <p class="pr-1"><b> {{$subcomment->users->user_name . ":"}} </b></p>
-                        <p> {{$subcomment->subcomment}} </p>
-                        <form method="POST" action="/subcomments/flag/{{$subcomment->id}}">
-                           @csrf
-                           <button><i class="fas fa-flag text-red-700 p-1"></i></button>
-                        </form>
+                     <div class="flex flex-col">
+                        <div class="flex">
+                           <form method="POST" action="/subcomments/flag/{{$subcomment->id}}">
+                              @csrf
+                              <button><i class="fa-sharp fa-regular fa-flag text-red-700 p-1"></i></button>
+                           </form>
+                           <span class="pr-2"><i> {{$subcomment->timeSinceReply()}} </i></span>
+                           <p class="pr-1"><b> {{$subcomment->users->user_name . ":"}} </b></p>
+                        </div>
+                        <p class="pl-4"> {{$subcomment->subcomment}} </p>
                      </div>
                      @endforeach
                   </div>

@@ -23,10 +23,10 @@ class Review extends Model
         return $this->hasMany(LikedReview::class, 'review_id');
     }
     public function comments(){
-        return $this->hasMany(Comment::class, 'review_id');
+        return $this->hasMany(Comment::class, 'review_id')->orderBy('created_at', 'desc');
     }
-    public function commentRecursive(){
-        return $this->hasMany(Comment::class, 'review_id');
-    }
+    // public function commentRecursive(){
+    //     return $this->hasMany(Comment::class, 'review_id');
+    // }
 
 }

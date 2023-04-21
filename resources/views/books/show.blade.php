@@ -22,6 +22,7 @@
     </div>
     <div class="mr-10 mt-20">
         <h3 class="text-3xl font-bold mb-4 text-center">johnny's stuff</h3>
+        @include('reviews.create')
         @include('reviews.all-reviews')
      </div>        
 </x-layout>

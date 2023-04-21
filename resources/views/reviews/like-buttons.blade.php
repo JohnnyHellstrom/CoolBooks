@@ -23,7 +23,7 @@ if(!$likedReview){
    @endif
 </form>
 
-{{-- Dislake button --}}
+{{-- Dislike button --}}
 <form action="/reviews/like/{{$review->id}}" method="POST" class="inline-block">
    @csrf
    <input type="hidden" name="liked" value="0" >
@@ -31,6 +31,6 @@ if(!$likedReview){
    @if($showThumbs == "blank" || $showThumbs == "up")
    <button><i class="text-white fa-regular fa-thumbs-up rotate-180"></i></button> 
    @else
-   <button><i class="text-red-700  fa-regular fa-thumbs-up rotate-180"></i></button> 
+   <button><i class="text-red-700  fa-solid fa-thumbs-up rotate-180"></i></button> 
    @endif      
 </form>

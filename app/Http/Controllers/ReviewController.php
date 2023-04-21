@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\LikedReview;
 use App\Models\Review;
+use App\Models\LikedReview;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
