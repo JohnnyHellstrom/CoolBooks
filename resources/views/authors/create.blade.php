@@ -34,7 +34,7 @@
             </div>
             <div class="mb-6">
                 <label for="biography" class="inline-block text-lg mb-2">Biography</label>
-                <textarea class="border border-gray-200 rounded p-2 w-full" name="biography" id="bio-text" cols="30" rows="10" maxlength="1000" placeholder="Tell us about the author..." value="{{old('biography')}}"></textarea>
+                <textarea class="border border-gray-200 rounded p-2 w-full" name="biography" id="input-text" cols="30" rows="10" maxlength="1000" placeholder="Tell us about the author...">{{old('biography')}}</textarea>
                 <p id="charcounter">1000 chars remaining</p>
                 @error('biography')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -62,12 +62,16 @@
         output.src = URL.createObjectURL($(this)[0].files[0]);
     });
 
-    const inputText = document.getElementById('bio-text');
+    const inputText = document.getElementById('input-text');
     const charCount = document.getElementById('charcounter');
 
     inputText.addEventListener('input', function() {
     const remainingChars = 1000 - inputText.value.length;
     charCount.textContent = remainingChars + ' chars remaining';
     });
+
+    // Calculate initial remaining characters on page load
+    const initialChars = 1000 - inputText.value.length;
+    charCount.textContent = initialChars + ' chars remaining';
 
 </script>

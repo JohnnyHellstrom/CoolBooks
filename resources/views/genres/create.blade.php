@@ -17,7 +17,7 @@
             </div>
             <div class="mb-6">
                 <label for="description" class="inline-block text-lg mb-2">Description</label>
-                <input class="border border-gray-200 rounded p-2 w-full" name="description" id="description-text" maxlength="50" placeholder="Describe the genre..." value="{{old('description')}}"/>
+                <input class="border border-gray-200 rounded p-2 w-full" name="description" id="input-text" maxlength="50" placeholder="Describe the genre..." value="{{old('description')}}"/>
                 <p id="charcounter">50 chars remaining</p>
                 @error('description')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -35,12 +35,16 @@
 
 <script>
 
-    const inputText = document.getElementById('description-text');
+    const inputText = document.getElementById('input-text');
     const charCount = document.getElementById('charcounter');
 
     inputText.addEventListener('input', function() {
     const remainingChars = 50 - inputText.value.length;
     charCount.textContent = remainingChars + ' chars remaining';
     });
+
+    // Calculate initial remaining characters on page load
+    const initialChars = 50 - inputText.value.length;
+    charCount.textContent = initialChars + ' chars remaining';
 
 </script>

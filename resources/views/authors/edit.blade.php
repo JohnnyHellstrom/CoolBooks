@@ -35,7 +35,8 @@
             </div>
             <div class="mb-6">
                 <label for="biography" class="inline-block text-lg mb-2">Biography</label>
-                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="biography" value="{{$author->biography}}"/>
+                <textarea class="border border-gray-200 rounded p-2 w-full" name="biography" id="input-text" maxlength="1000" cols="30" rows="10">{{$author->biography}}</textarea>
+                <p id="charcounter">1000 chars remaining</p>
                 @error('biography')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
@@ -51,14 +52,27 @@
 </x-layout>
 
 <script>
-  //  the URL.createObjectURL() function is used to generate an object URL for the selected file. This function creates a temporary URL that points to the selected file
-  $(document).ready(function (){
+    //  the URL.createObjectURL() function is used to generate an object URL for the selected file. This function creates a temporary URL that points to the selected file
+    $(document).ready(function (){
     var output = document.getElementById('imagepreview');
     output.src = URL.createObjectURL($("#previewimage")[0].files[0]);
-  });
-  
-  $("#previewimage").on("change", function (){
-      var output = document.getElementById('imagepreview');
-      output.src = URL.createObjectURL($(this)[0].files[0]);
-  });
+    });
+
+    $("#previewimage").on("change", function (){
+        var output = document.getElementById('imagepreview');
+        output.src = URL.createObjectURL($(this)[0].files[0]);
+    });
+
+    const inputText = document.getElementById('input-text');
+    const charCount = document.getElementById('charcounter');
+
+    inputText.addEventListener('input', function() {
+    const remainingChars = 1000 - inputText.value.length;
+    charCount.textContent = remainingChars + ' chars remaining';
+    });
+
+    // Calculate initial remaining characters on page load
+    const initialChars = 1000 - inputText.value.length;
+    charCount.textContent = initialChars + ' chars remaining';
+
 </script>
