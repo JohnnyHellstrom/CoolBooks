@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Book extends Model
 {
@@ -25,6 +26,12 @@ class Book extends Model
             ->orWhere('description', 'like', '%' . request('search') . '%')
             ->orWhere('tags', 'like', '%' . request('search') . '%');
         }
+    }
+
+    public static function getGenre($id)
+    {
+        $genre_comedy = Book::where('is_deleted', false)->where('genre_id', $id)->inRandomOrder()->limit(3)->get();
+        return $genre_comedy;
     }
    
     public function users(){

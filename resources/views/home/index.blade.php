@@ -2,12 +2,13 @@
    
    @include('partials._search')
    @include('partials._hero')
-   
 
-   @include('partials._comedy')
+   @php $three_book = $comedy @endphp
+   @include('partials._book-row')
    <hr>
-   @include('partials._horror')
+   @php $three_book = $horror @endphp
+   @include('partials._book-row')
    <hr>
-   @include('partials._romance')
-
+   @php $three_book = $romance @endphp
+   @include('partials._book-row')
 </x-layout>

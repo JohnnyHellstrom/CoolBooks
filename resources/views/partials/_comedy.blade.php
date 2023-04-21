@@ -1,4 +1,5 @@
 <div class="grid gap-2 grid-cols-4 grid-rows-1 justify-items-center mt-10 ">
+
     @if(!$books->isEmpty())
         <h2>Comedy</h2>
         @foreach ($comedy as $book)
@@ -11,7 +12,7 @@
             </div>
             <div class="w-36">                
                 {{--check to se if there is a rating for the book--}}
-                @if(!empty($rating[$book->id]))
+                @if(!empty($rating))
                     @unless($rating[$book->id]->rating == null)
                         <span>
                             <p class=" flex"><x-rating :rating="$rating[$book->id]->rating" /></p>

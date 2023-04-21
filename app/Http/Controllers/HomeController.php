@@ -20,12 +20,17 @@ class HomeController extends Controller
     public function index(Book $book)
     {
         //Get 3 random books in a genre
+        $rand_genre = random_int(1, count(Genre::all()));
 
-        $genre_comedy = Book::where('is_deleted', false)->where('genre_id', 1)->inRandomOrder()->limit(3)->get();
-        $genre_horror = Book::where('is_deleted', false)->where('genre_id', 2)->inRandomOrder()->limit(3)->get();
-        $genre_romance = Book::where('is_deleted', false)->where('genre_id', 3)->inRandomOrder()->limit(3)->get();
+        $one_book = Book::where('is_deleted', false)->inRandomOrder()->limit(1)->first();
+        // dd($one_book);
+        // $contentToBookRow = Genre::getThreeBooksFromThreeGenre();
+        // dd($contentToBookRow);
+        $genre_comedy = Book::getGenre(1);
+        $genre_horror = Book::getGenre(2);
+        $genre_romance = Book::getGenre(3);
 
-        return view('/home.index', ['books' => Book::all(), 'rating' => Review::all(), 'authors' => Author::all(), 'horror' => $genre_horror, 'romance' => $genre_romance, 'comedy' => $genre_comedy]);
+        return view('/home.index', ['books' => Book::all(), 'authors' => Author::all(), 'horror' => $genre_horror, 'romance' => $genre_romance, 'one_book' => $one_book, 'comedy' => $genre_comedy]);
     }
 
     public function about()
