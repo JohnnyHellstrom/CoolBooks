@@ -80,6 +80,10 @@ Route::post('/comments/flag/{comment}', [CommentController::class, 'flag']);
 Route::post('/subcomments', [SubCommentController::class, 'store']);
 Route::post('/subcomments/flag/{subcomment}', [SubCommentController::class, 'flag']);
 
+//Register
+Route::get('/register', [RegistrationController::class, 'showRegistrationForm']);
+
+
 //Login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
