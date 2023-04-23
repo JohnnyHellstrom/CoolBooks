@@ -16,6 +16,7 @@
         <script src="//unpkg.com/alpinejs" defer></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.tiny.cloud/1/surnp6umx1mcegjvj0kdkgzkhebu6s40tdj8tdkfd4z4mrtr/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
             tailwind.config = {
                 theme: {

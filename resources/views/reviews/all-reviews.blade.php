@@ -22,7 +22,7 @@
       </div>                                 
       <p class="text-xs"> {{$review->created_at}} </p>
       <x-rating :rating="$review->rating" />   {{-- Rating component --}}
-      <p> {{$review->review_text}} </p>
+      <p><?php echo $review->review_text ?></p>
       
       
          {{-- Like/Dislike buttons --}}
