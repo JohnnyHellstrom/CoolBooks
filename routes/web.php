@@ -65,11 +65,17 @@ Route::get('/genres/{genre}', [GenreController::class, 'show']);                
 
 //Reviews
 Route::get('/reviews', [ReviewController::class, 'index']);
+Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit']);
 Route::post('/reviews', [ReviewController::class, 'store']);
 Route::put('/reviews/{review}', [ReviewController::class, 'update']);
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
 Route::post('/reviews/like/{review}', [ReviewController::class, 'like']);
 Route::post('reviews/flag/{review}', [ReviewController::class, 'flag']);
+Route::get('/reviews/flag/{review}', [ReviewController::class, 'confirm_flag']);
+Route::put('/reviews/flag/{review}', [ReviewController::class, 'remove_flag']);
+Route::get('/reviews/{review}/hide', [ReviewController::class, 'confirm_hide']);
+Route::put('/reviews/{review}/hide', [ReviewController::class, 'hide']);
+
 
 //Comments
 Route::post('/comments', [CommentController::class, 'store']);
