@@ -65,11 +65,17 @@ Route::get('/genres/{genre}', [GenreController::class, 'show']);                
 
 //Reviews
 Route::get('/reviews', [ReviewController::class, 'index']);
+Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit']);
 Route::post('/reviews', [ReviewController::class, 'store']);
 Route::put('/reviews/{review}', [ReviewController::class, 'update']);
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
 Route::post('/reviews/like/{review}', [ReviewController::class, 'like']);
 Route::post('reviews/flag/{review}', [ReviewController::class, 'flag']);
+Route::get('/reviews/flag/{review}', [ReviewController::class, 'confirm_flag']);
+Route::put('/reviews/flag/{review}', [ReviewController::class, 'remove_flag']);
+Route::get('/reviews/{review}/hide', [ReviewController::class, 'confirm_hide']);
+Route::put('/reviews/{review}/hide', [ReviewController::class, 'hide']);
+
 
 //Comments
 Route::post('/comments', [CommentController::class, 'store']);
@@ -85,11 +91,17 @@ Route::get('/register', [RegistrationController::class, 'showRegistrationForm'])
 
 
 //Login
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
+Route::post('/users', [UserController::class, 'store']);
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+Route::post('users/authenticate', [UserController::class, 'authenticate']);
+
+// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::post('/login', [LoginController::class, 'login']);
 
 //Logout
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+// Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 //Home

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Review;
+use App\Models\Comment;
+use App\Models\SubComment;
 use App\Models\LikedReview;
 use Illuminate\Http\Request;
 
@@ -14,13 +16,14 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        // $allReviews = Review::orderByDesc('created_at')->get();
-
-        // CommentRecusrive is a function in commentmodell that retrievs a collection of subcomments
-        $allReviews = Review::with('commentRecursive')->get();
-        //dd($allReviews);
+        $flaggedReviews = Review::where('is_flagged', true)->where('is_deleted', false)->get();
+        $flaggedComments = Comment::where('is_flagged', true)->where('is_deleted', false)->get();
+        $flaggedSubcomments = SubComment::where('is_flagged', true)->where('is_deleted', false)->get();
         return view('reviews.index', [
-        'reviews' => $allReviews]);
+        'reviews' => $flaggedReviews,
+        'comments' => $flaggedComments,
+        'Subcomments' => $flaggedSubcomments,
+    ]);
     }
 
 
@@ -54,17 +57,43 @@ class ReviewController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Review $review)
     {
-        //
+        return view('reviews.edit', ['review' => $review]);
     }
+
+    // Get confirm-hide view
+    public function confirm_hide(Review $review){
+        return view('reviews.hide-review', ['review' => $review]);
+    }
+    // Hide flagged review
+    public function hide(Review $review){
+        $review->update(['is_deleted' => 1]);
+        return redirect('reviews');
+    }
+
       /**
-     * Store flag on the review.
+     * Set flag on the review.
      */
     public function flag(string $id)
     {
         Review::where('id', $id)->update(['is_flagged' => "1"]);
         return redirect()->back();
+    }
+    /**
+     * Show confirm-view for flagg removal
+     */
+    public function confirm_flag(Review $review)
+    {
+        return view('reviews.remove-flag', ['review' => $review]);
+    }
+    /**
+     * Remove flag from the review.
+     */
+    public function remove_flag(string $id)
+    {
+        Review::where('id', $id)->update(['is_flagged' => "0"]);
+        return redirect('/reviews');
     }
 
         /**

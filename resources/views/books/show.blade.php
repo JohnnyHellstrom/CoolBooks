@@ -20,8 +20,34 @@
         </div>
     </div>
     <div class="mr-10 mt-20">
-        <h3 class="text-3xl font-bold mb-4 text-center">johnny's stuff</h3>
-        @include('reviews.create')
-        @include('reviews.all-reviews')
-     </div>        
+        {{-- <h3 class="text-3xl font-bold mb-4 text-center">johnny's stuff</h3> --}}
+        <x-button-create class="m-2" onclick="hideShow('create-review')">Write Review?</x-button-create>
+        <section id="create-review" class="hidden">@include('reviews.create')</section>
+        @include('reviews.book-reviews')
+     </div> 
+     
+     
+     <script>
+        let divArray = [];
+        function hideShow(div){
+           if(divArray.includes(div)){
+              document.getElementById(div).style.display="none";
+              divArray = removeDiv(divArray, div);
+              return divArray;  
+           } else {
+              document.getElementById(div).style.display="block";
+              divArray.push(div);
+              return divArray;
+           }
+        }
+     
+        // Helpfunction to remove an item from an array
+        function removeDiv(array, div) {
+        let index = array.indexOf(div);
+        if (index > -1) {
+           array.splice(index, 1);
+        }
+        return array;
+     }
+     </script>     
 </x-layout>

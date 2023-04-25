@@ -11,6 +11,18 @@ class Review extends Model
 
     protected $fillable = ['book_id', 'user_id' , 'headline', 'review_text', 'rating', 'is_deleted'];
 
+    public function numberOfLikes($id){
+        $likes = LikedReview::where('review_id', '=', $id)
+                        ->where('liked', '=', '1')->count();
+        return $likes;
+    }
+
+    public function numberOfDislikes($id){
+        $likes = LikedReview::where('review_id', '=', $id)
+                        ->where('liked', '=', '0')->count();
+        return $likes;
+    }
+
     //Relationship
     public function users(){
         return $this->belongsTo(User::class, 'user_id');
@@ -25,8 +37,6 @@ class Review extends Model
     public function comments(){
         return $this->hasMany(Comment::class, 'review_id')->orderBy('created_at', 'desc');
     }
-    // public function commentRecursive(){
-    //     return $this->hasMany(Comment::class, 'review_id');
-    // }
+
 
 }
