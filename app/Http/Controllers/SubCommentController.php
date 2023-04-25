@@ -48,6 +48,31 @@ class SubCommentController extends Controller
         SubComment::where('id', $id)->update(['is_flagged' => "1"]);
         return redirect()->back();
     }
+    // Confirm flagg removal
+    public function confirm_flag(SubComment $subcomment)
+    {
+       return view('subcomments.remove-flag', ['subcomment' => $subcomment]);
+    }
+    // Remove flagg
+    public function remove_flag(Subcomment $subcomment)
+    {
+        $subcomment->where('id', $subcomment->id)->update(['is_flagged' => false]);
+        return redirect('reviews')->with('message', 'Flagg removed from subcomment');
+    }
+
+
+    // Get confirm-hide view
+    public function confirm_hide(Subcomment $subcomment){
+        return view('subcomments.hide', ['subcomment' => $subcomment]);
+    }
+        /**
+     * Hide subcomment.
+     */
+    public function hide(Subcomment $subcomment)
+    {
+        $subcomment->where('id', $subcomment->id)->update(['is_deleted' => true]);
+        return redirect('/reviews');
+    }
 
     /**
      * Display the specified resource.

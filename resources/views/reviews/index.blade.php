@@ -1,17 +1,15 @@
 <x-layout>
-   <h1 class="text-4xl mb-4"> Moderator page </h1>
+   <h1 class="text-4xl text-center mb-4"> Moderator page </h1>
 
-   <h3 class="text-2xl">Flagged Reviews</h3>
+   <h3 class="text-2xl mb-2"> All Flagged Reviews</h3>
    @foreach ($reviews as $review)
    <section class="min-w-200 border-solid border-2 border-grey-600 p-6">
       <div class="flex place-content-between">
          <h4 class="text-2xl inline:block"> {{$review->headline}} <h4>
          
          <div>
-
             <a href="/reviews/flag/{{$review->id}}"><i class="fa-sharp fa-solid fa-flag text-red-700 px-4"></i></a>
-            <a href="/reviews/{{$review->id}}/hide"><x-button-hide>Hide</x-button-hide></a>
-            
+            <a href="/reviews/{{$review->id}}/hide"><x-button-hide>Hide</x-button-hide></a>           
             <form class="inline-block" method="POST" action="/reviews/{{$review->id}}">
                @csrf
                @method('DELETE')
@@ -29,41 +27,44 @@
          <div>
             @include('reviews.like-buttons')
          </div>
-         <p><i> {{"Posted by: " . $review->users->user_name}} </i></p>
+         <a href="/reviews/user/{{$review->users->id}}"><i> {{"Posted by: " . $review->users->user_name}} </i></a>
       </div>
    </section>
    @endforeach
    
    {{-- Show flagged comments --}}
-   <h3 class="text-2xl mt-6">Flagged Comments</h3>
+   <h3 class="text-2xl mt-6"> All Flagged Comments </h3>
    @foreach($comments as $comment)        
-      <div class="px-4 mt-2">
+      <section class="px-4 mt-2">
          <div class="flex">
-               <form method="POST" action="/comments/flag/{{$comment->id}}">
-                  @csrf
-                  <button><i class="fa-sharp fa-regular fa-flag fa-2xs pl-1"></i></button>
-               </form>
-               <span class="px-2"><b> {{$comment->users->user_name}}: </b></span>
-               <span class="text-xs pt-1"><i> {{$comment->timeSincePost()}} </i></span>
+            <a href="/comments/flag/{{$comment->id}}"><i class="fa-sharp fa-solid fa-flag text-red-700 mr-4"></i></a>
+            <a href="/comments/hide/{{$comment->id}}"><x-button-hide>Hide</x-button-hide></a>
+         </div>
+         <div class="flex">
+            <a href="/reviews/user/{{$comment->users->id}}" class="mr-2"><b> {{$comment->users->user_name}}: </b></a>
+            <p class="text-xs pt-1"><i> {{$comment->timeSincePost()}} </i></p>
          </div>
          <p> {{$comment->comment}} </p>
-      </div>                      
+      </section>                      
    @endforeach
 
-   {{-- Show flagged Subcomments/replys --}}
-   <h3 class="text-2xl mt-6">Flagged Replys</h3>
-   @foreach($Subcomments as $subcomment)
-   <div class="flex flex-col">
-      <div class="flex">
-         <form method="POST" action="/subcomments/flag/{{$subcomment->id}}">
-            @csrf
-            <button><i class="fa-sharp fa-regular fa-flag fa-2xs p-1"></i></button>
-         </form>
-         <span class="pr-2"><i> {{$subcomment->timeSinceReply()}} </i></span>
-         <p class="pr-1"><b> {{$subcomment->users->user_name . ":"}} </b></p>
+   {{-- Show flagged Subcomments/replies --}}
+   <h3 class="text-2xl mt-6">All Flagged Replys </h3>
+   @foreach($subcomments as $subcomment)
+   <section class="flex flex-col my-2 ml-6">
+      <div class="flex flex-col">
+         <div class="flex">
+            <a href="/subcomments/flag/{{$subcomment->id}}"><i class="fa-sharp fa-solid fa-flag text-red-700 mr-4"></i></a>
+            <a href="/subcomments/hide/{{$subcomment->id}}"><x-button-hide>Hide</x-button-hide></a>
+         </div>
+         <div class="flex">
+            <span><i> {{$subcomment->timeSinceReply()}} </i></span>
+            <a href="/reviews/user/{{$subcomment->users->id}}" class="px-1"><b> {{$subcomment->users->user_name . ":"}} </b></a>
+         </div>
+
       </div>
-      <p class="pl-4"> {{$subcomment->subcomment}} </p>
-   </div>
+      <p> {{$subcomment->subcomment}} </p>
+   </section>
    @endforeach
 
 </x-layout> 

@@ -26,12 +26,10 @@
       <p class="text-xs"> {{$review->created_at}} </p>
       <x-rating :rating="$review->rating" />   {{-- Rating component --}}
       <p><?php echo $review->review_text ?></p>
-      
-      
-         {{-- Like/Dislike buttons --}}
+           
       <div class="flex my-4 place-content-between">
          <div>
-            @include('reviews.like-buttons')
+            @include('reviews.like-buttons')  {{-- Like/Dislike buttons --}}
          </div>
          <p><i> {{"Posted by: " . $review->users->user_name}} </i></p>
       </div>
@@ -40,7 +38,7 @@
 
       {{-- Post a comment --}}
       <button class="mt-2 p-1 text-xs" onclick="hideShow('comment-review-{{$review->id}}')">Comment the Review</button>
-      @include('reviews.post-comment')
+      @include('comments.post-comment')
 
       {{-- Show Comments for the review --}}
       @if(!$review->comments->isEmpty())
@@ -56,46 +54,20 @@
                         </form>
                         <span class="px-2"><b> {{$comment->users->user_name}}: </b></span>
                         <span class="text-xs pt-1"><i> {{$comment->timeSincePost()}} </i></span>
- 
-
-
-                     {{-- <form class="inline-block" method="POST" action="/comments/{{$comment->id}}">
-                        @csrf
-                        @method('DELETE')                    
-                        <x-button-delete>Delete</x-button-delete>
-                     </form> --}}
                   </div>
                   <p> {{$comment->comment}} </p>
                </div>
 
                <div class="mb-2 pl-12">
 
-               {{-- Post a reply --}}
+                  {{-- Post a subcomment/reply --}}
                   <button class="p-1 text-xs" onclick="hideShow('subcomment-comment-{{$comment->id}}')">Reply</button>
-                  @include('reviews.post-subcomment')
+                  @include('subcomments.post-subcomment')
 
-                  {{-- Show subcomments/replys for comment --}}
+                  {{-- Show subcomments/replies for comment --}}
                   @if(!$comment->subcomments->isEmpty())
-                     <button 
-                     class=" p-1 text-xs" 
-                     onclick="hideShow('subcomments-comment-{{$comment->id}}')">
-                     Show replys</button>
-
-                     <div id="subcomments-comment-{{$comment->id}}" class=" hidden">
-                        @foreach($comment->subcomments as $subcomment)
-                        <div class="flex flex-col">
-                           <div class="flex">
-                              <form method="POST" action="/subcomments/flag/{{$subcomment->id}}">
-                                 @csrf
-                                 <button><i class="fa-sharp fa-regular fa-flag fa-2xs p-1"></i></button>
-                              </form>
-                              <span class="pr-2"><i> {{$subcomment->timeSinceReply()}} </i></span>
-                              <p class="pr-1"><b> {{$subcomment->users->user_name . ":"}} </b></p>
-                           </div>
-                           <p class="pl-4"> {{$subcomment->subcomment}} </p>
-                        </div>
-                        @endforeach
-                     </div>
+                  <button class=" p-1 text-xs" onclick="hideShow('subcomments-comment-{{$comment->id}}')">Show replys</button>
+                  @include('subcomments.comment-replies')
                   @endif
                </div>
                                     

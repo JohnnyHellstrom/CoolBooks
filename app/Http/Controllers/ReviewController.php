@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\User;
 use App\Models\Review;
 use App\Models\Comment;
 use App\Models\SubComment;
@@ -16,14 +17,27 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $flaggedReviews = Review::where('is_flagged', true)->where('is_deleted', false)->get();
-        $flaggedComments = Comment::where('is_flagged', true)->where('is_deleted', false)->get();
-        $flaggedSubcomments = SubComment::where('is_flagged', true)->where('is_deleted', false)->get();
+        $flaggedReviews = Review::where('is_flagged', true)->where('is_deleted', false)->orderBy('created_at', 'desc')->get();
+        $flaggedComments = Comment::where('is_flagged', true)->where('is_deleted', false)->orderBy('created_at', 'desc')->get();
+        $flaggedSubcomments = SubComment::where('is_flagged', true)->where('is_deleted', false)->orderBy('created_at', 'desc')->get();
         return view('reviews.index', [
         'reviews' => $flaggedReviews,
         'comments' => $flaggedComments,
-        'Subcomments' => $flaggedSubcomments,
+        'subcomments' => $flaggedSubcomments,
     ]);
+    }
+
+    public function user_posts(string $id)
+    {
+        $flaggedReviews = Review::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        $flaggedComments = Comment::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        $flaggedSubcomments = SubComment::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        $user = User::where('id', $id)->first();
+        return view('reviews.user-reviews', [
+            'reviews' => $flaggedReviews,
+            'comments' => $flaggedComments,
+            'subcomments' => $flaggedSubcomments,
+        ]);
     }
 
 
@@ -64,7 +78,7 @@ class ReviewController extends Controller
 
     // Get confirm-hide view
     public function confirm_hide(Review $review){
-        return view('reviews.hide-review', ['review' => $review]);
+        return view('reviews.hide', ['review' => $review]);
     }
     // Hide flagged review
     public function hide(Review $review){

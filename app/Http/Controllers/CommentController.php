@@ -16,12 +16,38 @@ class CommentController extends Controller
     }
 
     /**
-     * Edit a newly flagged comment.
+     * Flag a comment.
      */
     public function flag(string $id)
     {
         Comment::where('id', $id)->update(['is_flagged' => "1"]);
         return redirect()->back();
+    }
+    // Confirm flagg removal
+    public function confirm_flag(Comment $comment)
+    {
+       return view('comments.remove-flag', ['comment' => $comment]);
+    }
+    // Remove flagg
+    public function remove_flag(Comment $comment)
+    {
+        $comment->where('id', $comment->id)->update(['is_flagged' => false]);
+        return redirect('reviews')->with('message', 'Flagg removed from comment');
+    }
+
+
+
+    // Get confirm-hide view
+    public function confirm_hide(Comment $comment){
+        return view('comments.hide', ['comment' => $comment]);
+    }
+        /**
+     * Hide comment.
+     */
+    public function hide(Comment $comment)
+    {
+        $comment->where('id', $comment->id)->update(['is_deleted' => true]);
+        return redirect('/reviews');
     }
 
     /**
