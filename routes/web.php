@@ -1,18 +1,19 @@
 <?php
 
+use App\Models\Role;
+use App\Models\Subcomment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GenreController;
-use App\Http\Controllers\AuthorController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SubCommentController;
-use App\Models\Role;
-use App\Models\Subcomment;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,13 +104,12 @@ Route::post('users/authenticate', [UserController::class, 'authenticate']);
 //Logout
 // Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+//admin
+Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/admin/{user}edit', [AdminController::class, 'edit']);
+Route::get('/admin/{user}', [AdminController::class, 'show']);
 
 //Home
-Route::get('/',[HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [HomeController::class, 'about']);
 Route::get('/contact', [HomeController::class, 'contact']);
-
-
-/*Route::get('/', function () {
-    return view('welcome');
-});*/

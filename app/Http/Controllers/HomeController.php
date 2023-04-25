@@ -7,6 +7,8 @@ use App\Models\Genre;
 use App\Models\Author;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -19,6 +21,12 @@ class HomeController extends Controller
     // }
     public function index(Book $book)
     {
+        // Session::flush();
+
+        // Auth::logout();
+
+        // return redirect('login');
+        // dd('hej');
         //Get 3 random books in a genre
         $rand_genre = random_int(1, count(Genre::all()));
 
