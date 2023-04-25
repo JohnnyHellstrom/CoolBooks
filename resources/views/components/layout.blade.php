@@ -45,40 +45,30 @@
             <ul class="flex items-end space-x-6 mr-6 text-lg">
                 @auth
                 <li>
-                    <span>
-                        Welcome to CoolBooks, {{auth()->user()->user_name}}
-                    </span>    
-                </li>
-                @endauth                 
-                <li>
                     <a href="/books" class="hover:text-laravel"><i class="fa fa-book p-1"></i>Books</a>
                 </li>
                 <li>
                   <a href="/authors" class="hover:text-laravel"><i class="fa-solid fa-pen-nib p-1"></i>Authors</a>
                 </li>
-                @if(auth()->user() && auth()->user()->is_admin)
                 <li>
                   <a href="/genres" class="hover:text-laravel"><i class="fa-solid fa-masks-theater p-1"></i>Genres</a>
                 </li>
                 <li>
                   <a href="/reviews" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square p-1"></i>Reviews</a>
                 </li>
-                @endif
-                @auth
                 <li>
-                    <form method="post" class="inline" action="/logout">
+                    <form method="GET" class="inline" action="/logout">
                     @csrf
                     <button type="submit"><i class="fa-solid fa-door-closed p-1"></i>Logout</button>
                     </form>
-                </li>                
-                @else
+                </li>
+                @endauth
                 <li>
                     <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus p-1"></i> Register</a>
                 </li>
                 <li>
                     <a href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket p-1"></i>Login</a>
                 </li>
-                @endauth
             </ul>
         </nav>
 <main class="w-2/3 flex flex-col bg-gray-400 p-4 m-auto mb-5">

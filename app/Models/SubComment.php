@@ -16,20 +16,19 @@ class Subcomment extends Model
         $now = Carbon::now();
         $postedAt = Carbon::parse($this->attributes['created_at']);
         $diff = $postedAt->diffInHours($now);
-        $diff += 1;
         switch ($diff) {
-            case $diff < 24:
+            case $diff <= 24:
                 return "{$diff}h";
                 break;
-            case $diff < 168:
+            case $diff <= 168:
                 $diffDays = $postedAt->diffInDays($now);
                 return "{$diffDays}d";
                 break;
-            case $diff < 672:
+            case $diff <= 672:
                 $diffWeeks = $postedAt->diffInWeeks($now);
                 return "{$diffWeeks}w";
                 break;
-            case $diff < 8760:
+            case $diff <= 8760:
                 $diffMonths = $postedAt->diffInMonths($now);
                 return "{$diffMonths}m";
                 break;

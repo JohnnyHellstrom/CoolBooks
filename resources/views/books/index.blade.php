@@ -3,10 +3,8 @@
 
    <header>
       <h2 class="text-3xl text-center font-bold my-2 uppercase">Books</h2>
-      <div class="flex justify-center md:justify-center mt-1 mb-1"> 
-        @if(auth()->user() && auth()->user()->is_admin)        
+      <div class="flex justify-center md:justify-center mt-1 mb-1">        
         <x-button-create><a href="/books/create">Create Book</a></x-button-create>
-        @endif
       </div>      
    </header>   
 
@@ -31,14 +29,12 @@
                 </td>
                 
                 <td class="px-2 py-4 border-t border-b border-gray-300 text-lg text-right">
-                  @if(auth()->user() && auth()->user()->is_admin)
                   <a a href="/books/{{$book->id}}/edit"><x-button-edit>Edit</x-button-edit></a> |
                   <form method="POST" action="/books/{{$book->id}}">
                     @csrf
                     @method('delete')
                     <x-button-delete>Delete</x-button-delete>
                   </form> |
-                  @endif
                   <a href="/books/{{$book->id}}"><x-button-view>View</x-button-view></a>
                 </td>               
             </tr>  

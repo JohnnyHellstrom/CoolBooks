@@ -1,4 +1,4 @@
-   {{-- <h3 class="text-2xl text-center"> Post a review </h3> --}}
+<h3 class="text-2xl text-center"> Post a review </h3>
    <form method="POST" action="/reviews">
       @csrf 
       <input type="hidden" name="book_id" value="{{$books->id}}">

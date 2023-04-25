@@ -43,7 +43,7 @@ class Book extends Model
     }
 
     public function reviews(){
-        return $this->hasMany(Review::class, 'book_id')->orderBy('created_at', 'desc');
+        return $this->hasMany(Review::class, 'book_id');
     }
 
     public function authors(){
