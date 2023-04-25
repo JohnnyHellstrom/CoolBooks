@@ -14,6 +14,38 @@ class AdminController extends Controller
         return view('/admin.index', ['users' => User::all()]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $formFields = $request->validate([
+            'role_id' => 'required',
+        ]);
+
+        $formFields['is_deleted'] = 0;
+
+        User::create($formFields);
+
+        return redirect('/admin')->with('message', 'Role updated successfully!');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, User $user)
+    {
+        $formFields = $request->validate([
+            'role_id' => 'required',
+        ]);
+
+        $formFields['is_deleted'] = 0;
+
+        $user->update($formFields);
+
+        return back()->with('message', 'User updated successfully!');
+    }
+
     //show single user
     public function show(User $user)
     {
@@ -21,13 +53,19 @@ class AdminController extends Controller
     }
 
     //edit a user
-    public function edit(Admin $admin)
+    public function edit(User $user)
     {
-        return view('/admin.edit');
+        return view('/admin.edit', ['users' => $user]);
     }
 
     //delete a user
     public function destroy(Admin $admin)
     {
+    }
+
+    //info about user
+    public function info(Admin $admin)
+    {
+        return view('/admin.info');
     }
 }

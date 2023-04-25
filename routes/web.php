@@ -106,8 +106,10 @@ Route::post('users/authenticate', [UserController::class, 'authenticate']);
 
 //admin
 Route::get('/admin', [AdminController::class, 'index']);
-Route::get('/admin/{user}edit', [AdminController::class, 'edit']);
+Route::get('/admin/{user}/edit', [AdminController::class, 'edit']);
 Route::get('/admin/{user}', [AdminController::class, 'show']);
+Route::put('/admin/{user}', [AdminController::class, 'update']);
+Route::get('/admin/info', [AdminController::class, 'info']);
 
 //Home
 Route::get('/', [HomeController::class, 'index']);
