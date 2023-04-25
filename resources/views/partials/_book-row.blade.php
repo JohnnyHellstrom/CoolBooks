@@ -7,7 +7,7 @@
         <div class="w-48 tooltip pb-2">
             <div class="">
                 <a class="self-center" href="/books/{{ $book->id }}"><img class="h-36"
-                        src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/no-image.png') }}"
+                        src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/no-image.jpg') }}"
                         alt="" /></a>
                 {{-- Text for the tooltips thing --}}
                 <span class="tooltiptext tooltip_main">Title:<br><b>{{ $book->title }}</b> <br>
