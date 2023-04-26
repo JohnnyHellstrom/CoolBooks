@@ -10,6 +10,9 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/datepicker.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" defer charset="utf-8"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -63,6 +66,9 @@
                 <li>
                     <a href="/reviews" class="hover:text-laravel"><i
                             class="fa-solid fa-pen-to-square p-1"></i>Reviews</a>
+                </li>
+                <li>
+                    <a href="/charts" class="hover:text-laravel"><i class="fa-solid fa-chart-simple p-1"></i>Statistics</a>
                 </li>
                 <li>
                     <a href="/admin" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square p-1"></i>Admin</a>

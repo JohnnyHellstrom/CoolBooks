@@ -14,6 +14,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SubCommentController;
+use App\Http\Controllers\ChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,8 @@ Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
   Route::get('/genres/{genre}/hide', [GenreController::class, 'confirm_hide']);           //Show hide genre form
   Route::put('/genres/{genre}/hide', [GenreController::class, 'hide']);                   //Hide genre
   Route::get('/genres/{genre}', [GenreController::class, 'show']);                        //Show selected genre - keep as last
+  //Charts
+  Route::get('/charts', [ChartController::class, 'index']);                               //Show statistics chart with and selection options
   //admin
   Route::get('/admin', [AdminController::class, 'index']);
   Route::get('/admin/{user}/edit', [AdminController::class, 'edit']);
