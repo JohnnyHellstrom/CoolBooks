@@ -1,7 +1,7 @@
 <div class="grid gap-2 grid-cols-4 grid-rows-1 justify-items-center mt-10 ">
 
     @if(!$books->isEmpty())
-        <h2>{{$three_book[0]->genres->name}}</h2>
+        {{-- <h2>{{$three_book[0]->genres->name}}</h2> --}}
         @foreach ($three_book as $book)
 
         <div class="w-48 tooltip pb-2">
