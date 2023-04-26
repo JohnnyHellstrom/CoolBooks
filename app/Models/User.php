@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
+        'is_deleted',
     ];
 
     /**
@@ -43,23 +45,28 @@ class User extends Authenticatable
     ];
 
     //Relationship
-    public function roles(){
+    public function roles()
+    {
         return $this->belongsTo(Role::class, 'role_id');
     }
-    public function books(){
+    public function books()
+    {
         return $this->hasMany(Book::class, 'user_id');
     }
-    public function reviews(){
+    public function reviews()
+    {
         return $this->hasMany(Review::class, 'user_id');
     }
-    public function likedreviews(){
+    public function likedreviews()
+    {
         return $this->hasMany(LikedReview::class, 'user_id');
-    } 
-    public function comments(){
+    }
+    public function comments()
+    {
         return $this->hasMany(Comment::class, 'user_id');
     }
-    public function subcomments(){
+    public function subcomments()
+    {
         return $this->hasMany(Subcomment::class, 'user_id');
     }
-    
 }

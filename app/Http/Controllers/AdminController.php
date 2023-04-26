@@ -17,36 +17,29 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(Request $request)
-    // {
-    //     dd($request);
-    //     if ($request->has('form1')) {
-    //         $formFields = $request->validate([
-    //             'role_id' => 'required',
-    //         ]);
-
-    //         // $formFields['is_deleted'] = 0;
-
-    //         User::create($formFields);
-
-
-    //         return redirect('/admin')->with('message', 'Role updated successfully!');
-    //     };
-
-    //     if ($request->has('form1')) {
-    //         $formFields = $request->validate([
-    //             'is_deleted' => 'required',
-    //         ]);
-
-    //         // $formFields['is_deleted'] = 0;
-
-    //         User::create($formFields);
+    public function store(Request $request)
+    {
+        dd($request);
+        if ($request->has('form1')) {
+            $formFields = $request->validate([
+                'role_id' => 'required',
+            ]);
+            // $formFields['is_deleted'] = 0;
+            User::create($formFields);
+            return redirect('/admin')->with('message', 'Role updated successfully!');
+        };
 
 
-    //         return redirect('/admin')->with('message', 'Role updated successfully!');
-    //     };
-    //     // return redirect('/admin')->with('message', 'Role updated successfully!');
-    // }
+        if ($request->has('form1')) {
+            $formFields = $request->validate([
+                'is_deleted' => 'required',
+            ]);
+            // $formFields['is_deleted'] = 0;
+            User::create($formFields);
+            return redirect('/admin')->with('message', 'Role updated successfully!');
+        };
+        // return redirect('/admin')->with('message', 'Role updated successfully!');
+    }
 
     /**
      * Update the specified resource in storage.
@@ -60,11 +53,10 @@ class AdminController extends Controller
             ]);
 
             // $formFields['is_deleted'] = 0;
-
             $user->update($formFields);
-
             return back()->with('message', 'User updated successfully!');
         };
+
         // dd($request->has('form2'));
         if ($request->has('form2')) {
             $formFields = $request->validate([
@@ -72,9 +64,7 @@ class AdminController extends Controller
             ]);
 
             // $formFields['is_deleted'] = 0;
-
             $user->update($formFields);
-
             return back()->with('message', 'User updated successfully!');
         };
         // return back()->with('message', 'User updated successfully!');

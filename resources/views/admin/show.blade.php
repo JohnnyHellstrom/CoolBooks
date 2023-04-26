@@ -61,7 +61,6 @@
                         <select name="is_deleted" selected='{{ $users->is_deleted }}'>
                             <option value="0">UnDeleted</option>
                             <option value="1">Deleted</option>
-                            {{-- <option value="fiat">Fiat</option> --}}
                         </select>
                         @error('is_deleted')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
