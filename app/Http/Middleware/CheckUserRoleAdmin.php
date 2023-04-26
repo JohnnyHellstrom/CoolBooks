@@ -15,11 +15,12 @@ class CheckUserRoleAdmin
      */
     public function handle(Request $request, Closure $next)
     {   
-        if (auth()->check() && auth()->user()->roles->name == 'admin') {
+        if(auth()->check() && auth()->user()->roles->name == "admin")
+        {            
             return $next($request);
-        }
+        }        
 
-        abort(403, 'Unauthorized action.');
+        abort(403, 'This page doesnt exists.');
     }
 }
 

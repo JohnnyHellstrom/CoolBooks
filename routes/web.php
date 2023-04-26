@@ -28,6 +28,8 @@ use App\Http\Controllers\SubCommentController;
 // Books //
 Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
 {
+  // can we get the others inside here...
+
   Route::get('/books/create', [BookController::class, 'create']);
   Route::post('/books', [BookController::class, 'store']);
   Route::get('/books/{book}/edit', [BookController::class, 'edit']);
@@ -60,7 +62,7 @@ Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
   Route::get('/admin/info', [AdminController::class, 'info']);
 });
 
-
+// public access
 Route::get('/books', [BookController::class, 'index']);
 // Route::get('/books', [BookController::class, 'index'])->middleware('checkUserRoleAdmin');
 Route::get('/books/{book}', [BookController::class, 'show']);
@@ -77,7 +79,7 @@ Route::get('/users', [UserController::class, 'index']);
 
 
 //Reviews
-Route::get('/reviews', [ReviewController::class, 'index']);
+Route::get('/reviews', [ReviewController::class, 'index'])->middleware('checkUserRoleModerator');
 Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit']);
 Route::post('/reviews', [ReviewController::class, 'store']);
 Route::put('/reviews/{review}', [ReviewController::class, 'update']);
