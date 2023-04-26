@@ -70,9 +70,7 @@
 
       <div class="mb-6">
         <label for="description" class="inline-block text-lg mb-2">Book Description</label>
-        <textarea class="border border-gray-200 rounded p-2 w-full" name="description" rows="10" placeholder="What is the book about..">
-          {{$books->description}}
-        </textarea>
+        <textarea class="border border-gray-200 rounded p-2 w-full" name="description" rows="10" placeholder="What is the book about..">{{$books->description}}</textarea>
 
         @error('description') <!-- another directive, this is an error directive -->
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
