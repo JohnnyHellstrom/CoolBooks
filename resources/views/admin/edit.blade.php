@@ -13,6 +13,7 @@
 
             <div class="mb-6">
                 <label for="role_id" class="inline-block text-lg mb-2">Role</label>
+                <p>1: Admin 2: User</p>
                 <input type="text" class="border border-gray-200 rounded p-2 w-full" name="role_id"
                     placeholder="E.g. Jane" value="{{ $users->role_id }}" />
                 @error('role_id')

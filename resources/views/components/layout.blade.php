@@ -109,6 +109,7 @@
                     width="50" /></a>
         </div>
         <p class="ml-2">Copyright &copy; 2023, All Rights reserved</p>
+        <a href="#top" class="absolute top-1/4 right-44 bg-black text-white py-2 px-5">Back To Top</a>
         <a href="/" class="absolute top-1/4 right-10 bg-black text-white py-2 px-5">Home page</a>
     </footer>
     <x-flash-message />
