@@ -1,25 +1,36 @@
 <x-layout>
+    <header class="text-center">
+      <h2 class="text-2xl font-bold uppercase mb-1">Login</h2>
+      <p class="mb-4">Log into your account</p>
+    </header>
     <div class="flex justify-center md:justify-center">
-        {{-- when uploading files etc you have to have the enctype="multipart/form-data" --}}
-        <form method="POST" action="{{ route('login') }}" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            @csrf
+        <form action="/users/authenticate" method="post">
+        @csrf            
             <div class="mb-6">
-            
-                <label for="email">Email</label>
-                <input id="email" type="email" name="email" value="{{old('email')}}"required autofocus>
+                <label for="email" class="inline-block text-lg mb-2">Email</label>
+                <input type="email" class="border border-gray-200 rounded p-2 w-full" name="email" value="{{old('email')}}"/>
+                
                 @error('email')
-                <span>{{$message}}</span>
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
-            <div class="flex justify-center md:justify-center">
-                <label for="password">Password</label>
-                <input id="password" type="password" name="password" required>
+    
+            <div class="mb-6">
+                <label for="password" class="inline-block text-lg mb-2">Password</label>
+                <input type="password" class="border border-gray-200 rounded p-2 w-full" name="password" value="{{old('password')}}"/>
+    
                 @error('password')
-                <span>{{ $message }}</span>
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
-            <div>
-                <button type="submit">Log in</button>
+    
+            <div class="mb-6">
+                <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">Sign in</button>
+            </div>
+    
+            <div class="mt-8">
+                <p>Don't have an account?<a href="/register" class="text-laravel">Register</a></p>
             </div>
         </form>
+    </div>
 </x-layout>
