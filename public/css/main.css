@@ -64,6 +64,11 @@
     visibility: visible;
 }
 
+.uppercase
+{
+        text-transform: uppercase;
+}
+
 
 
 

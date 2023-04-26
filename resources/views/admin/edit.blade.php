@@ -12,7 +12,9 @@
             <!-- prevents cross-site scripting attacks -->
 
             <div class="mb-6">
-                <label for="role_id" class="inline-block text-lg mb-2">Role</label>
+                <p class="uppercase"><b>Current Role: {{ $users->roles->name }}</b></p>
+                <br>
+                <label for="role_id" class="inline-block text-lg mb-2"><b>Change Role</b></label>
                 <select name="role_id">
                     <option value="1">Admin</option>
                     <option value="2">User</option>
