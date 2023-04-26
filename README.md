@@ -11,9 +11,6 @@ After downloading files from github to VS Code via Github desktop
 8. In terminal, run "php artisan serve" to start your server/environment
 9. Open projekt in browser and click refresh to generate new app key
 
-To install Laravel Charts package (Chartsjs)
-1. In terminal, run "composer require consoletvs/charts"
-2. In terminal, run "php artisan vendor:publish --tag=charts_config"
 
 To refresh and seed DB in terminal
 1. php artisan migrate:fresh

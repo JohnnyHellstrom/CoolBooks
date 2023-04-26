@@ -65,9 +65,6 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'user'
         ]);
-        Role::create([
-            'name' => 'moderator'
-        ]);
 
         User::create([
             'role_id' => 1,
@@ -76,7 +73,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@coolbooks.se',
             'phone' => '555-555-555',
             'password' => bcrypt('12345'),
-            'is_deleted' => 0,            
+            'is_deleted' => 0,
         ]);
         User::create([
             'role_id' => 2,
@@ -88,7 +85,7 @@ class DatabaseSeeder extends Seeder
             'is_deleted' => 0,
         ]);
         User::create([
-            'role_id' => 3,
+            'role_id' => 1,
             'user_name' => 'new_admin',
             'name' => 'new admin',
             'email' => 'new_admin@coolbooks.se',
