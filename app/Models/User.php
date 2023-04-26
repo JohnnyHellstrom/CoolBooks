@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'role_id',
         'is_deleted',
+        'user_name'
     ];
 
     /**
