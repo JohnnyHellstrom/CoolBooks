@@ -76,8 +76,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@coolbooks.se',
             'phone' => '555-555-555',
             'password' => bcrypt('12345'),
-            'is_deleted' => 0,
-            'is_admin' => 1,
+            'is_deleted' => 0,            
         ]);
         User::create([
             'role_id' => 2,
