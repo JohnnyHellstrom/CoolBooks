@@ -33,6 +33,31 @@ Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
   Route::get('/books/{book}/edit', [BookController::class, 'edit']);
   Route::put('/books/{book}', [BookController::class, 'update']);
   Route::delete('/books/{book}', [BookController::class, 'destroy']);
+  Route::get('/authors/create', [AuthorController::class, 'create']);                     //Show create author form
+  Route::post('/authors', [AuthorController::class, 'store']);                            //Store new author
+  Route::get('/authors/{author}/edit', [AuthorController::class, 'edit']);                //Show edit author form
+  Route::put('/authors/{author}', [AuthorController::class, 'update']);                   //Update author
+  Route::get('/authors/{author}/delete', [AuthorController::class, 'confirm_delete']);    //Show delete author form
+  Route::delete('/authors/{author}', [AuthorController::class, 'destroy']);               //Delete author
+  Route::get('/authors/{author}/hide', [AuthorController::class, 'confirm_hide']);        //Show hide author form
+  Route::put('/authors/{author}/hide', [AuthorController::class, 'hide']);                //Hide author
+  //Genres
+  Route::get('/genres', [GenreController::class, 'index']);                               //Show all genres
+  Route::get('/genres/create', [GenreController::class, 'create']);                       //Show create genre form
+  Route::post('/genres', [GenreController::class, 'store']);                              //Store new genre
+  Route::get('/genres/{genre}/edit', [GenreController::class, 'edit']);                   //Show edit genre form
+  Route::put('/genres/{genre}', [GenreController::class, 'update']);                      //Update genre
+  Route::get('/genres/{genre}/delete', [GenreController::class, 'confirm_delete']);       //Show delete genre form
+  Route::delete('/genres/{genre}', [GenreController::class, 'destroy']);                  //Delete genre
+  Route::get('/genres/{genre}/hide', [GenreController::class, 'confirm_hide']);           //Show hide genre form
+  Route::put('/genres/{genre}/hide', [GenreController::class, 'hide']);                   //Hide genre
+  Route::get('/genres/{genre}', [GenreController::class, 'show']);                        //Show selected genre - keep as last
+  //admin
+  Route::get('/admin', [AdminController::class, 'index']);
+  Route::get('/admin/{user}/edit', [AdminController::class, 'edit']);
+  Route::get('/admin/{user}', [AdminController::class, 'show']);
+  Route::put('/admin/{user}', [AdminController::class, 'update']);
+  Route::get('/admin/info', [AdminController::class, 'info']);
 });
 
 
@@ -43,31 +68,12 @@ Route::get('/books/{book}', [BookController::class, 'show']);
 
 // Authors
 Route::get('/authors', [AuthorController::class, 'index']);                             //Show all authors
-Route::get('/authors/create', [AuthorController::class, 'create'])->middleware('checkUserRoleAdmin');                     //Show create author form
-Route::post('/authors', [AuthorController::class, 'store'])->middleware('checkUserRoleAdmin');                            //Store new author
-Route::get('/authors/{author}/edit', [AuthorController::class, 'edit'])->middleware('checkUserRoleAdmin');                //Show edit author form
-Route::put('/authors/{author}', [AuthorController::class, 'update'])->middleware('checkUserRoleAdmin');                   //Update author
-Route::get('/authors/{author}/delete', [AuthorController::class, 'confirm_delete'])->middleware('checkUserRoleAdmin');    //Show delete author form
-Route::delete('/authors/{author}', [AuthorController::class, 'destroy'])->middleware('checkUserRoleAdmin');               //Delete author
-Route::get('/authors/{author}/hide', [AuthorController::class, 'confirm_hide'])->middleware('checkUserRoleAdmin');        //Show hide author form
-Route::put('/authors/{author}/hide', [AuthorController::class, 'hide'])->middleware('checkUserRoleAdmin');                //Hide author
 Route::get('/authors/{author}', [AuthorController::class, 'show']);                     //Show selected author - keep as last
 
 // Users
 Route::get('/users', [UserController::class, 'index']);
 
 
-//Genres
-Route::get('/genres', [GenreController::class, 'index'])->middleware('checkUserRoleAdmin');                               //Show all genres
-Route::get('/genres/create', [GenreController::class, 'create'])->middleware('checkUserRoleAdmin');                       //Show create genre form
-Route::post('/genres', [GenreController::class, 'store'])->middleware('checkUserRoleAdmin');                              //Store new genre
-Route::get('/genres/{genre}/edit', [GenreController::class, 'edit'])->middleware('checkUserRoleAdmin');                   //Show edit genre form
-Route::put('/genres/{genre}', [GenreController::class, 'update'])->middleware('checkUserRoleAdmin');                      //Update genre
-Route::get('/genres/{genre}/delete', [GenreController::class, 'confirm_delete'])->middleware('checkUserRoleAdmin');       //Show delete genre form
-Route::delete('/genres/{genre}', [GenreController::class, 'destroy'])->middleware('checkUserRoleAdmin');                  //Delete genre
-Route::get('/genres/{genre}/hide', [GenreController::class, 'confirm_hide'])->middleware('checkUserRoleAdmin');           //Show hide genre form
-Route::put('/genres/{genre}/hide', [GenreController::class, 'hide'])->middleware('checkUserRoleAdmin');                   //Hide genre
-Route::get('/genres/{genre}', [GenreController::class, 'show'])->middleware('checkUserRoleAdmin');                        //Show selected genre - keep as last
 
 
 //Reviews
@@ -122,12 +128,6 @@ Route::post('users/authenticate', [UserController::class, 'authenticate']);
 //Logout
 // Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-//admin
-Route::get('/admin', [AdminController::class, 'index'])->middleware('checkUserRoleAdmin');
-Route::get('/admin/{user}/edit', [AdminController::class, 'edit'])->middleware('checkUserRoleAdmin');
-Route::get('/admin/{user}', [AdminController::class, 'show'])->middleware('checkUserRoleAdmin');
-Route::put('/admin/{user}', [AdminController::class, 'update'])->middleware('checkUserRoleAdmin');
-Route::get('/admin/info', [AdminController::class, 'info'])->middleware('checkUserRoleAdmin');
 
 //Home
 Route::get('/', [HomeController::class, 'index']);
