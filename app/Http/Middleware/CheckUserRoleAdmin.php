@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,7 +16,7 @@ class CheckUserRoleAdmin
      */
     public function handle(Request $request, Closure $next)
     {   
-        if(auth()->check() && auth()->user()->roles->name == "admin")
+        if(auth()->check() && auth()->user()->role_id == Role::IS_ADMIN)
         {            
             return $next($request);
         }        
