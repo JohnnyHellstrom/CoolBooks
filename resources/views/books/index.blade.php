@@ -60,8 +60,7 @@
         </tbody>
     </table>
 
+    <div class="mt-6 p-4">
+        {{ $books->links() }}
+    </div>
 </x-layout>
-
-<div class="mt-6 p-4">
-    {{ $books->links() }}
-</div>
