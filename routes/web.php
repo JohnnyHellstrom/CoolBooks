@@ -98,12 +98,13 @@ Route::get('/reviews/user/{review}', [ReviewController::class, 'user_posts']);
 
 //Comments
 Route::post('/comments', [CommentController::class, 'store']);
-Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
 Route::post('/comments/flag/{comment}', [CommentController::class, 'flag']);
 Route::get('/comments/flag/{comment}', [CommentController::class, 'confirm_flag']);
 Route::put('/comments/flag/{comment}', [CommentController::class, 'remove_flag']);
 Route::get('/comments/hide/{comment}', [CommentController::class, 'confirm_hide']);
 Route::put('/comments/hide/{comment}', [CommentController::class, 'hide']);
+Route::get('/comments/delete/{comment}', [CommentController::class, 'confirm_delete']);
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
 
 //SubComments
 Route::post('/subcomments', [SubCommentController::class, 'store']);
@@ -112,6 +113,8 @@ Route::get('/subcomments/flag/{subcomment}', [SubCommentController::class, 'conf
 Route::put('/subcomments/flag/{subcomment}', [SubCommentController::class, 'remove_flag']);
 Route::get('/subcomments/hide/{subcomment}', [SubCommentController::class, 'confirm_hide']);
 Route::put('/subcomments/hide/{subcomment}', [SubCommentController::class, 'hide']);
+Route::get('/subcomments/delete/{subcomment}', [SubCommentController::class, 'confirm_delete']);
+Route::delete('/subcomments/{subcomment}', [SubCommentController::class, 'destroy']);
 
 //Register
 // Route::get('/register', [RegistrationController::class, 'showRegistrationForm']);
