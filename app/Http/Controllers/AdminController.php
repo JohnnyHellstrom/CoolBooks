@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ class AdminController extends Controller
     //show all users
     public function index(User $user)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('/admin.index', ['users' => User::all()]);
     }
 
@@ -19,6 +21,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
 
             $formFields = $request->validate([
                 'role_id' => 'required',
@@ -39,6 +42,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         // dd($request->has('form1'));
         if ($request->has('role')) {
             $formFields = $request->validate([
@@ -65,23 +69,27 @@ class AdminController extends Controller
     //show single user
     public function show(User $user)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('/admin.show', ['users' => $user]);
     }
 
     //edit a user
     public function edit(User $user)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('/admin.edit', ['users' => $user]);
     }
 
     //delete a user
     public function destroy(Admin $admin)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
     }
 
     //info about user
     public function info(Admin $admin)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('/admin.info');
     }
 }
