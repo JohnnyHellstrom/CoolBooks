@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('authors.create');
     }
 
@@ -30,6 +32,7 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         $formFields = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -60,6 +63,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('authors.edit', ['author' => $author]);
     }
 
@@ -68,6 +72,7 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         $formFields = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -90,6 +95,7 @@ class AuthorController extends Controller
      */
     public function confirm_delete(Author $author)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('authors.delete', ['author' => $author]);
     }
 
@@ -98,6 +104,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         $author->delete();
         return redirect('/authors')->with('message', 'Author deleted successfully!');
     }
@@ -107,6 +114,7 @@ class AuthorController extends Controller
      */
     public function confirm_hide(Author $author)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('authors.hide', ['author' => $author]);
     }
 
@@ -115,6 +123,7 @@ class AuthorController extends Controller
      */
     public function hide(Author $author)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         $author->update(['is_deleted' => '1']);
         return redirect('/authors')->with('message', 'Author hidden successfully!');
     }

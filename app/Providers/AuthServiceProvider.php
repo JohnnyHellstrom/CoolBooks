@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\Role;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -21,6 +22,16 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('view-button-for-admin', function ($user){
+            return $user->role_id === Role::IS_ADMIN;
+        });
+
+        Gate::define('view-button-for-moderator', function ($user){
+            return $user->role_id === Role::IS_MODERATOR || $user->role_id === Role::IS_ADMIN;        
+        });
+
+        Gate::define('view-button-for-user', function ($user){
+            return $user->role_id === Role::IS_USER || $user->role_id === Role::IS_MODERATOR || $user->role_id === Role::IS_ADMIN;
+        });
     }
 }

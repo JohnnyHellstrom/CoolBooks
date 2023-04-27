@@ -20,9 +20,11 @@
         </div>
     </div>
     <div class="mr-10 mt-20">
-        <x-button-create class="m-2" onclick="hideShow('create-review')">Write Review?</x-button-create>
+        @can('view-button-for-user')
+        <x-button-create class="m-2" onclick="hideShow('create-review')">Write Review?</x-button-create>        
         <section id="create-review" class="hidden">@include('reviews.create')</section>
         @include('reviews.book-reviews')
+        @endcan
      </div> 
      
      

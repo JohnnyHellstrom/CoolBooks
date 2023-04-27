@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
             'biography' => 'Bor i Hamburgsund',
             'is_deleted' => 0
         ]);
-
+        // DO NOT TOUCH THIS ORDER
         Role::create([
             'name' => 'admin'
         ]);

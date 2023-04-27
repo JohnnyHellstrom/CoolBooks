@@ -15,7 +15,9 @@
     <header>
         <h2 class="text-3xl text-center font-bold my-6 uppercase">Authors</h2>
         <div class="flex justify-center md:justify-center mt-1 mb-5">
+            @can('view-button-for-admin')
             <x-button-create><a href="/authors/create">Create New Author</a></x-button-create>
+            @endcan
         </div>
     </header>
 
@@ -37,11 +39,13 @@
                             </div>
                         </td>
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg text-right">
-                            <a href="/authors/{{$author->id}}"><x-button-view>View</x-button-view></a> |
+                            <a href="/authors/{{$author->id}}"><x-button-view>View</x-button-view></a> 
+                            @can('view-button-for-author')|
                             <a href="/authors/{{$author->id}}/edit"><x-button-edit>Edit</x-button-edit></a> |
                             <br>
                             <a href="/authors/{{$author->id}}/hide"><x-button-hide>Hide</x-button-hide></a> |
                             <a href="/authors/{{$author->id}}/delete"><x-button-delete>Delete</x-button-delete></a> |
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

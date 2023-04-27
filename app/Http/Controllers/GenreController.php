@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,7 @@ class GenreController extends Controller
      */
     public function index()
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         // returns genres, that are not set as deleted, in alphabetical order
         $genres = Genre::where('is_deleted', false)->orderBy('name', 'asc')->get();
         return view('genres.index', ['genres' => $genres]);
@@ -22,6 +24,7 @@ class GenreController extends Controller
      */
     public function create()
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('genres.create');
     }
 
@@ -30,6 +33,7 @@ class GenreController extends Controller
      */
     public function store(Request $request, Genre $genre)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         $formFields = $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -47,6 +51,7 @@ class GenreController extends Controller
      */
     public function show(Genre $genre)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('genres.show', ['genre' => $genre]);
     }
 
@@ -55,6 +60,7 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('genres.edit', ['genre' => $genre]);
     }
 
@@ -63,6 +69,7 @@ class GenreController extends Controller
      */
     public function update(Request $request, Genre $genre)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         $formFields = $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -78,6 +85,7 @@ class GenreController extends Controller
      */
     public function confirm_delete(Genre $genre)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('genres.delete', ['genre' => $genre]);
     }
 
@@ -86,6 +94,7 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         $genre->delete();
         return redirect('/genres')->with('message', 'Genre deleted successfully!');
     }
@@ -95,6 +104,7 @@ class GenreController extends Controller
      */
     public function confirm_hide(Genre $genre)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('genres.hide', ['genre' => $genre]);
     }
 
@@ -103,6 +113,7 @@ class GenreController extends Controller
      */
     public function hide(Genre $genre)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         $genre->update(['is_deleted' => '1']);
         return redirect('/genres')->with('message', 'Genre hidden successfully!');
     }

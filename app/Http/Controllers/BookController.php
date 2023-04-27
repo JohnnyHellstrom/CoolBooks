@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Genre;
 use App\Models\Author;
@@ -20,20 +21,15 @@ class BookController extends Controller
     {     
         // only returns the books that are not set "deleted" in the database...
         return view('books.index',
-        [                         
-            // 'books' => Book::with('authors')->with('genres')->get(),
+        [                        
             'books' => Book::with('authors')->with('genres')->where('is_deleted', false)->latest()->paginate(6),
-            // 'books' => Book::all()->paginate(6),
             'books' => Book::where('is_deleted', false)->latest()->filter(request(['tag', 'search']))->paginate(6),
-            // 'authors' => Author::with('books')->get(),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Genre $genre, Author $author)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         return view('books.create',
         [
             'genres' => $genre->all(),
@@ -41,11 +37,10 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {           
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
+
         $formFields = $request->validate([
             'genre_id' => 'required',
             'author_id' => 'required',                       
@@ -76,9 +71,6 @@ class BookController extends Controller
         return redirect('/')->with('message', 'Book created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Book $book)
     {
         return view('books.show',
@@ -92,6 +84,8 @@ class BookController extends Controller
      */
     public function edit(Book $book, Genre $genre, Author $author)
     {        
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
+
         return view('books.edit',
         [
             'books' => $book,
@@ -100,12 +94,10 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * -Add something for the admin if its deleted or not?
-     */
     public function update(Request $request, Book $book)
     {    
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
+
         $formFields = $request->validate([
             'genre_id' => 'required', 
             'author_id' => 'required',                       
@@ -139,9 +131,11 @@ class BookController extends Controller
     //     $book->delete();
     //     return redirect('/')->with('message', 'Book deleted successfully');
     // }
-
+        // for now this is the softdelete
     public function destroy(Book $book)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
+
         $book->update(['is_deleted' => '1']);
 
         return redirect('/')->with('message', 'Book deleted successfully');

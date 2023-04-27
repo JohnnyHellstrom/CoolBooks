@@ -58,8 +58,8 @@
             <li>
                 <a href="/authors" class="hover:text-laravel"><i class="fa-solid fa-pen-nib p-1"></i>Authors</a>
             </li>
-            {{-- {{ dd(auth()->user()->roles->name) }} --}}
-            @if (auth()->user() && auth()->user()->roles->name == 'admin')
+            
+            @can('view-buttons-for-admin')
                 <li>
                     <a href="/genres" class="hover:text-laravel"><i class="fa-solid fa-masks-theater p-1"></i>Genres</a>
                 </li>
@@ -73,7 +73,7 @@
                 <li>
                     <a href="/admin" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square p-1"></i>Admin</a>
                 </li>
-            @endif
+            @endcan
             @auth
                 <li>
                     <form method="post" class="inline" action="/logout">

@@ -29,13 +29,16 @@ use App\Http\Controllers\ChartController;
 // Books //
 Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
 {
-  // can we get the others inside here...
-
-  Route::get('/books/create', [BookController::class, 'create']);
-  Route::post('/books', [BookController::class, 'store']);
-  Route::get('/books/{book}/edit', [BookController::class, 'edit']);
-  Route::put('/books/{book}', [BookController::class, 'update']);
-  Route::delete('/books/{book}', [BookController::class, 'destroy']);
+  Route::resource('books', BookController::class)->names([
+    'index' => 'books.index',
+    'edit' => 'books.edit',
+    'create' => 'books.create'
+  ]);
+  // Route::get('/books/create', [BookController::class, 'create']);
+  // Route::post('/books', [BookController::class, 'store']);
+  // Route::get('/books/{book}/edit', [BookController::class, 'edit']);
+  // Route::put('/books/{book}', [BookController::class, 'update']);
+  // Route::delete('/books/{book}', [BookController::class, 'destroy']);
   Route::get('/authors/create', [AuthorController::class, 'create']);                     //Show create author form
   Route::post('/authors', [AuthorController::class, 'store']);                            //Store new author
   Route::get('/authors/{author}/edit', [AuthorController::class, 'edit']);                //Show edit author form
@@ -63,23 +66,27 @@ Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
   Route::get('/admin/{user}', [AdminController::class, 'show']);
   Route::put('/admin/{user}', [AdminController::class, 'update']);
   Route::get('/admin/info', [AdminController::class, 'info']);
+  // Users
+  Route::get('/users', [UserController::class, 'index']);
 });
 
 // public access
 Route::get('/books', [BookController::class, 'index']);
-// Route::get('/books', [BookController::class, 'index'])->middleware('checkUserRoleAdmin');
 Route::get('/books/{book}', [BookController::class, 'show']);
-
-
-// Authors
 Route::get('/authors', [AuthorController::class, 'index']);                             //Show all authors
-Route::get('/authors/{author}', [AuthorController::class, 'show']);                     //Show selected author - keep as last
+Route::get('/authors/{author}', [AuthorController::class, 'show']);                    //Show selected author - keep as last
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/about', [HomeController::class, 'about']);
+Route::get('/contact', [HomeController::class, 'contact']);
 
-// Users
-Route::get('/users', [UserController::class, 'index']);
 
+Route::middleware(['auth', 'checkUserRoleModerator'])->group(function () {
+  
+});
 
+Route::middleware(['auth'])->group(function () {
 
+});
 
 //Reviews
 Route::get('/reviews', [ReviewController::class, 'index'])->middleware('checkUserRoleModerator');
@@ -95,7 +102,6 @@ Route::put('/reviews/flag/{review}', [ReviewController::class, 'remove_flag']);
 Route::get('/reviews/{review}/hide', [ReviewController::class, 'confirm_hide']);
 Route::put('/reviews/{review}/hide', [ReviewController::class, 'hide']);
 Route::get('/reviews/user/{review}', [ReviewController::class, 'user_posts']);
-
 
 //Comments
 Route::post('/comments', [CommentController::class, 'store']);
@@ -117,28 +123,9 @@ Route::put('/subcomments/hide/{subcomment}', [SubCommentController::class, 'hide
 Route::get('/subcomments/delete/{subcomment}', [SubCommentController::class, 'confirm_delete']);
 Route::delete('/subcomments/{subcomment}', [SubCommentController::class, 'destroy']);
 
-//Register
-// Route::get('/register', [RegistrationController::class, 'showRegistrationForm']);
-
-
 //Login
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 Route::post('/users', [UserController::class, 'store']);
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('users/authenticate', [UserController::class, 'authenticate']);
-
-//The "->name('login')" method is used to give the route a specific name, 
-//which can be used to generate URLs for that route in other parts of the application. In this case, the route is named "login".
-
-// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-// Route::post('/login', [LoginController::class, 'login']);
-
-//Logout
-// Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
-
-//Home
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/about', [HomeController::class, 'about']);
-Route::get('/contact', [HomeController::class, 'contact']);

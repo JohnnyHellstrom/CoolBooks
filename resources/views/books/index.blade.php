@@ -4,9 +4,9 @@
     <header>
         <h2 class="text-3xl text-center font-bold my-2 uppercase">Books</h2>
         <div class="flex justify-center md:justify-center mt-1 mb-1">
-            @if (auth()->user() && auth()->user()->is_admin)
+            @can('view-button-for-admin')
                 <x-button-create><a href="/books/create">Create Book</a></x-button-create>
-            @endif
+            @endcan
         </div>
     </header>
 
@@ -25,16 +25,15 @@
                         </td>
                         @foreach ($book->authors as $author)
                             <td class="py-4 border-t border-b border-gray-300 text-lg">
-                                <a
-                                    href="/authors/{{ $author->id }}">{{ $author->first_name . ' ' . $author->last_name }}</a>
+                                <a href="/authors/{{ $author->id }}">{{ $author->first_name . ' ' . $author->last_name }}</a>
                             </td>
                         @endforeach
                         <td class="px-0 py-4 border-t border-b border-gray-300 text-lg">
-                            <a href="/books/{{ $book->id }}">{{ $book->genres['name'] }}</a>
+                            <p>{{ $book->genres['name'] }}<p>
                         </td>
 
                         <td class="px-2 py-4 border-t border-b border-gray-300 text-lg text-right">
-                            @if (auth()->user() && auth()->user()->is_admin)
+                            @can('view-button-for-admin')
                                 <a a href="/books/{{ $book->id }}/edit">
                                     <x-button-edit>Edit</x-button-edit>
                                 </a> |
@@ -43,7 +42,7 @@
                                     @method('delete')
                                     <x-button-delete>Delete</x-button-delete>
                                 </form> |
-                            @endif
+                            @endcan
                             <a href="/books/{{ $book->id }}">
                                 <x-button-view>View</x-button-view>
                             </a>
