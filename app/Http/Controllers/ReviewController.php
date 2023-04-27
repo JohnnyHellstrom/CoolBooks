@@ -3,23 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Review;
 use App\Models\Comment;
 use App\Models\SubComment;
 use App\Models\LikedReview;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $flaggedReviews = Review::where('is_flagged', true)->where('is_deleted', false)->orderBy('created_at', 'desc')->get();
-        $flaggedComments = Comment::where('is_flagged', true)->where('is_deleted', false)->orderBy('created_at', 'desc')->get();
-        $flaggedSubcomments = SubComment::where('is_flagged', true)->where('is_deleted', false)->orderBy('created_at', 'desc')->get();
+        
+        //Set date range to be included (1900-01-01-now (~all) as default)               
+        $start = Carbon::createFromFormat('Y-m-d', '1900-01-01')->format('Y-m-d');
+        if ($request->start != null) {
+            $start = Carbon::createFromFormat('m/d/Y', $request->start)->format('Y-m-d');
+        }
+
+        $end = Carbon::now()->format('Y-m-d');
+        if ($request->end != null) {
+            $end = Carbon::createFromFormat('m/d/Y', $request->end)->format('Y-m-d 23:59:59');
+        }
+
+        $flaggedReviews = Review::where('is_flagged', true)->where('is_deleted', false)
+                                ->whereBetween('reviews.created_at', [$start, $end])
+                                ->orderBy('created_at', 'desc')->get();
+        $flaggedComments = Comment::where('is_flagged', true)->where('is_deleted', false)
+                                ->whereBetween('comments.created_at', [$start, $end])
+                                ->orderBy('created_at', 'desc')->get();
+        $flaggedSubcomments = SubComment::where('is_flagged', true)->where('is_deleted', false)
+                                ->whereBetween('subcomments.created_at', [$start, $end])
+                                ->orderBy('created_at', 'desc')->get();
         return view('reviews.index', [
         'reviews' => $flaggedReviews,
         'comments' => $flaggedComments,
@@ -155,14 +175,16 @@ class ReviewController extends Controller
         
         return redirect("/books/{$review->book_id}")->with('message', "The review has been updated successfully");
     }
-
-    /**
-     * Remove the specified review from storage.
-     */
+    // Show delete confirm
+    public function confirm_delete(Review $review)
+    {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesn`t exist');
+        return view('/reviews/delete', ['review' => $review]);
+    }
+    // Remove the specified review from storage.
     public function destroy(Review $review)
     {
-        $book_id = $review->book_id;
         $review->delete();
-        return redirect("/books/{$book_id}")->with('message', 'Review deleted successfully');
+        return redirect("/reviews")->with('message', 'Review deleted successfully');
     }
 }

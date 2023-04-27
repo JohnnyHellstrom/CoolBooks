@@ -10,17 +10,19 @@
             @if($review->user_id == auth()->id())
             <x-button-edit><a href="/reviews/{{$review->id}}/edit">Edit</a></x-button-edit>
             @else
-            <form class="inline-block" method="POST" action="/reviews/flag/{{$review->id}}">
+            <form class="inline-block tooltip" method="POST" action="/reviews/flag/{{$review->id}}">
                @csrf
                <button><i class="fa-sharp fa-regular fa-flag px-4"></i></button>
+               <span class="tooltiptext tooltip_main">Flagg comment</span>
             </form>
             @endif
-            
-            <form class="inline-block" method="POST" action="/reviews/{{$review->id}}">
-               @csrf
-               @method('DELETE')
-               <x-button-delete>Delete</x-button-delete>
-            </form>
+            @if (auth()->user() && auth()->user()->roles->name == 'admin')
+               <form class="inline-block" method="POST" action="/reviews/{{$review->id}}">
+                  @csrf
+                  @method('DELETE')
+                  <x-button-delete>Delete</x-button-delete>
+               </form>
+            @endif
          </div>   
       </div>                                 
       <p class="text-xs"> {{$review->created_at}} </p>
@@ -48,10 +50,13 @@
          
                <div class="px-4 mt-2">
                   <div class="flex">
-                        <form method="POST" action="/comments/flag/{{$comment->id}}">
+                        @if($comment->user_id != auth()->id())
+                        <form class="tooltip" method="POST" action="/comments/flag/{{$comment->id}}">
                            @csrf
                            <button><i class="fa-sharp fa-regular fa-flag fa-2xs pl-1"></i></button>
+                           <span class="tooltiptext tooltip_main">Flagg comment</span>
                         </form>
+                        @endif
                         <span class="px-2"><b> {{$comment->users->user_name}}: </b></span>
                         <span class="text-xs pt-1"><i> {{$comment->timeSincePost()}} </i></span>
                   </div>

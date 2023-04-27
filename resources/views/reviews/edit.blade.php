@@ -13,6 +13,9 @@
       <div class="mb-6">
          <label for="headline" class="inline-block">Headline:</label>
          <input type="text" class="border border-gray-200 rounded" name="headline" value="{{$review->headline}}">
+         @error('headline') <!-- another directive, this is an error directive -->
+         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+         @enderror
       </div>
 
       {{-- Add/input rating --}}
@@ -27,6 +30,9 @@
             name="review_text" 
             rows="5"
             ><?php echo $review->review_text ?></textarea>
+            @error('review_text') <!-- another directive, this is an error directive -->
+            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+            @enderror  
       </div>
 
       {{-- Create - Button component --}}

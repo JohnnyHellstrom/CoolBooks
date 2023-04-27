@@ -90,13 +90,15 @@ class CommentController extends Controller
     {
         //
     }
-
-    /**
-     * Remove the specified comment from storage.
-     */
+    // Show confirm-delete view
+    public function confirm_delete(Comment $comment)
+    {
+        return view('/comments/delete', ['comment' => $comment]);
+    }
+    //Remove the specified comment from storage.
     public function destroy(Comment $comment)
     {
         $comment->delete();
-        return redirect()->back()->with('message', 'Comment succesfully removed');
+        return redirect('/reviews')->with('message', 'Comment succesfully removed');
     }
 }

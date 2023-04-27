@@ -97,12 +97,16 @@ class SubCommentController extends Controller
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    
+    // Show confirm-delete view
+    public function confirm_delete(SubComment $subcomment)
     {
-        //
+        return view('/subcomments/delete', ['subcomment' => $subcomment]);
+    }
+    //Remove the specified comment from storage.
+    public function destroy(SubComment $subcomment)
+    {
+        $subcomment->delete();
+        return redirect('/reviews')->with('message', 'Reply succesfully removed');
     }
 }
