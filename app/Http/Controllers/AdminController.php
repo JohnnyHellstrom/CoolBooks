@@ -17,36 +17,22 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(Request $request)
-    // {
-    //     dd($request);
-    //     if ($request->has('form1')) {
-    //         $formFields = $request->validate([
-    //             'role_id' => 'required',
-    //         ]);
+    public function store(Request $request)
+    {
 
-    //         // $formFields['is_deleted'] = 0;
+            $formFields = $request->validate([
+                'role_id' => 'required',
+            ]);
 
-    //         User::create($formFields);
+            $formFields['is_deleted'] = 0;
 
-
-    //         return redirect('/admin')->with('message', 'Role updated successfully!');
-    //     };
-
-    //     if ($request->has('form1')) {
-    //         $formFields = $request->validate([
-    //             'is_deleted' => 'required',
-    //         ]);
-
-    //         // $formFields['is_deleted'] = 0;
-
-    //         User::create($formFields);
+            User::create($formFields);
 
 
-    //         return redirect('/admin')->with('message', 'Role updated successfully!');
-    //     };
-    //     // return redirect('/admin')->with('message', 'Role updated successfully!');
-    // }
+            return redirect('/admin')->with('message', 'Role updated successfully!');
+        
+
+    }
 
     /**
      * Update the specified resource in storage.
@@ -54,24 +40,20 @@ class AdminController extends Controller
     public function update(Request $request, User $user)
     {
         // dd($request->has('form1'));
-        if ($request->has('form1')) {
+        if ($request->has('role')) {
             $formFields = $request->validate([
                 'role_id' => 'required',
             ]);
-
-            // $formFields['is_deleted'] = 0;
 
             $user->update($formFields);
 
             return back()->with('message', 'User updated successfully!');
         };
         // dd($request->has('form2'));
-        if ($request->has('form2')) {
+        if ($request->has('delete')) {
             $formFields = $request->validate([
                 'is_deleted' => 'required',
             ]);
-
-            // $formFields['is_deleted'] = 0;
 
             $user->update($formFields);
 

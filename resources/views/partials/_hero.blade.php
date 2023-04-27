@@ -30,7 +30,7 @@
             </div>
             <div class="h-48">
                 <p class="text-2 font-bold uppercase ">Description:</p>
-                <p class="bg-slate-500 truncate" name="comment" rows="5" cols="40"><?php echo $one_book->description; ?></p>
+                <p class="bg-slate-500 overflow" name="comment" rows="5" cols="40"><?php echo $one_book->description; ?></p>
             </div>
         </div>
     @else

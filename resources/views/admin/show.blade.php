@@ -26,7 +26,7 @@
                         @enderror
 
                         <div class="flex self-center mt-2"><br>
-                            <button type="submit" name="form1">Submit 1</button>
+                            <button type="submit" name="role">Submit 1</button>
                             {{-- <x-button-create>Save Changes</x-button-create> --}}
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                         @enderror
 
                         <div class="flex self-center mt-2"><br>
-                            <button type="submit" name="form2">Submit 2</button>
+                            <button type="submit" name="delete">Submit 2</button>
                             {{-- <x-button-create>Save Changes</x-button-create> --}}
                         </div>
                     </div>
