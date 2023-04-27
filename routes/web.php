@@ -86,6 +86,7 @@ Route::get('/reviews', [ReviewController::class, 'index'])->middleware('checkUse
 Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit']);
 Route::post('/reviews', [ReviewController::class, 'store']);
 Route::put('/reviews/{review}', [ReviewController::class, 'update']);
+Route::get('/reviews/delete/{review}', [ReviewController::class, 'confirm_delete']);
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
 Route::post('/reviews/like/{review}', [ReviewController::class, 'like']);
 Route::post('reviews/flag/{review}', [ReviewController::class, 'flag']);
