@@ -25,7 +25,7 @@
                             <div class="w-48 tooltip pb-2">
                                 <div class="grid gap-2 grid-cols-2 grid-rows-1 self-center justify-item-center">
                                     <a class="self-center" href="/books/{{$book->id}}">
-                                        <img class="w-36" src="{{$book->image ? asset('storage/' . $book->image) : asset('images/no-image.png')}}" alt=""/>
+                                        <img class="w-36" src="{{$book->image ? asset('storage/' . $book->image) : asset('images/no-image.jpg')}}" alt=""/>
                                     </a>
                                     <span class="tooltiptext tooltip_author">
                                         <b>{{$book->title}}</b>

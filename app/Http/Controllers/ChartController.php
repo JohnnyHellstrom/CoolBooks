@@ -9,7 +9,7 @@ use App\Models\SubComment;
 use Illuminate\Http\Request;
 use App\Charts\StatisticsChart;
 
-class ChartController extends Controller    //RENAME TO STATISTICS
+class ChartController extends Controller
 {
     public function index(Request $request)
     {
@@ -24,50 +24,64 @@ class ChartController extends Controller    //RENAME TO STATISTICS
             $end = Carbon::createFromFormat('m/d/Y', $request->end)->format('Y-m-d 23:59:59');
         }
 
-        //Set chart precission as per day or per week (per day as default)               
+        //Set chart precission as per day or per week (per day as default) (initial x-axis label as well)               
         $chartPrecision ='date';
-        if ($request->chartPrecision == 'week') {
+        $xLegend = 'Date';
+        if ($request->chartPrecision == 'per week') {
             $chartPrecision = 'week';
+            $xLegend = 'Week';
         }
 
+        //Default values for first index page load
+        $yLegend = "reviews";
 
-        //Default query for first index page load
         $query = Review::selectRaw($chartPrecision . '(created_at) as ' . $chartPrecision . ', COUNT(*) as total')
         ->whereBetween('created_at', [$start, $end])
             ->groupBy($chartPrecision)
             ->pluck('total', $chartPrecision);
 
-        if ($request->categoryPrecision == 'per genre') {
+
+        //Select query (and x-axis label)    
+        if ($request->categoryPrecision == 'Per book') {
+            $xLegend = 'Book title';
+            $query = Review::join('books', 'reviews.book_id', '=', 'books.id')
+                            ->selectRaw('books.title, COUNT(*) as total')
+                            ->whereBetween('reviews.created_at', [$start, $end])
+                            ->groupBy('books.title')
+                            ->pluck('total', 'books.title');
+        } elseif ($request->categoryPrecision == 'Per genre') {
+            $xLegend = 'Genre';
             $query = Review::join('books', 'reviews.book_id', '=', 'books.id')
                             ->join('genres', 'books.genre_id', '=', 'genres.id')
                             ->selectRaw('genres.name, COUNT(*) as total')
                             ->whereBetween('reviews.created_at', [$start, $end])
                             ->groupBy('genres.name')
                             ->pluck('total', 'genres.name');
-        } elseif ($request->categoryPrecision == 'per author') {
+        } elseif ($request->categoryPrecision == 'Per author') {
+            $xLegend = 'Author';
             $query = Review::join('books', 'reviews.book_id', '=', 'books.id')
                             ->join('author_books', 'books.id', '=', 'author_books.book_id')
                             ->join('authors', 'author_books.author_id', '=', 'authors.id')
-                            ->selectRaw('authors.first_name, authors.id, COUNT(*) as total')
+                            ->selectRaw('authors.first_name, authors.last_name, authors.id, COUNT(*) as total')
                             ->whereBetween('reviews.created_at', [$start, $end])
-                            ->groupBy('authors.first_name', 'authors.id')
+                            ->groupBy('authors.last_name', 'authors.first_name', 'authors.id')
                             ->pluck('total', 'authors.first_name', 'authors.last_name');
         } else {
 
             switch ($request->category) {
-                case 'Reviews':
+                case 'reviews':
                     $query = Review::selectRaw($chartPrecision . '(created_at) as ' . $chartPrecision . ', COUNT(*) as total')
                                     ->whereBetween('created_at', [$start, $end])
                                     ->groupBy($chartPrecision)
                                     ->pluck('total', $chartPrecision);
                     break;
-                case 'Comments':
+                case 'comments':
                     $query = Comment::selectRaw($chartPrecision . '(created_at) as ' . $chartPrecision . ', COUNT(*) as total')
                                     ->whereBetween('created_at', [$start, $end])
                                     ->groupBy($chartPrecision)
                                     ->pluck('total', $chartPrecision);
                     break;
-                case 'Replies':
+                case 'replies':
                     $query = SubComment::selectRaw($chartPrecision . '(created_at) as ' . $chartPrecision . ', COUNT(*) as total')
                                     ->whereBetween('created_at', [$start, $end])
                                     ->groupBy($chartPrecision)
@@ -75,12 +89,50 @@ class ChartController extends Controller    //RENAME TO STATISTICS
                     break;
             }
         }
-       
-
+        //Setting y-axis legend (x-axis legend is set in the if-else above)
+        if ($request->category != null) {
+            $yLegend = $request->category;
+        }
+        
+        //Prepare chart
         $chart = new StatisticsChart;
         $chart->labels($query->keys());
-        $chart->dataset('set 1', 'bar', $query->values())
-            ->backgroundColor('#64748b');
+        $chart->dataset('', 'bar', $query->values())
+        ->backgroundColor('#64748b');
+
+        // Chart display settings
+        $chart->options([
+            'scales' => [
+                'yAxes' => [[
+                    'ticks' => [
+                        'fontSize' => 16,
+                        'fontColor' => '#000000',
+                        'stepSize' => 1
+                    ],
+                    'scaleLabel' => [
+                        'display' => true,
+                        'labelString' => '# of ' . $yLegend,
+                        'fontSize' => 20,
+                        'fontColor' => '#000000'
+                    ]
+                ]],
+                'xAxes' => [[
+                    'ticks' => [
+                        'fontSize' => 16,
+                        'fontColor' => '#000000'
+                    ],
+                    'scaleLabel' => [
+                        'display' => true,
+                        'labelString' => $xLegend,
+                        'fontSize' => 20,
+                        'fontColor' => '#000000'
+                    ]
+                ]]
+            ],
+            'legend' => [
+                'display' => false
+            ]
+        ]);
 
         return view('charts.index', compact('chart'));
     }
