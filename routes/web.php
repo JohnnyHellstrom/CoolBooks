@@ -8,11 +8,14 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\TopListController;
 use App\Http\Controllers\SubCommentController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\QuoteController;
@@ -137,6 +140,10 @@ Route::delete('quotes/{quotes}', [QuoteController::class, 'destroy']);
 //   'edit' => 'quotes.edit',
 //   'create' => 'quotes.create'
 // ]);
+
+//Toplist Routes
+Route::get('/toplist/index',[TopListController::class, 'highestRating']);
+
 
 //Login
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
