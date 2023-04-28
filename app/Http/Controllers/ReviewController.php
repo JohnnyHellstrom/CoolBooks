@@ -17,7 +17,11 @@ class ReviewController extends Controller
     // Lists all flagged, non-hidden reviews, comments and replies
     public function index(Request $request)
     {      
-        //Set date range to be included (1900-01-01-now (~all) as default)               
+        abort_if(
+            (auth()->user()->role_id != Role::IS_MODERATOR) &&
+            (auth()->user()->role_id != Role::IS_ADMIN), 403, 'Page doesnt exist' );
+
+        //Set date range to be included (1900-01-01 - now+1 (~all) as default)               
         $start = Carbon::createFromFormat('Y-m-d', '1900-01-01')->format('Y-m-d');
         if ($request->start != null) {
             $start = Carbon::createFromFormat('m/d/Y', $request->start)->format('Y-m-d');
@@ -47,6 +51,10 @@ class ReviewController extends Controller
     // Diplay all review, comments and replys for a User
     public function user_posts(string $id)
     {
+        abort_if(
+            (auth()->user()->role_id != Role::IS_MODERATOR) &&
+            (auth()->user()->role_id != Role::IS_ADMIN), 403, 'Page doesnt exist' );
+
         $flaggedReviews = Review::where('user_id', $id)->orderBy('created_at', 'desc')->get();
         $flaggedComments = Comment::where('user_id', $id)->orderBy('created_at', 'desc')->get();
         $flaggedSubcomments = SubComment::where('user_id', $id)->orderBy('created_at', 'desc')->get();
@@ -58,10 +66,11 @@ class ReviewController extends Controller
         ]);
     }
 
-
     // Store a newly created review in storage.
     public function store(Request $request)
     {
+        abort_if(auth()->id() === null, 403, 'Page doesnt exist');
+
         $formFields = $request->validate([
             'book_id' => 'required',
             'headline' => 'required',
@@ -79,15 +88,25 @@ class ReviewController extends Controller
     // Show the form for editing the specified resource.
     public function edit(Review $review)
     {
+        abort_if(auth()->id() === null, 403, 'Page doesnt exist');
+
         return view('reviews.edit', ['review' => $review]);
     }
 
     // Get confirm-hide view
     public function confirm_hide(Review $review){
+        abort_if(
+            (auth()->user()->role_id != Role::IS_MODERATOR) &&
+            (auth()->user()->role_id != Role::IS_ADMIN), 403, 'Page doesnt exist' );
+
         return view('reviews.hide', ['review' => $review]);
     }
     // Hide flagged review
     public function hide(Review $review){
+        abort_if(
+            (auth()->user()->role_id != Role::IS_MODERATOR) &&
+            (auth()->user()->role_id != Role::IS_ADMIN), 403, 'Page doesnt exist' );
+
         $review->update(['is_deleted' => 1]);
         return redirect('reviews');
     }
@@ -95,17 +114,27 @@ class ReviewController extends Controller
       //Set flag on the review.
     public function flag(string $id)
     {
+        abort_if(auth()->id() === null, 403, 'Page doesnt exist');
+
         Review::where('id', $id)->update(['is_flagged' => "1"]);
         return redirect()->back();
     }
     // Show confirm-view for flagg removal
     public function confirm_flag(Review $review)
     {
+        abort_if(
+            (auth()->user()->role_id != Role::IS_MODERATOR) &&
+            (auth()->user()->role_id != Role::IS_ADMIN), 403, 'Page doesnt exist' );
+
         return view('reviews.remove-flag', ['review' => $review]);
     }
     //Remove flag from the review.
     public function remove_flag(string $id)
     {
+        abort_if(
+            (auth()->user()->role_id != Role::IS_MODERATOR) &&
+            (auth()->user()->role_id != Role::IS_ADMIN), 403, 'Page doesnt exist' );
+
         Review::where('id', $id)->update(['is_flagged' => "0"]);
         return redirect('/reviews');
     }
@@ -113,6 +142,8 @@ class ReviewController extends Controller
     //Store like info.
     public function like(Request $request)
     {
+        abort_if(auth()->id() === null, 403, 'Page doesnt exist');
+        
        $formFields = $request->validate([
             'review_id' => 'required',
             'liked' => 'required'
@@ -133,9 +164,12 @@ class ReviewController extends Controller
         }
     return redirect()->back();
     }
+    
     //Update the specified review in storage.
     public function update(Request $request, Review $review)
     {
+        abort_if(auth()->id() === null, 403, 'Page doesnt exist');
+        
         $formFields = $request->validate([
             'book_id' => 'required',
             'headline' => 'required',
