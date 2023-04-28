@@ -140,4 +140,35 @@ class BookController extends Controller
 
         return redirect('/')->with('message', 'Book deleted successfully');
     }
+
+    public function livesearch(Request $request)
+    {
+        if($request->ajax())
+        {
+            $output = '';
+
+            $searchedBooks = Book::where('title', 'LIKE', '%'.$request->livesearch.'%')
+                    ->orWhere('description', 'LIKE', '%'.$request->livesearch.'%')
+                    ->get();
+            
+            if($searchedBooks)
+            {
+                foreach($searchedBooks as $book)
+                {
+                    $output .=
+                    '
+                        <div class="card-body">
+                        <img src="'. ($book->image ? asset('storage/' . $book->image) : asset('images/no-image.png')) .'">                     
+                        <p>'.$book->title.'</p>
+                        <p>'.$book->description.'</p> 
+                        </div>  
+                    ';
+                }
+            }
+
+            return response()->json($output);
+        }
+
+        return view('books.livesearch');
+    }
 }

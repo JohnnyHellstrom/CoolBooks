@@ -29,6 +29,8 @@ use App\Http\Controllers\SubCommentController;
 |
 */
 // Books //
+Route::get('/livesearch', [BookController::class, 'livesearch'])->name('book.livesearch');
+
 Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
 {
   Route::resource('books', BookController::class)->names([

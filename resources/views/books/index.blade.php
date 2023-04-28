@@ -1,5 +1,6 @@
 <x-layout>
     @include('partials._search')
+    <a href="/livesearch">livesearch</a>
 
     <header>
         <h2 class="text-3xl text-center font-bold my-2 uppercase">Books</h2>
