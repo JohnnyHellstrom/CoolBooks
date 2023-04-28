@@ -17,8 +17,6 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TopListController;
 use App\Http\Controllers\SubCommentController;
-use App\Http\Controllers\ChartController;
-use App\Http\Controllers\QuoteController;
 
 /*
 |--------------------------------------------------------------------------
