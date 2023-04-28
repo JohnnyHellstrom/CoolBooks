@@ -58,6 +58,9 @@
             <li>
                 <a href="/authors" class="hover:text-laravel"><i class="fa-solid fa-pen-nib p-1"></i>Authors</a>
             </li>
+            <li>
+                <a href="/quotes" class="hover:text-laravel"><i class="fa-solid fa-quote-right p-1"></i>Quotes</a>
+            </li>
             
             @can('view-button-for-admin')
                 <li>

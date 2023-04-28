@@ -26,7 +26,7 @@
                 @include('partials._book-row')
             </div>
         </div>
-        <div class="flex-1">
+        <div class="flex-1 bg-slate-50">
             <p>listor med böcker</p>
         </div>
     </div>
