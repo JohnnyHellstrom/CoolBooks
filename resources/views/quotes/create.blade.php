@@ -28,8 +28,8 @@
          </div>
 
          <div class="mb-6">
-            <label for="genrequote_id" class="inline-block text-lg mb-2">Genre:</label>
-            <select name="genrequote_id" class="border border-gray-200 rounded p-2 w-full">
+            <label for="genre_quote_id" class="inline-block text-lg mb-2">Genre:</label>
+            <select name="genre_quote_id" class="border border-gray-200 rounded p-2 w-full">
                @foreach ($genres as $genre)
                <option value="{{$genre->id}}"  {{ old('id') == $genre->id ? 'selected' : '' }}>
                   {{ucfirst($genre->name)}}

@@ -9,7 +9,7 @@ class Quote extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['genrequote_id', 'user_id', 'quote',  'quotee', 'is_deleted', 'is_moderated'];
+    protected $fillable = ['genre_quote_id', 'user_id', 'quote',  'quotee', 'is_deleted', 'is_moderated'];
 
    
     //Relationships
@@ -18,6 +18,6 @@ class Quote extends Model
     }
 
     public function genrequotes(){
-        return $this->belongsTo(GenreQuote::class, 'genrequote_id');
+        return $this->belongsTo(GenreQuote::class, 'genre_quote_id');
     }
 }

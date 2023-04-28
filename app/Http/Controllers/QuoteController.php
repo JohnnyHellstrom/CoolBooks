@@ -14,7 +14,6 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        //abort_if(auth()->user()->role_id != Role::IS_USER, 403, 'Page doesnt exist');
         $quotes = Quote::where('is_moderated', 1)->where('is_deleted', 0)->get();
         return view('quotes.index', ['quotes' => $quotes]);
     }
@@ -32,7 +31,7 @@ class QuoteController extends Controller
         $formFields = $request->validate([
             'quote' => 'required',
             'quotee' => 'required',
-            'genrequote_id' => 'required',
+            'genre_quote_id' => 'required',
         ]);
 
         $formFields['is_deleted'] = 0;
@@ -57,7 +56,7 @@ class QuoteController extends Controller
      */
     public function edit(Quote $quote)
     {
-        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
+        abort_if(auth()->user()->role_id !=  Role::IS_ADMIN, 403, 'Page doesnt exist');
         $genrequotes = GenreQuote::all();
         return view('/quotes.edit', ['quote' => $quote, 'genres' => $genrequotes]);
     }
@@ -71,13 +70,28 @@ class QuoteController extends Controller
         $formFields = $request->validate([
             'quote' => 'required',
             'quotee' => 'required',
-            'genrequote_id' => 'required',
+            'genre_quote_id' => 'required',
         ]);
         $formFields['is_deleted'] = 0;
         $formFields['is_moderated'] = 0;
         $formFields['user_id'] = auth()->id();
-
         $quote->update($formFields);
+        return redirect('/quotes')->with('message', 'Quote edited');
+    }
+    public function qoutesToMod()
+    {
+        $quotes = Quote::where('is_moderated', 0)->where('is_deleted', 0)->get();
+        return view('quotes.moderate', ['quotes' => $quotes]);
+    }
+    public function approve(Quote $quote){
+        //dd($quote);
+        $quote->update(['is_moderated' => 1]);
+        return redirect('/quotes/moderate')->with('message', 'Approved');
+    }
+    public function hide(Quote $quote)
+    {
+        $quote->update(['is_deleted' => 1, 'is_moderated' => 1]);
+        return redirect('/quotes/moderate')->with('message', 'Quote soft deleted');
     }
 
     /**
@@ -85,6 +99,8 @@ class QuoteController extends Controller
      */
     public function destroy(Quote $quote)
     {
-        //
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
+        $quote->delete();
+        return redirect('/quotes/moderate')->with('message', 'Quote hard deleted');
     }
 }

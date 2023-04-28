@@ -13,6 +13,6 @@ class GenreQuote extends Model
 
     //Relationship
     public function quotes(){
-        return $this->hasMany(Quotes::class, 'genre_id');
+        return $this->hasMany(Quotes::class, 'genre_qoute_id');
     }
 }

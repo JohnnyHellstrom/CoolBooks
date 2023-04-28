@@ -50,9 +50,7 @@ class CommentController extends Controller
         return redirect('/reviews');
     }
 
-    /**
-     * Store a newly created comment in storage.
-     */
+    // Store a newly created comment in storage.
     public function store(Request $request)
     {
         $formFields = $request->validate([
@@ -67,29 +65,6 @@ class CommentController extends Controller
         return redirect()->back()->with('message', 'New comment created');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
     // Show confirm-delete view
     public function confirm_delete(Comment $comment)
     {

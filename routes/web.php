@@ -125,14 +125,21 @@ Route::put('/subcomments/hide/{subcomment}', [SubCommentController::class, 'hide
 Route::get('/subcomments/delete/{subcomment}', [SubCommentController::class, 'confirm_delete']);
 Route::delete('/subcomments/{subcomment}', [SubCommentController::class, 'destroy']);
 
+//Quotes
 Route::get('/quotes', [QuoteController::class, 'index']);
 Route::get('/quotes/create', [QuoteController::class, 'create']);
 Route::post('/quotes', [QuoteController::class, 'store']);
 Route::get('/quotes/{quote}/edit', [QuoteController::class, 'edit']);
-Route::put('quotes/{quotes}', [QuoteController::class, 'update']);
-Route::put('quotes/{quotes}/hide', [QuoteController::class, 'hide']);
-Route::put('quotes/{quotes}/approve', [QuoteController::class, 'approve']);
-Route::delete('quotes/{quotes}', [QuoteController::class, 'destroy']);
+Route::put('/quotes/{quote}', [QuoteController::class, 'update']);
+Route::put('/quotes/{quote}/hide', [QuoteController::class, 'hide']);
+Route::get('/quotes/moderate', [QuoteController::class, 'qoutesToMod']);
+Route::put('/quotes/{quote}/approve', [QuoteController::class, 'approve']);
+Route::delete('quotes/{quote}', [QuoteController::class, 'destroy']);
+// Route::resource('quotes', QuoteController::class)->names([
+//   'index' => 'quotes.index',
+//   'edit' => 'quotes.edit',
+//   'create' => 'quotes.create'
+// ]);
 // Route::resource('quotes', QuoteController::class)->names([
 //   'index' => 'quotes.index',
 //   'edit' => 'quotes.edit',
