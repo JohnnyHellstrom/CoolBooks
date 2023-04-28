@@ -92,7 +92,7 @@
 
 
 
-/* .tooltip .tooltiptext_top {
+ .tooltip .tooltiptext_top {
     visibility: hidden;
     width: auto;
     background-color: #E5F0EC;
@@ -104,16 +104,16 @@
     
     position: absolute;
     z-index: 1;
-    width: 120px;
+    min-width: 40px;
     bottom: 100%;
     left: 50%;
-    margin-left: -60px; 
+    margin-left: -10px; 
 }
       
 .tooltip:hover .tooltiptext_top {
     visibility: visible;
 }
-
+/*
 .tooltip .tooltiptext_right {
     visibility: hidden;
     width: auto;

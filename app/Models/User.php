@@ -71,4 +71,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subcomment::class, 'user_id');
     }
+    public function quotes()
+    {
+        return $this->hasMany(Quote::class, 'user_id');
+    }
 }

@@ -19,10 +19,10 @@ if(!$likedReview){
    <span> {{$review->numberOfLikes($review->id)}} </span>
    @if($showThumbs == "blank" || $showThumbs == "down")
    <button><i class="text-white fa-lg fa-regular fa-thumbs-up"></i></button> 
-   <span class="tooltiptext tooltip_main">Like</span>
+   <span class="tooltiptext_top">Like</span>
    @else
    <button><i class="text-green-700 fa-lg fa-solid fa-thumbs-up"></i></button> 
-   <span class="tooltiptext tooltip_main">Remove Like</span>
+   <span class="tooltiptext_top">Remove Like</span>
    @endif
 </form>
 
@@ -34,9 +34,9 @@ if(!$likedReview){
    <span> {{$review->numberOfDislikes($review->id)}} </span>
    @if($showThumbs == "blank" || $showThumbs == "up")
    <button><i class="text-white fa-lg fa-regular fa-thumbs-up rotate-180"></i></button> 
-   <span class="tooltiptext tooltip_main">Dislike</span>
+   <span class="tooltiptext_top">Dislike</span>
    @else
    <button><i class="text-red-700 fa-lg fa-solid fa-thumbs-up rotate-180"></i></button> 
-   <span class="tooltiptext tooltip_main">Remove dislike</span>
+   <span class="tooltiptext_top">Remove dislike</span>
    @endif      
 </form>

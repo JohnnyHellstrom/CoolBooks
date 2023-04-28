@@ -15,6 +15,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SubCommentController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\QuoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,6 +123,20 @@ Route::get('/subcomments/hide/{subcomment}', [SubCommentController::class, 'conf
 Route::put('/subcomments/hide/{subcomment}', [SubCommentController::class, 'hide']);
 Route::get('/subcomments/delete/{subcomment}', [SubCommentController::class, 'confirm_delete']);
 Route::delete('/subcomments/{subcomment}', [SubCommentController::class, 'destroy']);
+
+Route::get('/quotes', [QuoteController::class, 'index']);
+Route::get('/quotes/create', [QuoteController::class, 'create']);
+Route::post('/quotes', [QuoteController::class, 'store']);
+Route::get('/quotes/{quote}/edit', [QuoteController::class, 'edit']);
+Route::put('quotes/{quotes}', [QuoteController::class, 'update']);
+Route::put('quotes/{quotes}/hide', [QuoteController::class, 'hide']);
+Route::put('quotes/{quotes}/approve', [QuoteController::class, 'approve']);
+Route::delete('quotes/{quotes}', [QuoteController::class, 'destroy']);
+// Route::resource('quotes', QuoteController::class)->names([
+//   'index' => 'quotes.index',
+//   'edit' => 'quotes.edit',
+//   'create' => 'quotes.create'
+// ]);
 
 //Login
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');

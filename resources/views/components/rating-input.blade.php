@@ -1,9 +1,9 @@
 @for ($i = 1; $i < 6; $i++)
    <label class="tooltip">
       <input class="" type="radio" name="rating" value="{{$i}}"/>
-      <img class="w-10 inline-block" 
+         <img class="w-10 inline-block" 
             src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">
-            <span class="tooltiptext tooltip_author">{{$i}}</span>
+         <span class=" tooltiptext_top">{{$i}}</span>
    </label>
 @endfor 
 @error('rating') <!-- another directive, this is an error directive -->

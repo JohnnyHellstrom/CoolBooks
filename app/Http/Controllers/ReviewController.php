@@ -14,12 +14,9 @@ use Illuminate\Support\Carbon;
 
 class ReviewController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Lists all flagged, non-hidden reviews, comments and replies
     public function index(Request $request)
-    {
-        
+    {      
         //Set date range to be included (1900-01-01-now (~all) as default)               
         $start = Carbon::createFromFormat('Y-m-d', '1900-01-01')->format('Y-m-d');
         if ($request->start != null) {
@@ -47,6 +44,7 @@ class ReviewController extends Controller
     ]);
     }
 
+    // Diplay all review, comments and replys for a User
     public function user_posts(string $id)
     {
         $flaggedReviews = Review::where('user_id', $id)->orderBy('created_at', 'desc')->get();
@@ -61,9 +59,7 @@ class ReviewController extends Controller
     }
 
 
-    /**
-     * Store a newly created review in storage.
-     */
+    // Store a newly created review in storage.
     public function store(Request $request)
     {
         $formFields = $request->validate([
@@ -80,17 +76,7 @@ class ReviewController extends Controller
         return redirect()->back()->with('message', 'New Review created');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Show the form for editing the specified resource.
     public function edit(Review $review)
     {
         return view('reviews.edit', ['review' => $review]);
@@ -106,33 +92,25 @@ class ReviewController extends Controller
         return redirect('reviews');
     }
 
-      /**
-     * Set flag on the review.
-     */
+      //Set flag on the review.
     public function flag(string $id)
     {
         Review::where('id', $id)->update(['is_flagged' => "1"]);
         return redirect()->back();
     }
-    /**
-     * Show confirm-view for flagg removal
-     */
+    // Show confirm-view for flagg removal
     public function confirm_flag(Review $review)
     {
         return view('reviews.remove-flag', ['review' => $review]);
     }
-    /**
-     * Remove flag from the review.
-     */
+    //Remove flag from the review.
     public function remove_flag(string $id)
     {
         Review::where('id', $id)->update(['is_flagged' => "0"]);
         return redirect('/reviews');
     }
 
-        /**
-     * Store like info.
-     */
+    //Store like info.
     public function like(Request $request)
     {
        $formFields = $request->validate([
@@ -153,12 +131,9 @@ class ReviewController extends Controller
         } else {
             $likedReview->update($formFields);
         }
-
-        return redirect()->back();
+    return redirect()->back();
     }
-    /**
-     * Update the specified review in storage.
-     */
+    //Update the specified review in storage.
     public function update(Request $request, Review $review)
     {
         $formFields = $request->validate([
@@ -175,6 +150,7 @@ class ReviewController extends Controller
         
         return redirect("/books/{$review->book_id}")->with('message', "The review has been updated successfully");
     }
+
     // Show delete confirm
     public function confirm_delete(Review $review)
     {
@@ -184,6 +160,7 @@ class ReviewController extends Controller
     // Remove the specified review from storage.
     public function destroy(Review $review)
     {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesn`t exist');
         $review->delete();
         return redirect("/reviews")->with('message', 'Review deleted successfully');
     }
