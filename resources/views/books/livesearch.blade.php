@@ -1,14 +1,13 @@
 <x-layout>
 
   <div class="container mt-3 pd-3">  
-    <h2>Live search</h2>  
+    <h3>Search for a book</h3>  
   </div>
   
   <div class="row justify-content-center">
     <div class="col-md-4">
       <div class="input-group">
-        <input type="search" id="livesearch" name="livesearch" class="form-control rounded" placeholder="Search" />
-        <button type="button" class="btn btn-outline-primary">search</button>
+        <input type="search" id="livesearch" name="livesearch" class="form-control rounded-lg py-3 bg-gray-200" style="width:80%" placeholder="Enter search...." />        
       </div>
     </div>
     <div class="col-md-8">

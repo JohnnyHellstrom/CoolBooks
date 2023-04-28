@@ -118,10 +118,24 @@
                     width="50" /></a>
         </div>
         <p class="ml-2">Copyright &copy; 2023, All Rights reserved</p>
-        <a href="#top" class="absolute top-1/4 right-44 bg-black text-white py-2 px-5">Back To Top</a>
+        <a href="#top" class="absolute top-1/4 right-44 bg-black text-white py-2 px-5" id="myBtn">Back To Top</a>
         <a href="/" class="absolute top-1/4 right-10 bg-black text-white py-2 px-5">Home page</a>
     </footer>
     <x-flash-message />
 </body>
 
 </html>
+
+<script>
+    let mybutton = document.getElementById("myBtn");
+
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+</script>

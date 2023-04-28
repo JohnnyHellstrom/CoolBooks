@@ -29,7 +29,6 @@ use App\Http\Controllers\SubCommentController;
 |
 */
 // Books //
-Route::get('/livesearch', [BookController::class, 'livesearch'])->name('book.livesearch');
 
 Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
 {
@@ -82,15 +81,24 @@ Route::get('/authors/{author}', [AuthorController::class, 'show']);             
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [HomeController::class, 'about']);
 Route::get('/contact', [HomeController::class, 'contact']);
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
+Route::post('/users', [UserController::class, 'store']);
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+Route::post('users/authenticate', [UserController::class, 'authenticate']);
 
-
+// access for moderators and above
 Route::middleware(['auth', 'checkUserRoleModerator'])->group(function () {
   
 });
 
+// access for logged in and above
 Route::middleware(['auth'])->group(function () {
-
+  Route::get('/livesearch', [BookController::class, 'livesearch']);
+  
 });
+
+Route::get('/home', [HomeController::class, 'rotatingHead']);
 
 //Reviews
 Route::get('/reviews', [ReviewController::class, 'index'])->middleware('checkUserRoleModerator');
@@ -152,9 +160,3 @@ Route::delete('quotes/{quote}', [QuoteController::class, 'destroy']);
 Route::get('/toplist/index',[TopListController::class, 'highestRating']);
 
 
-//Login
-Route::get('/register', [UserController::class, 'create'])->middleware('guest');
-Route::post('/users', [UserController::class, 'store']);
-Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
-Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
-Route::post('users/authenticate', [UserController::class, 'authenticate']);

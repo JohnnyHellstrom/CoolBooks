@@ -41,6 +41,14 @@ class HomeController extends Controller
         return view('/home.index', ['books' => Book::all(), 'authors' => Author::all(), 'horror' => $genre_horror, 'romance' => $genre_romance, 'one_book' => $one_book, 'comedy' => $genre_comedy]);
     }
 
+    public function rotatingHead()
+    {
+        $bookForRotating = Book::with('authors')->get();
+        $response = response()->json($bookForRotating);        
+
+        return $response;
+    }
+
     public function about()
     {
         return view('/home.about');

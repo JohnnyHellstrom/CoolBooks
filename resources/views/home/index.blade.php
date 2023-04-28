@@ -1,5 +1,7 @@
 <x-layout>
 
+    @include('partials._rotatingBook')
+
     @include('partials._search')
     @include('partials._hero')
 

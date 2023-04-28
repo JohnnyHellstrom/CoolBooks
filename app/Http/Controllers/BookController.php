@@ -38,7 +38,7 @@ class BookController extends Controller
     }
 
     public function store(Request $request)
-    {           
+    {         
         abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
 
         $formFields = $request->validate([
@@ -143,6 +143,7 @@ class BookController extends Controller
 
     public function livesearch(Request $request)
     {
+        abort_if(auth()->id() === null, 403, 'Page doesnt exist');
         if($request->ajax())
         {
             $output = '';
@@ -157,11 +158,15 @@ class BookController extends Controller
                 {
                     $output .=
                     '
-                        <div class="card-body">
-                        <img src="'. ($book->image ? asset('storage/' . $book->image) : asset('images/no-image.png')) .'">                     
-                        <p>'.$book->title.'</p>
-                        <p>'.$book->description.'</p> 
-                        </div>  
+                        <div class="card mt-2" style="width: 18rem;">
+                            <a href="./books/'. $book->id .'">
+                                <img src="'. ($book->image ? asset('storage/' . $book->image) : asset('images/no-image.png')) .'" style="height:10rem">
+                            </a>
+                                <div class="card-body">                                                    
+                                    <p>'.$book->title.'</p>
+                                    <p>'.$book->description.'</p> 
+                                </div> 
+                        </div>
                     ';
                 }
             }

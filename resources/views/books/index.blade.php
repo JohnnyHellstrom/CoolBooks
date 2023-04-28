@@ -1,12 +1,17 @@
 <x-layout>
-    @include('partials._search')
-    <a href="/livesearch">livesearch</a>
-
+    
     <header>
         <h2 class="text-3xl text-center font-bold my-2 uppercase">Books</h2>
-        <div class="flex justify-center md:justify-center mt-1 mb-1">
+        <div class="flex justify-center md:justify-center mt-1 mb-2">
             @can('view-button-for-admin')
                 <x-button-create><a href="/books/create">Create Book</a></x-button-create>
+            @endcan
+            @can('view-button-for-user')
+            <a href="/livesearch">
+                <button class="w-48 py-2 px-4 rounded-full text-white-400 bg-gradient-to-r from-purple-500 to-pink-500 ml-2">
+                    <i class="fa-solid fa-magnifying-glass fa-spin"></i>Search
+                </button>
+            </a>
             @endcan
         </div>
     </header>
