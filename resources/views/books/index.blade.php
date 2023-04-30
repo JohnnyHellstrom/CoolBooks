@@ -9,7 +9,7 @@
             @can('view-button-for-user')
             <a href="/livesearch">
                 <button class="w-48 py-2 px-4 rounded-full text-white-400 bg-gradient-to-r from-purple-500 to-pink-500 ml-2">
-                    <i class="fa-solid fa-magnifying-glass fa-spin"></i>Search
+                    <i class="fa-solid fa-magnifying-glass fa-spin"></i> Search
                 </button>
             </a>
             @endcan

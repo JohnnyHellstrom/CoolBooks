@@ -32,6 +32,6 @@
     });  
   </script>  
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>  
-  <script type="text/javascript">$.ajaxSetup({headers: { 'csrftoken' : '{{ csrf_token() }}' } });</script>  
-  </x-layout>
+</x-layout>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>  
+<script type="text/javascript">$.ajaxSetup({headers: { 'csrftoken' : '{{ csrf_token() }}' } });</script>  
