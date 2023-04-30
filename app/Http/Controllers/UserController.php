@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -16,7 +15,6 @@ class UserController extends Controller
 
     public function create()
     {
-
         return view('users.register');
     }
     // create new user
@@ -29,7 +27,7 @@ class UserController extends Controller
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => 'required|confirmed|min:6'
         ]);
-        
+        // sets the created user to "user" and not deleted in the database as a default
         $formFields['role_id'] = 2;
         $formFields['is_deleted'] = 0;
 
@@ -57,7 +55,6 @@ class UserController extends Controller
 
     public function login()
     {
-
         return view('users.login');
     }
 

@@ -1,30 +1,29 @@
-<div class="container mt-3 pd-3">  
-  <h3>Recommended Book:</h3>
-</div>
-
-<div class="row justify-content-center">
-  <div class="col-md-4">
-    <div class="input-group">              
-    </div>
+<section class="relative h-64 bg-hero flex flex-col align-center space-y-4 mb-4">
+  <div class="container mt-3 pd-3">  
+    <h3>Recommended Book:</h3>
   </div>
-  <div class="grid grid-cols-3 grid-rows-1 self-center justify-items-center mt-0">
-    
-      <div id="showBook" class="card grid justify-items-center align-content-center w-2/3">
-        <a id="showBookLink" href="showBookLink"><img id="showBookImg" class="card-img-top h-48" src="" alt="Book Cover Image"></a>
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="input-group">              
       </div>
-      <div class="h-48 w-1/3">
-        <h4>Title:</h4>
-        <h5><a id="showBookLink" href="showBookLink"><span id="showBookTitle" class="card-title"></span></a></h5>
-        <h4>Author:</h4>
-        <h5><a id="authorLink" href="authorLink"><span id="author" class="card-title"></span></a></h5>
-      </div>
-      <div class="h-48 w-2/3">
-        <h4>Description:</h4>
-        <p id="showBookDescription" class="card-text"></p>
-      </div>      
-     
-  </div>  
-</div>
+    </div>
+    <div class="grid grid-cols-3 grid-rows-1 self-center justify-items-center mt-0">      
+        <div id="showBook" class="card grid justify-items-center align-content-center w-2/3">
+          <a id="showBookLink" href="showBookLink"><img id="showBookImg" class="card-img-top h-48" src="" alt="Book Cover Image"></a>
+        </div>
+        <div class="h-48 w-1/3">
+          <h4>Title:</h4>
+          <h5><a id="showBookLink" href="showBookLink"><span id="showBookTitle" class="card-title"></span></a></h5>
+          <h4>Author:</h4>
+          <h5><a id="authorLink" href="authorLink"><span id="author" class="card-title"></span></a></h5>
+        </div>
+        <div class="h-48 w-2/3">
+          <h4>Description:</h4>
+          <p id="showBookDescription" class="card-text"></p>
+        </div>          
+    </div>  
+  </div>
+</section>
 
 <script>
   $(document).ready(function() 

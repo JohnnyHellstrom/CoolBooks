@@ -4,26 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Role;
-use App\Models\User;
 use App\Models\Genre;
 use App\Models\Author;
 use App\Models\AuthorBook;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {     
         // only returns the books that are not set "deleted" in the database...
-        return view('books.index',
+        return view('books.index', 
         [                        
-            'books' => Book::with('authors')->with('genres')->where('is_deleted', false)->latest()->paginate(6),
-            'books' => Book::where('is_deleted', false)->latest()->filter(request(['tag', 'search']))->paginate(6),
+            'books' => Book::with('authors')->with('genres')->where('is_deleted', false)->latest()->paginate(6)            
         ]);
     }
 
@@ -79,9 +73,6 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Book $book, Genre $genre, Author $author)
     {        
         abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
@@ -122,10 +113,6 @@ class BookController extends Controller
       
         return back()->with('message', 'Book updated successfully!');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     // public function destroy(Book $book)
     // {        
     //     $book->delete();

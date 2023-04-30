@@ -67,8 +67,7 @@
                     <a href="/genres" class="hover:text-laravel"><i class="fa-solid fa-masks-theater p-1"></i>Genres</a>
                 </li>
                 <li>
-                    <a href="/reviews" class="hover:text-laravel"><i
-                            class="fa-solid fa-pen-to-square p-1"></i>Reviews</a>
+                    <a href="/reviews" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square p-1"></i>Reviews</a>
                 </li>
                 <li>
                     <a href="/charts" class="hover:text-laravel"><i class="fa-solid fa-chart-simple p-1"></i>Statistics</a>
@@ -89,8 +88,7 @@
                     <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus p-1"></i> Register</a>
                 </li>
                 <li>
-                    <a href="/login" class="hover:text-laravel"><i
-                            class="fa-solid fa-arrow-right-to-bracket p-1"></i>Login</a>
+                    <a href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket p-1"></i>Login</a>
                 </li>
             @endauth
         </ul>
