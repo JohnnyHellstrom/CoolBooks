@@ -147,7 +147,6 @@ class BookController extends Controller
         if($request->ajax())
         {
             $output = '';
-
             $searchedBooks = Book::where('title', 'LIKE', '%'.$request->livesearch.'%')
                     ->orWhere('description', 'LIKE', '%'.$request->livesearch.'%')
                     ->get();
@@ -170,10 +169,8 @@ class BookController extends Controller
                     ';
                 }
             }
-
             return response()->json($output);
         }
-
         return view('books.livesearch');
     }
 }

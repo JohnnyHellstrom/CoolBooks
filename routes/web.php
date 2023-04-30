@@ -86,6 +86,7 @@ Route::post('/users', [UserController::class, 'store']);
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('users/authenticate', [UserController::class, 'authenticate']);
+Route::get('/home', [HomeController::class, 'rotatingHead']);
 
 // access for moderators and above
 Route::middleware(['auth', 'checkUserRoleModerator'])->group(function () {
@@ -98,7 +99,6 @@ Route::middleware(['auth'])->group(function () {
   
 });
 
-Route::get('/home', [HomeController::class, 'rotatingHead']);
 
 //Reviews
 Route::get('/reviews', [ReviewController::class, 'index'])->middleware('checkUserRoleModerator');

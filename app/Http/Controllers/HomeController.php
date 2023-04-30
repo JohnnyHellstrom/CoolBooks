@@ -43,7 +43,7 @@ class HomeController extends Controller
 
     public function rotatingHead()
     {
-        $bookForRotating = Book::with('authors')->get();
+        $bookForRotating = Book::with('authors')->inRandomOrder()->take(5)->get();
         $response = response()->json($bookForRotating);        
 
         return $response;
