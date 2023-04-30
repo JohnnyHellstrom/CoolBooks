@@ -9,7 +9,7 @@
     </div>
     <div class="grid grid-cols-3 grid-rows-1 self-center justify-items-center mt-0">      
         <div id="showBook" class="card grid justify-items-center align-content-center w-2/3">
-          <a id="showBookLink" href="showBookLink"><img id="showBookImg" class="card-img-top h-48" src="" alt="Book Cover Image"></a>
+          <a id="showBookLink" href="showBookLink"><img id="showBookImg" class="card-img-top h-48 w-full" src="" alt="Book Cover Image"></a>
         </div>
         <div class="h-48 w-1/3">
           <h4>Title:</h4>
