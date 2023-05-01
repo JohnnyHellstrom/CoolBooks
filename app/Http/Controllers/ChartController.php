@@ -13,6 +13,14 @@ class ChartController extends Controller
 {
     public function index(Request $request)
     {
+        //Save request to keep selected dropdown when reloading chart page
+        $selected = array(
+            'old_categoryPrecision' => $request->categoryPrecision,
+            'old_category' => $request->category,
+            'old_chartPrecision' => $request->chartPrecision,
+            //start and end dates are always reset to include all
+        );
+
         //Set date range to be included (1900-01-01-now (~all) as default)               
         $start = Carbon::createFromFormat('Y-m-d', '1900-01-01')->format('Y-m-d');
         if ($request->start != null) {
@@ -36,7 +44,7 @@ class ChartController extends Controller
         $yLegend = "reviews";
 
         $query = Review::selectRaw($chartPrecision . '(created_at) as ' . $chartPrecision . ', COUNT(*) as total')
-        ->whereBetween('created_at', [$start, $end])
+            ->whereBetween('created_at', [$start, $end])
             ->groupBy($chartPrecision)
             ->pluck('total', $chartPrecision);
 
@@ -62,10 +70,10 @@ class ChartController extends Controller
             $query = Review::join('books', 'reviews.book_id', '=', 'books.id')
                             ->join('author_books', 'books.id', '=', 'author_books.book_id')
                             ->join('authors', 'author_books.author_id', '=', 'authors.id')
-                            ->selectRaw('authors.first_name, authors.last_name, authors.id, COUNT(*) as total')
+                            ->selectRaw('CONCAT(authors.first_name, " ", authors.last_name) as full_name, authors.id, COUNT(*) as total')
                             ->whereBetween('reviews.created_at', [$start, $end])
                             ->groupBy('authors.last_name', 'authors.first_name', 'authors.id')
-                            ->pluck('total', 'authors.first_name', 'authors.last_name');
+                            ->pluck('total', 'full_name');
         } else {
 
             switch ($request->category) {
@@ -90,9 +98,9 @@ class ChartController extends Controller
             }
         }
         //Setting y-axis legend (x-axis legend is set in the if-else above)
-        if ($request->category != null) {
+        if ($request->categoryPrecision === 'All') {
             $yLegend = $request->category;
-        }
+        }   //else $yLegend = "reviews" set as default above
         
         //Prepare chart
         $chart = new StatisticsChart;
@@ -107,7 +115,6 @@ class ChartController extends Controller
                     'ticks' => [
                         'fontSize' => 16,
                         'fontColor' => '#000000',
-                        'stepSize' => 1
                     ],
                     'scaleLabel' => [
                         'display' => true,
@@ -134,6 +141,7 @@ class ChartController extends Controller
             ]
         ]);
 
-        return view('charts.index', compact('chart'));
+        return view('charts.index', ['chart' => $chart, 'selected' => $selected]);
+        // return view('charts.index', compact('chart', 'selected')); //Same as above written in "new" format
     }
 }

@@ -12,28 +12,25 @@
     </div>
 
     <form action="/charts">
-        <p class="text-gray-900 pl-1 mb-1">"Display (only review results are displayed if per book/per genre/per author is selected - date limitation still works)" </p>
+        <p class="text-gray-900 pl-1 mb-1">Display</p>
         <div class="mb-4">
-            <select name="categoryPrecision" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-1 mb-1 rounded">
+            <select name="categoryPrecision" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-1 mb-1 rounded" onchange="isAllSelected()">
                 @foreach ($categoryPrecisions as $categoryPrecision)
-                    <option value="{{$categoryPrecision}}">{{$categoryPrecision}}</option>
-                    {{-- <option value="{{$categoryPrecision}}" {{ old('categoryPrecision') == $categoryPrecision ? 'selected' : '' }}>{{$categoryPrecision}}</option> --}}
+                    <option value="{{$categoryPrecision}}" {{$selected["old_categoryPrecision"] == $categoryPrecision ? 'selected' : '' }}>{{$categoryPrecision}}</option>
                 @endforeach
             </select>
         </div>
-        <div class="mb-4">
+        <div id="categoriesDiv" class="mb-4">
             <select name="category" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-1 mb-1 rounded">
                 @foreach ($categories as $category)
-                    {{-- <option value="{{$category}}" {{ old('category') == $category ? 'selected' : '' }}>{{$category}}</option> --}}
-                    <option value="{{$category}}">{{$category}}</option>
+                    <option value="{{$category}}" {{$selected["old_category"] == $category ? 'selected' : '' }}>{{$category}}</option>
                 @endforeach
             </select>
         </div>
-        <div class="mb-4">
+        <div id="chartPrecisionsDiv" class="mb-4">
             <select name="chartPrecision" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-1 mb-1 rounded">
                 @foreach ($chartPrecisions as $chartPrecision)
-                    <option value="{{$chartPrecision}}" {{ old('chartPrecision') == $chartPrecision ? 'selected' : '' }}>{{$chartPrecision}}</option>
-                    {{-- <option value="{{$chartPrecision}}">{{$chartPrecision}}</option> --}}
+                    <option value="{{$chartPrecision}}" {{$selected["old_chartPrecision"] == $chartPrecision ? 'selected' : '' }}>{{$chartPrecision}}</option>
                 @endforeach    
             </select>    
         </div>
@@ -67,5 +64,28 @@
     </div>
 
     {!! $chart->script() !!}
+
+    <script>
+        //Hides categories and chartPrecisions form fields if 'All' is not selected
+        function isAllSelected() {
+            var categoryPrecision = document.getElementsByName('categoryPrecision')[0].value;
+            var categoriesDiv = document.getElementById('categoriesDiv');
+            var chartPrecisionsDiv = document.getElementById('chartPrecisionsDiv');
+            
+            if (categoryPrecision === 'All') {
+                categoriesDiv.style.display = 'block';
+                chartPrecisionsDiv.style.display = 'block';
+            } else {
+                categoriesDiv.style.display = 'none';
+                chartPrecisionsDiv.style.display = 'none';
+            }
+        }
+
+        // Add an event listener to the select element to trigger the function when the value changes
+        document.getElementsByName('categoryPrecision')[0].addEventListener('change', isAllSelected);
+        
+        // Call the function initially to set the initial state of the divs based on the initial value of the select element
+        isAllSelected();
+    </script>
 
 </x-layout>
