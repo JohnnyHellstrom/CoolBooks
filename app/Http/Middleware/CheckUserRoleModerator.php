@@ -19,5 +19,7 @@ class CheckUserRoleModerator
         {            
             return $next($request);
         }
+
+        abort(403, 'This page doesnt exists.');
     }
 }
