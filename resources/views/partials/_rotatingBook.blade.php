@@ -16,6 +16,9 @@
           <h5><a id="showBookLink" href="showBookLink"><span id="showBookTitle" class="card-title"></span></a></h5>
           <h4>Author:</h4>
           <h5><a id="authorLink" href="authorLink"><span id="author" class="card-title"></span></a></h5>
+          <h4>Rating:</h4>
+          <p class=" flex" id="showBookRating"><br>            
+          </p>
         </div>
         <div class="h-48 w-2/3">
           <h4>Description:</h4>
@@ -40,6 +43,7 @@
       var author = $('#author');
       var authorLink = $('#authorLink');
       var showBookDescription = $('#showBookDescription');
+      var showBookRating = $('#showBookRating');
 
       showBookImg.attr('src', book.image ? '{{ asset("storage") }}/' + book.image : '{{ asset("images/no-image.jpg") }}');
       showBookTitle.text(book.title);
@@ -57,6 +61,34 @@
       // for the "truncate"
       var shorterDescription = book.description.substr(0, 200) + '...';
       showBookDescription.text(shorterDescription);
+
+      if (book.average_rating) 
+      {
+        var rating = parseFloat(book.average_rating);
+        var stars = "";
+        for (var i = 0; i < 5; i++) 
+        {
+          if (rating >= 1) 
+          {
+            stars += '<img class="w-5 inline-block pb-2" src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">';
+            rating--;
+          } 
+          else if (rating >= 0.5) 
+          {
+            stars += '<img class="w-5 inline-block pb-2" src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">';
+            rating -= 0.5;
+          } 
+          else 
+          {
+            stars += '<img class="w-5 inline-block pb-2" src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">';
+          }
+        }
+        showBookRating.html(stars);
+      } 
+      else 
+      {
+        showBookRating.html('No ratings yet.');
+      }
     }
 
     function loadBooks() 
@@ -81,7 +113,7 @@
                       type: 'GET',
                       success: function(data) 
                       {
-                          showBooks = data;
+                        showBooks = data;
                       }
                   });
               }

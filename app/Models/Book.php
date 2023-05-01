@@ -16,7 +16,7 @@ class Book extends Model
     public function getAverageRating()
     {
         $rating = $this->reviews()->pluck('rating')->avg();
-        /* */
+        return $rating;
     }
     
     public static function getGenre($id)

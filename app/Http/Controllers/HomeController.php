@@ -7,6 +7,7 @@ use App\Models\Genre;
 use App\Models\Author;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -43,7 +44,9 @@ class HomeController extends Controller
 
     public function rotatingHead()
     {
-        $bookForRotating = Book::with('authors')->inRandomOrder()->take(5)->get();
+        $bookForRotating = Book::with('authors')
+        ->select('*', DB::raw('ROUND((SELECT AVG(rating) FROM reviews WHERE reviews.book_id = books.id), 1) as average_rating'))
+        ->inRandomOrder()->take(5)->get();
         $response = response()->json($bookForRotating);        
 
         return $response;
