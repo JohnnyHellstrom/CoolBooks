@@ -24,7 +24,7 @@
                         <td class="px-2 py-4 border-t border-b border-gray-300">
                             <a href="/books/{{ $book->id }}"><img
                                     src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/no-image.jpg') }}"
-                                    class="w-36 h-40"></a>
+                                    class="h-40"></a>
                         </td>
                         <td class="px-2 py-4 border-t border-b border-gray-300 text-lg truncate max-w-xs">
                             <p class="truncate">{{ $book->description }}</p>
