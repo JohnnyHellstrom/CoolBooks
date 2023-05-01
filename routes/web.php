@@ -159,6 +159,6 @@ Route::delete('quotes/{quote}', [QuoteController::class, 'destroy']);
 // ]);
 
 //Toplist Routes
-Route::get('/toplist/index',[TopListController::class, 'highestRating']);
+Route::get('/toplist/index',[TopListController::class, 'index']);
 
 
