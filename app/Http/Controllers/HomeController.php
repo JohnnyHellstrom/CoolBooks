@@ -28,15 +28,15 @@ class HomeController extends Controller
         // return redirect('login');
         // dd('hej');
         //Get 3 random books in a genre
-        $rand_genre = random_int(1, count(Genre::all()));
+        // $rand_genre = random_int(1, count(Genre::all()));
 
         $one_book = Book::where('is_deleted', false)->inRandomOrder()->limit(1)->first();
         // dd($one_book);
         // $contentToBookRow = Genre::getThreeBooksFromThreeGenre();
         // dd($contentToBookRow);
-        $genre_comedy = Book::getGenre(1);
-        $genre_horror = Book::getGenre(2);
-        $genre_romance = Book::getGenre(3);
+        $genre_comedy = Book::getGenre(random_int(1, count(Genre::all())));
+        $genre_horror = Book::getGenre(random_int(1, count(Genre::all())));
+        $genre_romance = Book::getGenre(random_int(1, count(Genre::all())));
 
         return view('/home.index', ['books' => Book::all(), 'authors' => Author::all(), 'horror' => $genre_horror, 'romance' => $genre_romance, 'one_book' => $one_book, 'comedy' => $genre_comedy]);
     }

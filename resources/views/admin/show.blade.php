@@ -19,7 +19,7 @@
                         <select id="role" name="role_id" selected='{{ $users->role_id }}'>
                             <option value="1">Admin</option>
                             <option value="2">User</option>
-                            {{-- <option value="3">Moderator</option> --}}
+                            <option value="3">Moderator</option>
                         </select>
                         @error('role_id')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
