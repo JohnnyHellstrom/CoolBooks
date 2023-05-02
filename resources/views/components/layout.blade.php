@@ -64,13 +64,15 @@
             <li>
                 <a href="/toplist/index" class="hover:text-laravel"><i class="fa-solid fa-arrow-up-right-dots p-1"></i>Toplists</a>
             </li>
+            @can('view-button-for-moderator')
+            <li>
+                <a href="/reviews" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square p-1"></i>Reviews</a>
+            </li>
+            @endcan
             
             @can('view-button-for-admin')
                 <li>
                     <a href="/genres" class="hover:text-laravel"><i class="fa-solid fa-masks-theater p-1"></i>Genres</a>
-                </li>
-                <li>
-                    <a href="/reviews" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square p-1"></i>Reviews</a>
                 </li>
                 <li>
                     <a href="/charts" class="hover:text-laravel"><i class="fa-solid fa-chart-simple p-1"></i>Statistics</a>

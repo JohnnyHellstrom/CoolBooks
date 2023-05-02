@@ -28,7 +28,7 @@ use App\Http\Controllers\SearchController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Books //
+
 
 Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
 {
@@ -37,11 +37,7 @@ Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
     'edit' => 'books.edit',
     'create' => 'books.create'
   ]);
-  // Route::get('/books/create', [BookController::class, 'create']);
-  // Route::post('/books', [BookController::class, 'store']);
-  // Route::get('/books/{book}/edit', [BookController::class, 'edit']);
-  // Route::put('/books/{book}', [BookController::class, 'update']);
-  // Route::delete('/books/{book}', [BookController::class, 'destroy']);
+  //Authors
   Route::get('/authors/create', [AuthorController::class, 'create']);                     //Show create author form
   Route::post('/authors', [AuthorController::class, 'store']);                            //Store new author
   Route::get('/authors/{author}/edit', [AuthorController::class, 'edit']);                //Show edit author form
@@ -71,7 +67,71 @@ Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
   Route::get('/admin/info', [AdminController::class, 'info']);
   // Users
   Route::get('/users', [UserController::class, 'index']);
+  // Reviews
+  Route::get('/reviews/delete/{review}', [ReviewController::class, 'confirm_delete']);
+  Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
+  // Comments
+  Route::get('/comments/delete/{comment}', [CommentController::class, 'confirm_delete']);
+  Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
+  // SubComments
+  Route::get('/subcomments/delete/{subcomment}', [SubCommentController::class, 'confirm_delete']);
+  Route::delete('/subcomments/{subcomment}', [SubCommentController::class, 'destroy']);
+  //Quotes
+  Route::get('/quotes/{quote}/edit', [QuoteController::class, 'edit']);
+  Route::put('/quotes/{quote}', [QuoteController::class, 'update']);
+  Route::delete('quotes/{quote}', [QuoteController::class, 'destroy']);
 });
+
+
+// access for moderators and above
+Route::middleware(['auth', 'checkUserRoleModerator'])->group(function () {
+  //Reviews
+  Route::get('/reviews/flag/{review}', [ReviewController::class, 'confirm_flag']);
+  Route::put('/reviews/flag/{review}', [ReviewController::class, 'remove_flag']);
+  Route::get('/reviews/{review}/hide', [ReviewController::class, 'confirm_hide']);
+  Route::put('/reviews/{review}/hide', [ReviewController::class, 'hide']);
+  Route::get('/reviews/user/{review}', [ReviewController::class, 'user_posts']);
+  //Comments
+  Route::get('/comments/flag/{comment}', [CommentController::class, 'confirm_flag']);
+  Route::put('/comments/flag/{comment}', [CommentController::class, 'remove_flag']);
+  Route::get('/comments/hide/{comment}', [CommentController::class, 'confirm_hide']);
+  Route::put('/comments/hide/{comment}', [CommentController::class, 'hide']);
+  //SubComments
+  Route::get('/subcomments/flag/{subcomment}', [SubCommentController::class, 'confirm_flag']);
+  Route::put('/subcomments/flag/{subcomment}', [SubCommentController::class, 'remove_flag']);
+  Route::get('/subcomments/hide/{subcomment}', [SubCommentController::class, 'confirm_hide']);
+  Route::put('/subcomments/hide/{subcomment}', [SubCommentController::class, 'hide']);
+  //Quotes
+  Route::put('/quotes/{quote}/hide', [QuoteController::class, 'hide']);
+  Route::get('/quotes/moderate', [QuoteController::class, 'qoutesToMod']);
+  Route::put('/quotes/{quote}/approve', [QuoteController::class, 'approve']);
+  
+});
+
+
+
+// access for logged in and above
+Route::middleware(['auth'])->group(function () {
+  Route::get('/livesearch', [BookController::class, 'livesearch']);
+  //Reviews
+  Route::get('/reviews', [ReviewController::class, 'index']);
+  Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit']);
+  Route::post('/reviews', [ReviewController::class, 'store']);
+  Route::put('/reviews/{review}', [ReviewController::class, 'update']);
+  Route::post('/reviews/like/{review}', [ReviewController::class, 'like']);
+  Route::post('reviews/flag/{review}', [ReviewController::class, 'flag']);
+  //Comments
+  Route::post('/comments', [CommentController::class, 'store']);
+  Route::post('/comments/flag/{comment}', [CommentController::class, 'flag']);
+  //Subcomments
+  Route::post('/subcomments', [SubCommentController::class, 'store']);
+  Route::post('/subcomments/flag/{subcomment}', [SubCommentController::class, 'flag']);
+  //Quotes
+  Route::get('/quotes/create', [QuoteController::class, 'create']);
+  Route::post('/quotes', [QuoteController::class, 'store']);
+  
+});
+
 
 // public access
 Route::get('/books', [BookController::class, 'index']);
@@ -87,78 +147,9 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('users/authenticate', [UserController::class, 'authenticate']);
 Route::get('/home', [HomeController::class, 'rotatingHead']);
-
-// access for moderators and above
-Route::middleware(['auth', 'checkUserRoleModerator'])->group(function () {
-  
-});
-
-Route::get('/search/search', [SearchController::class, 'search'])->name('search');
-
-// access for logged in and above
-Route::middleware(['auth'])->group(function () {
-  Route::get('/livesearch', [BookController::class, 'livesearch']);
-  
-});
-
-
-//Reviews
-Route::get('/reviews', [ReviewController::class, 'index'])->middleware('checkUserRoleModerator');
-Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit']);
-Route::post('/reviews', [ReviewController::class, 'store']);
-Route::put('/reviews/{review}', [ReviewController::class, 'update']);
-Route::get('/reviews/delete/{review}', [ReviewController::class, 'confirm_delete']);
-Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
-Route::post('/reviews/like/{review}', [ReviewController::class, 'like']);
-Route::post('reviews/flag/{review}', [ReviewController::class, 'flag']);
-Route::get('/reviews/flag/{review}', [ReviewController::class, 'confirm_flag']);
-Route::put('/reviews/flag/{review}', [ReviewController::class, 'remove_flag']);
-Route::get('/reviews/{review}/hide', [ReviewController::class, 'confirm_hide']);
-Route::put('/reviews/{review}/hide', [ReviewController::class, 'hide']);
-Route::get('/reviews/user/{review}', [ReviewController::class, 'user_posts']);
-
-//Comments
-Route::post('/comments', [CommentController::class, 'store']);
-Route::post('/comments/flag/{comment}', [CommentController::class, 'flag']);
-Route::get('/comments/flag/{comment}', [CommentController::class, 'confirm_flag']);
-Route::put('/comments/flag/{comment}', [CommentController::class, 'remove_flag']);
-Route::get('/comments/hide/{comment}', [CommentController::class, 'confirm_hide']);
-Route::put('/comments/hide/{comment}', [CommentController::class, 'hide']);
-Route::get('/comments/delete/{comment}', [CommentController::class, 'confirm_delete']);
-Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
-
-//SubComments
-Route::post('/subcomments', [SubCommentController::class, 'store']);
-Route::post('/subcomments/flag/{subcomment}', [SubCommentController::class, 'flag']);
-Route::get('/subcomments/flag/{subcomment}', [SubCommentController::class, 'confirm_flag']);
-Route::put('/subcomments/flag/{subcomment}', [SubCommentController::class, 'remove_flag']);
-Route::get('/subcomments/hide/{subcomment}', [SubCommentController::class, 'confirm_hide']);
-Route::put('/subcomments/hide/{subcomment}', [SubCommentController::class, 'hide']);
-Route::get('/subcomments/delete/{subcomment}', [SubCommentController::class, 'confirm_delete']);
-Route::delete('/subcomments/{subcomment}', [SubCommentController::class, 'destroy']);
-
-//Quotes
 Route::get('/quotes', [QuoteController::class, 'index']);
-Route::get('/quotes/create', [QuoteController::class, 'create']);
-Route::post('/quotes', [QuoteController::class, 'store']);
-Route::get('/quotes/{quote}/edit', [QuoteController::class, 'edit']);
-Route::put('/quotes/{quote}', [QuoteController::class, 'update']);
-Route::put('/quotes/{quote}/hide', [QuoteController::class, 'hide']);
-Route::get('/quotes/moderate', [QuoteController::class, 'qoutesToMod']);
-Route::put('/quotes/{quote}/approve', [QuoteController::class, 'approve']);
-Route::delete('quotes/{quote}', [QuoteController::class, 'destroy']);
-// Route::resource('quotes', QuoteController::class)->names([
-//   'index' => 'quotes.index',
-//   'edit' => 'quotes.edit',
-//   'create' => 'quotes.create'
-// ]);
-// Route::resource('quotes', QuoteController::class)->names([
-//   'index' => 'quotes.index',
-//   'edit' => 'quotes.edit',
-//   'create' => 'quotes.create'
-// ]);
-
 //Toplist Routes
 Route::get('/toplist/index',[TopListController::class, 'index']);
 
+Route::get('/search/search', [SearchController::class, 'search'])->name('search');
 
