@@ -61,6 +61,9 @@
             <li>
                 <a href="/quotes" class="hover:text-laravel"><i class="fa-solid fa-quote-right p-1"></i>Quotes</a>
             </li>
+            <li>
+                <a href="/toplist/index" class="hover:text-laravel"><i class="fa-solid fa-arrow-up-right-dots p-1"></i>Toplists</a>
+            </li>
             
             @can('view-button-for-admin')
                 <li>

@@ -40,7 +40,7 @@
                         </td>
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg text-right">
                             <a href="/authors/{{$author->id}}"><x-button-view>View</x-button-view></a> 
-                            @can('view-button-for-author')|
+                            @can('view-button-for-admin')|
                             <a href="/authors/{{$author->id}}/edit"><x-button-edit>Edit</x-button-edit></a> |
                             <br>
                             <a href="/authors/{{$author->id}}/hide"><x-button-hide>Hide</x-button-hide></a> |

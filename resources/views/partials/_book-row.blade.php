@@ -1,8 +1,3 @@
-{{-- <div class="grid gap-2 grid-cols-4 grid-rows-1 justify-items-center mt-10 "> --}}
-
-@if (!$books->isEmpty())
-    {{-- {{ dd($three_book) }} --}}
-    {{-- <h2>{{ $three_book[0]->genres->name }}</h2> --}}
     @foreach ($three_book as $book)
         <div class="w-48 tooltip pb-2">
             <div class="">
@@ -29,7 +24,3 @@
             </div>
         </div>
     @endforeach
-@else
-    <p class="text-center">No Books found</p>
-@endif
-{{-- </div> --}}
