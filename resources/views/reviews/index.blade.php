@@ -33,10 +33,12 @@
          <div>
             <a href="/reviews/flag/{{$review->id}}"><i class="fa-sharp fa-solid fa-flag text-red-700 px-4"></i></a>
             <a href="/reviews/{{$review->id}}/hide"><x-button-hide>Hide</x-button-hide></a>           
+            @can('view-button-for-admin')
             <form class="inline-block" method="" action="/reviews/delete/{{$review->id}}">
                @csrf
                <x-button-delete>Delete</x-button-delete>
             </form>
+            @endcan
          </div>   
       </div>                                 
       <p class="text-xs"> {{$review->created_at}} </p>
@@ -61,10 +63,12 @@
          <div class="flex">
             <a href="/comments/flag/{{$comment->id}}"><i class="fa-sharp fa-solid fa-flag text-red-700"></i></a>
             <a class="mx-4" href="/comments/hide/{{$comment->id}}"><x-button-hide>Hide</x-button-hide></a>
+            @can('view-button-for-admin')
             <form class="inline-block" method="" action="/comments/delete/{{$comment->id}}">
                @csrf
                <x-button-delete>Delete</x-button-delete>
             </form>
+            @endcan
          </div>
          <div class="flex">
             <a href="/reviews/user/{{$comment->users->id}}" class="mr-2"><b> {{$comment->users->user_name}}: </b></a>
@@ -82,10 +86,12 @@
          <div class="flex">
             <a href="/subcomments/flag/{{$subcomment->id}}"><i class="fa-sharp fa-solid fa-flag text-red-700"></i></a>
             <a class="mx-4" href="/subcomments/hide/{{$subcomment->id}}"><x-button-hide>Hide</x-button-hide></a>
+            @can('view-button-for-admin')
             <form class="inline-block" method="" action="/subcomments/delete/{{$subcomment->id}}">
                @csrf
                <x-button-delete>Delete</x-button-delete>
             </form>
+            @endcan
          </div>
          <div class="flex">
             <span><i> {{$subcomment->timeSinceReply()}} </i></span>
