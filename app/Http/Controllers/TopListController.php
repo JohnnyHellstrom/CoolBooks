@@ -7,8 +7,46 @@ use Illuminate\Http\Request;
 
 class TopListController extends Controller
 {
-    public function index($order = 'desc')
+        public function highestRating($order = 'desc')
     {
+        $booksHighest = Book::join('reviews', 'books.id', '=', 'reviews.book_id')
+            ->selectRaw('books.id,books.image,books.title, AVG(reviews.rating) as avg_rating')
+            ->groupBy('books.id','books.title','books.image')
+            ->orderByDesc('avg_rating', $order)
+            ->limit(5)
+            ->get();
+
+        return $booksHighest;
+    }
+
+    public function lowestRating($order = 'desc')
+    {
+        $booksLowest = Book::join('reviews', 'books.id', '=', 'reviews.book_id')
+            ->selectRaw('books.id,books.image,books.title, AVG(reviews.rating) as avg_rating')
+            ->groupBy('books.id','books.title','books.image')
+            ->orderBy('avg_rating', $order == 'asc' ? 'asc' : 'desc')
+            ->limit(5)
+            ->get();
+
+        return $booksLowest;
+    }
+
+    public function index($order = 'desc')
+{
+    $booksHighest = $this->highestRating($order);
+    $booksLowest = $this->lowestRating($order == 'asc' ? 'desc' : 'asc');
+
+    return view('toplist.index', [
+        'booksHighest' => $booksHighest,
+        'booksLowest' => $booksLowest,
+        'order' => $order,
+    ]);
+}
+
+
+    /*public function index($order = 'desc')
+    {
+        
         $booksHighest = Book::join('reviews', 'books.id', '=', 'reviews.book_id')
         ->selectRaw('books.id,books.image,books.title, AVG(reviews.rating) as avg_rating')
         ->groupBy('books.id','books.title','books.image')
@@ -19,7 +57,7 @@ class TopListController extends Controller
         $booksLowest = Book::join('reviews', 'books.id', '=', 'reviews.book_id')
         ->selectRaw('books.id,books.image,books.title, AVG(reviews.rating) as avg_rating')
         ->groupBy('books.id','books.title','books.image')
-        ->orderByDesc('avg_rating', $order == 'desc' ? 'asc' : 'asc')
+        ->orderBy('avg_rating', $order == 'desc' ? 'desc' : 'asc')
         ->limit(3)
         ->get();
         return view('toplist.index', [
@@ -27,7 +65,7 @@ class TopListController extends Controller
             'booksLowest' => $booksLowest,
             'order' => $order,
         ]);
-    }
+    }*/
     public function mostReviewed()
     {
         $books = Book::withCount('reviews')
@@ -37,7 +75,7 @@ class TopListController extends Controller
         ->get();
 
         return view('toplist.index',[
-            'booksMostReviewd' => $books,
+            'booksMostReviewed' => $books,
         ]);
     }
     
