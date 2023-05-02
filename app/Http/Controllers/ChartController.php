@@ -27,7 +27,7 @@ class ChartController extends Controller
             $start = Carbon::createFromFormat('m/d/Y', $request->start)->format('Y-m-d');
         }
 
-        $end = Carbon::now()->format('Y-m-d');
+        $end = Carbon::now()->addDays(1)->format('Y-m-d');
         if ($request->end != null) {
             $end = Carbon::createFromFormat('m/d/Y', $request->end)->format('Y-m-d 23:59:59');
         }

@@ -63,6 +63,8 @@
         output.src = URL.createObjectURL($(this)[0].files[0]);
     });
 
+    
+    //Script to display and control remaining characters
     const inputText = document.getElementById('input-text');
     const charCount = document.getElementById('charcounter');
 

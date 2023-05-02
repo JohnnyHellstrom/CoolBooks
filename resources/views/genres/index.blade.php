@@ -15,7 +15,7 @@
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg capitalize">
                             <a href="/genres/{{$genre->id}}">{{$genre->name}}</a>
                         </td>
-                        <td class="px-4 py-8 border-t border-b border-gray-300 text-lg capitalize">
+                        <td class="px-4 py-8 border-t border-b border-gray-300 text-lg max-w-lg">
                             <a href="/genres/{{$genre->id}}">{{$genre->description}}</a>
                         </td>
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg capitalize text-right">

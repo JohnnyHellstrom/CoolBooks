@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use Faker\Factory;
+use Carbon\Carbon;
 use App\Models\Book;
 use App\Models\Role;
 use App\Models\Genre;
@@ -151,7 +152,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@coolbooks.se',
             'phone' => '555-555-555',
-            'password' => bcrypt('12345'),
+            'password' => bcrypt('admin'),
             'is_deleted' => 0,
         ]);
         User::create([
@@ -160,16 +161,16 @@ class DatabaseSeeder extends Seeder
             'name' => 'user',
             'email' => 'user@coolbooks.se',
             'phone' => '666-666-666',
-            'password' => bcrypt('987654'),
+            'password' => bcrypt('user'),
             'is_deleted' => 0,
         ]);
         User::create([
             'role_id' => 3,
-            'user_name' => 'new_admin',
-            'name' => 'new admin',
-            'email' => 'new_admin@coolbooks.se',
+            'user_name' => 'moderator',
+            'name' => 'moderator',
+            'email' => 'moderator@coolbooks.se',
             'phone' => '777-7777-777',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('moderator'),
             'is_deleted' => 0,
         ]);
 
@@ -310,7 +311,11 @@ class DatabaseSeeder extends Seeder
 
         $genre = [1, 9, 10, 6, 11, 12, 1, 1, 1, 3, 3, 13, 1, 7, 4, 12, 14, 5, 12, 3];
 
+        $tags = ['Animals', 'Classics', 'Funnny', 'Future', 'Love', 'Manga', 'Murder', 'Religious', 'Scary', 'True Story'];
+
         for ($i = 0; $i <= 19; $i++) {
+            $random_tags = array_rand($tags, 2);
+            
             $faker = Factory::create();
 
             $user_id = random_int(1, 2);
@@ -321,7 +326,7 @@ class DatabaseSeeder extends Seeder
                 'title' => $title[$i],
                 'image' => 'book_images/' . $covers[$i] . '.jpg',
                 'ISBN' => $faker->regexify('[0-9]{3}-[0-9]{5}-[0-9]{3}-[0-9]{4}'),
-                'tags' => 'horror,scary,funnny',
+                'tags' => $tags[$random_tags[0]] . ',' . $tags[$random_tags[1]],
                 'description' => $bookDescription[$i],
                 'is_deleted' => 0
             ]);
@@ -460,5 +465,38 @@ class DatabaseSeeder extends Seeder
             'is_moderated' => 0,
             'is_deleted' => 0,
         ]);
+
+        //Seed 100 reviews, comments and replies/subcomments for statistics, top lists and book page examples
+        for ($i = 0; $i < 100; $i++) {
+            Review::create([
+                'book_id' => rand(1, 18),
+                'user_id' => rand(1, 3),
+                'headline' => 'Review #' . $i,
+                'review_text' => 'Review text #' . $i,
+                'rating' => rand(1, 5),
+                'is_deleted' => 0,
+                'created_at' => Carbon::now()->subDays(rand(2, 20))->format('Y-m-d H:i:s')
+            ]);
+        }
+        for ($i = 0; $i < 100; $i++) {
+            Comment::create([
+                'review_id' => rand(1, 50),
+                'user_id' => rand(1, 3),
+                'comment' => 'Comment #' . $i,
+                'is_flagged' => rand(0, 1),
+                'is_deleted' => 0,
+                'created_at' => Carbon::now()->subDays(rand(2, 20))->format('Y-m-d H:i:s')
+            ]);
+        }
+        for ($i = 0; $i < 100; $i++) {
+            Subcomment::create([
+                'comment_id' => rand(1, 50),
+                'user_id' => rand(1, 3),
+                'subcomment' => 'Reply #' . $i,
+                'is_flagged' => rand(0, 1),
+                'is_deleted' => 0,
+                'created_at' => Carbon::now()->subDays(rand(2, 20))->format('Y-m-d H:i:s')
+            ]);
+        }
     }
 }
