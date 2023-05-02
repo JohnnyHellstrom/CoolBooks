@@ -14,7 +14,7 @@ class AuthorController extends Controller
     public function index()
     {
         // returns authors, that are not set as deleted, in a sorted order and paginated
-        $authors = Author::where('is_deleted', false)->filter(request(['search']))->orderBy('first_name', 'desc')->paginate(4);
+        $authors = Author::where('is_deleted', false)->filter(request(['search']))->orderBy('last_name', 'asc')->paginate(5);
         return view('authors.index', ['authors' => $authors]);
     }
 

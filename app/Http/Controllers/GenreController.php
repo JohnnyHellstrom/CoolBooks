@@ -15,7 +15,7 @@ class GenreController extends Controller
     {
         abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
         // returns genres, that are not set as deleted, in alphabetical order
-        $genres = Genre::where('is_deleted', false)->orderBy('name', 'asc')->get();
+        $genres = Genre::where('is_deleted', false)->orderBy('name', 'asc')->paginate(5);
         return view('genres.index', ['genres' => $genres]);
     }
 

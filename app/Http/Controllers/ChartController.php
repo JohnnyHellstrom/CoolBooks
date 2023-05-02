@@ -21,7 +21,7 @@ class ChartController extends Controller
             //start and end dates are always reset to include all
         );
 
-        //Set date range to be included (1900-01-01-now (~all) as default)               
+        //Set date range to be included (1900-01-01-now+1day (~all) as default)               
         $start = Carbon::createFromFormat('Y-m-d', '1900-01-01')->format('Y-m-d');
         if ($request->start != null) {
             $start = Carbon::createFromFormat('m/d/Y', $request->start)->format('Y-m-d');
@@ -32,7 +32,7 @@ class ChartController extends Controller
             $end = Carbon::createFromFormat('m/d/Y', $request->end)->format('Y-m-d 23:59:59');
         }
 
-        //Set chart precission as per day or per week (per day as default) (initial x-axis label as well)               
+        //Set chart precision as per day or per week (per day as default) (initial x-axis label as well)               
         $chartPrecision ='date';
         $xLegend = 'Date';
         if ($request->chartPrecision == 'per week') {

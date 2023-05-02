@@ -37,4 +37,9 @@
         </tbody>
    </table>
 
+    {{-- Pagination --}}
+    <div class="mt-6 p-4">
+        {{$genres->onEachSide(0)->links()}}
+    </div>
+
 </x-layout>

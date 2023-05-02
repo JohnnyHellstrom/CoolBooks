@@ -59,6 +59,7 @@
         </tbody>
    </table>
 
+   {{-- Pagination --}}
    <div class="mt-6 p-4">
         {{$authors->onEachSide(0)->links()}}
     </div>
