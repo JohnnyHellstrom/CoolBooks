@@ -30,53 +30,29 @@ class TopListController extends Controller
 
         return $booksLowest;
     }
+    public function mostReviewed($order = 'desc')
+    {
+        $booksmostReviewed = Book::join('reviews', 'books.id', '=', 'reviews.book_id')
+        ->selectRaw('books.id,books.image,books.title, COUNT(reviews.id) as review_count')
+        ->groupBy('books.id', 'books.title', 'books.image')
+        ->orderBy('review_count', $order)
+        ->limit(5)
+        ->get();
+        return $booksmostReviewed;
+    }
 
     public function index($order = 'desc')
 {
     $booksHighest = $this->highestRating($order);
     $booksLowest = $this->lowestRating($order == 'asc' ? 'desc' : 'asc');
+    $booksmostReviewed = $this->mostReviewed($order);
 
     return view('toplist.index', [
         'booksHighest' => $booksHighest,
         'booksLowest' => $booksLowest,
+        'booksmostReviewed' => $booksmostReviewed,
         'order' => $order,
     ]);
 }
-
-
-    /*public function index($order = 'desc')
-    {
-        
-        $booksHighest = Book::join('reviews', 'books.id', '=', 'reviews.book_id')
-        ->selectRaw('books.id,books.image,books.title, AVG(reviews.rating) as avg_rating')
-        ->groupBy('books.id','books.title','books.image')
-        ->orderByDesc('avg_rating', $order)
-        ->limit(3)
-        ->get();
-
-        $booksLowest = Book::join('reviews', 'books.id', '=', 'reviews.book_id')
-        ->selectRaw('books.id,books.image,books.title, AVG(reviews.rating) as avg_rating')
-        ->groupBy('books.id','books.title','books.image')
-        ->orderBy('avg_rating', $order == 'desc' ? 'desc' : 'asc')
-        ->limit(3)
-        ->get();
-        return view('toplist.index', [
-            'booksHighest' => $booksHighest,
-            'booksLowest' => $booksLowest,
-            'order' => $order,
-        ]);
-    }*/
-    public function mostReviewed()
-    {
-        $books = Book::withCount('reviews')
-        ->has('reviews')
-        ->orderByDesc('reviews_count')
-        ->limit(3)
-        ->get();
-
-        return view('toplist.index',[
-            'booksMostReviewed' => $books,
-        ]);
-    }
     
 }

@@ -1,36 +1,52 @@
 <x-layout>
 
-        <h1>Highest rated books</h1>
-        <ul>
-        <table class="w-full table-auto rounded-sm">
-            @foreach ($booksHighest as $book)
-                <td class="px-2 py-4 border-t border-b border-gray-300"
-                    <li>
-                        {{ $book->title}}
-                        <a href="/books/{{ $book->id }}"><img
-                            src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/no-image.jpg') }}"
-                            class="w-30 h-40">
-                        </a>
-                        ({{ number_format($book->avg_rating, 1) }})
-                    </li>
-            @endforeach
-                </td>
-        </ul>
-    </table>
-        <h1>Lowest rated books</h1>
-        <ul>
-            <table class="w-full table-auto rounded-sm">
+    <h4><b>Highest rated books</b></h4>
+    <hr>
+        <div class="grid grid-cols-5 grid-rows-1 justify-items-center">
+        @foreach ($booksHighest as $book)
+            <div>
+                <div class="grid justify-items-center font-bold">{{ $book->title}}</div>
+                <div class="grid justify-items-center">
+                <a href="/books/{{ $book->id }}"><img
+                    src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/no-image.jpg') }}"
+                    class="h-40">
+                </a>
+            </div>
+            <div class="grid justify-items-center">({{ number_format($book->avg_rating, 1) }})</div>
+            </div>
+        @endforeach
+    </div>
+    <hr>
+        <h4><b>Lowest rated books</b></h4>
+        <hr>
+            <div class="grid grid-cols-5 grid-rows-1 justify-items-center">
             @foreach ($booksLowest as $book)
-            <td class="px-2 py-4 border-t border-b border-gray-300">
-                <li>
-                    {{ $book->title}}
+                <div>
+                    <div class="grid justify-items-center font-bold">{{ $book->title}}</div>
+                    <div class="grid justify-items-center">
                     <a href="/books/{{ $book->id }}"><img
                         src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/no-image.jpg') }}"
-                        class="w-30 h-40">
+                        class="h-40">
                     </a>
-                    ({{ number_format($book->avg_rating, 1) }})
-                </li>
+                </div>
+                <div class="grid justify-items-center">({{ number_format($book->avg_rating, 1) }})</div>
+                </div>
             @endforeach
-        </ul>
-    </table>
+        </div>
+<hr>
+        <h4><b>Got people talking</b></h4>
+        <hr>
+    <div class="grid grid-cols-5 grid-rows-1 justify-items-center">
+            @foreach ($booksmostReviewed as $book)
+            <div> 
+            <div class="grid justify-items-center font-bold">{{ $book->title}}</div>
+                    <div class="grid justify-items-center">
+                        <a href="/books/{{ $book->id }}"><img
+                        src="{{ $book->image ? asset('storage/' . $book->image) : asset('images/no-image.jpg') }}"
+                        class="h-40">
+                    </a></div>
+            <div class="grid justify-items-center">({{ $book->review_count}} reviews)</div>
+            </div>
+            @endforeach
+    </div>
 </x-layout>
