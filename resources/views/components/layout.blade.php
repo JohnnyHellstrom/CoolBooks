@@ -45,7 +45,7 @@
     </span>
     @auth
       
-            <span class="flex justify-center mb-4 bg-nav font-bold text-xl">
+            <span class="flex justify-center pb-4 bg-nav font-bold text-xl">
                 Welcome to CoolBooks, {{ auth()->user()->user_name }}
             </span>
         
