@@ -14,7 +14,8 @@
                 @if (!empty($book->reviews[0]))
                     <span>
                         <p class=" flex"><br>
-                            <x-rating :rating="$book->reviews[0]['rating']" />
+                            <x-rating :rating="round($book->getAverageRating())" />
+                            {{-- <x-rating :rating="$book->reviews[0]['rating']" /> --}}
                         </p>
                     </span>
                 @else

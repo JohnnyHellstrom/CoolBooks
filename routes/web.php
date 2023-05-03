@@ -129,6 +129,7 @@ Route::middleware(['auth'])->group(function () {
   //Quotes
   Route::get('/quotes/create', [QuoteController::class, 'create']);
   Route::post('/quotes', [QuoteController::class, 'store']);
+  Route::get('/search/search', [SearchController::class, 'search'])->name('search');
   
 });
 
@@ -146,10 +147,9 @@ Route::post('/users', [UserController::class, 'store']);
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('users/authenticate', [UserController::class, 'authenticate']);
-Route::get('/home', [HomeController::class, 'rotatingHead']);
 Route::get('/quotes', [QuoteController::class, 'index']);
 //Toplist Routes
 Route::get('/toplist/index',[TopListController::class, 'index']);
+Route::get('/home', [HomeController::class, 'rotatingHead']);
 
-Route::get('/search/search', [SearchController::class, 'search'])->name('search');
 

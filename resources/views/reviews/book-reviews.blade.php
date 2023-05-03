@@ -1,4 +1,4 @@
-<h3 class="text-2xl text-center pt-6" > Show all reviews for this book </h3>
+
 
 @foreach ($books->reviews as $review)
 @if($review->is_deleted == 0)
@@ -71,7 +71,7 @@
 
                   {{-- Show subcomments/replies for comment --}}
                   @if(!$comment->subcomments->isEmpty())
-                  <button class=" p-1 text-xs" onclick="hideShow('subcomments-comment-{{$comment->id}}')">Show replys</button>
+                  <button class=" p-1 text-xs" onclick="hideShow('subcomments-comment-{{$comment->id}}')">Show replies</button>
                   @include('subcomments.comment-replies')
                   @endif
                </div>

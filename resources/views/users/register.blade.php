@@ -27,7 +27,8 @@
 
       <div class="mb-6">
         <label for="phone" class="inline-block text-lg mb-2">Phone Number</label>
-        <input type="text" class="border border-gray-200 rounded p-2 w-full" name="phone" value="{{old('phone')}}"/>
+        <input type="tel" class="border border-gray-200 rounded p-2 w-full" name="phone" value="{{old('phone')}}"
+        placeholder="070-5555555"/>
 
         @error('phone')
           <p class="text-red-500 text-xs mt-1">{{$message}}</p>
