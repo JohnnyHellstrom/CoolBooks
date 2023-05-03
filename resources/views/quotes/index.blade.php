@@ -3,10 +3,12 @@
    <header>
       <h2 class="text-3xl text-center font-bold my-6">Quotes</h2>
       <div class="flex justify-center md:justify-center mt-1 mb-5">
-          <x-button-create><a href="/quotes/create">Create New Quote</a></x-button-create>
-          @can('view-button-for-moderator')
+         @auth
+            <x-button-create><a href="/quotes/create">Create New Quote</a></x-button-create>
+         @endauth
+         @can('view-button-for-moderator')
             <x-button-create class="ml-12"><a href="/quotes/moderate">Moderate Quotes</a></x-button-create>
-          @endcan    
+         @endcan    
       </div>
   </header>
 

@@ -12,11 +12,6 @@ class Genre extends Model
 
     protected $fillable = ['name', 'description', 'is_deleted'];
 
-public static function getThreeBooksFromThreeGenre()
-{
-
-    // return ['genre' => $genres];
-}
 
     //Relationship
     public function books(){

@@ -19,14 +19,13 @@ class HomeController extends Controller
 
     public function index(Book $book)
     {
+        $genreIds = Book::getThreeRandomGenreIds();
 
-        $one_book = Book::where('is_deleted', false)->inRandomOrder()->limit(1)->first();
+        $genre_comedy = Book::getBooksByGenre($genreIds[0]);
+        $genre_horror = Book::getBooksByGenre($genreIds[1]);
+        $genre_romance = Book::getBooksByGenre($genreIds[2]);
 
-        $genre_comedy = Book::getGenre(random_int(1, count(Genre::all())));
-        $genre_horror = Book::getGenre(random_int(1, count(Genre::all())));
-        $genre_romance = Book::getGenre(random_int(1, count(Genre::all())));
-
-        return view('/home.index', ['books' => Book::all(), 'authors' => Author::all(), 'horror' => $genre_horror, 'romance' => $genre_romance, 'one_book' => $one_book, 'comedy' => $genre_comedy]);
+        return view('/home.index', ['horror' => $genre_horror, 'romance' => $genre_romance, 'comedy' => $genre_comedy]);
     }
 
     public function rotatingHead()

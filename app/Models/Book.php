@@ -19,11 +19,22 @@ class Book extends Model
         return $rating;
     }
     
-    public static function getGenre($id)
+    public static function getBooksByGenre($id)
     {
         $genre_comedy = Book::where('is_deleted', false)->where('genre_id', $id)->inRandomOrder()->limit(3)->get();
         return $genre_comedy;
     }
+
+    //Returns all distinct genre_ids from book-table 
+    public static function getThreeRandomGenreIds()
+    {
+        $rows = Book::select('genre_id')->distinct()->inRandomOrder()->Limit(3)->get();
+        $id[] = $rows[0]['genre_id'];
+        $id[] = $rows[1]['genre_id'];
+        $id[] = $rows[2]['genre_id'];
+        return $id;
+    }
+
    
     public function users(){
         return $this->belongsTo(User::class, 'user_id');
