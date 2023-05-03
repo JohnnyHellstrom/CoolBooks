@@ -23,7 +23,7 @@ class UserController extends Controller
         $formFields = $request->validate([
             'name' => 'required',
             'user_name' => ['required', 'min:3'],
-            'phone' => 'required',
+            'phone' => ['required', 'regex:/^0[0-9]{2}-?[0-9]{7}$/'],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => 'required|confirmed|min:6'
         ]);
@@ -63,7 +63,7 @@ class UserController extends Controller
     {
         $formFields = $request->validate([
             'email' => ['required', 'email'],
-            'password' => 'required'
+            'password' => 'required',           
         ]);
 
         if (auth()->attempt($formFields)) {

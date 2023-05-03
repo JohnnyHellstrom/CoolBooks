@@ -1,7 +1,8 @@
 <x-layout>
 
-
+    @can('view-button-for-user')
     @include('partials._search')
+    @endcan
     @include('partials._rotatingBook')
     {{-- @include('partials._hero') --}}
 

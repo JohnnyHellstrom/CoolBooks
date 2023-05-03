@@ -1,6 +1,6 @@
 <section class="relative h-64 bg-hero flex flex-col align-center space-y-4 mb-4">
   <div class="container mt-3 pd-3">  
-    <h3>Recommended Book:</h3>
+    <h3 class="font-bold">Recommended Book:</h3>
   </div>
   <div class="row justify-content-center">
     <div class="col-md-4">
@@ -12,16 +12,16 @@
           <a id="showBookLink" href="showBookLink"><img id="showBookImg" class="card-img-top h-48 w-full" src="" alt="Book Cover Image"></a>
         </div>
         <div class="h-48 w-1/3">
-          <h4>Title:</h4>
+          <h4 class="font-bold">Title:</h4>
           <h5><a id="showBookLink" href="showBookLink"><span id="showBookTitle" class="card-title"></span></a></h5>
-          <h4>Author:</h4>
+          <h4 class="font-bold">Author:</h4>
           <h5><a id="authorLink" href="authorLink"><span id="author" class="card-title"></span></a></h5>
-          <h4>Rating:</h4>
+          <h4 class="font-bold">Rating:</h4>
           <p class=" flex" id="showBookRating"><br>            
           </p>
         </div>
         <div class="h-48 w-2/3">
-          <h4>Description:</h4>
+          <h4 class="font-bold">Description:</h4>
           <p id="showBookDescription" class="card-text"></p>
         </div>          
     </div>  
@@ -66,7 +66,7 @@
       {
         var rating = parseFloat(book.average_rating);
         var stars = "";
-        for (var i = 0; i < Math.ceil(rating); i++) 
+        for (var i = 0; i < Math.round(rating); i++) 
         {
           stars += '<img class="w-5 inline-block pb-2" src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">';
         }
