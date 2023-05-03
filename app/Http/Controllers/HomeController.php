@@ -16,25 +16,12 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-    //     return view('home.index');
-    // }
+
     public function index(Book $book)
     {
-        // Session::flush();
-
-        // Auth::logout();
-
-        // return redirect('login');
-        // dd('hej');
-        //Get 3 random books in a genre
-        // $rand_genre = random_int(1, count(Genre::all()));
 
         $one_book = Book::where('is_deleted', false)->inRandomOrder()->limit(1)->first();
-        // dd($one_book);
-        // $contentToBookRow = Genre::getThreeBooksFromThreeGenre();
-        // dd($contentToBookRow);
+
         $genre_comedy = Book::getGenre(random_int(1, count(Genre::all())));
         $genre_horror = Book::getGenre(random_int(1, count(Genre::all())));
         $genre_romance = Book::getGenre(random_int(1, count(Genre::all())));
@@ -81,10 +68,7 @@ class HomeController extends Controller
     /**
      * Display the specified resource.
      */
-    // public function show(string $id)
-    // {
-    //     //
-    // }
+
     public function show(Book $book)
     {
         // returns authors, that are not set as deleted, in a sorted order and paginated

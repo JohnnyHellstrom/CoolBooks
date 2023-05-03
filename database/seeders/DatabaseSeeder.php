@@ -125,15 +125,18 @@ class DatabaseSeeder extends Seeder
             "He is a mystery to us here at CoolBooks, got any info?."
         ];      
 
+        $portrait = ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10', 'a11', 'a12', 'a13', 'a14', 'a15', 'a16', 'a17', 'a18', 'a19'];
+
         for ($i = 0; $i <= 18; $i++) 
         {          
             Author::create([
                 'first_name' => $authorFirstName[$i],
                 'last_name' => $authorLastName[$i],
                 'biography' => $authorBiography[$i],
+                'author_image' => 'authors/' . $portrait[$i] . '.jpg',
                 'is_deleted' => 0
             ]);
-        }  
+        }    
 
         // DO NOT TOUCH THIS ORDER
         Role::create([

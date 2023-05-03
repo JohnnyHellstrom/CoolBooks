@@ -43,7 +43,6 @@ class AdminController extends Controller
     public function update(Request $request, User $user)
     {
         abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
-        // dd($request->has('form1'));
         if ($request->has('role')) {
             $formFields = $request->validate([
                 'role_id' => 'required',
@@ -53,7 +52,6 @@ class AdminController extends Controller
 
             return back()->with('message', 'User updated successfully!');
         };
-        // dd($request->has('form2'));
         if ($request->has('delete')) {
             $formFields = $request->validate([
                 'is_deleted' => 'required',
@@ -63,7 +61,6 @@ class AdminController extends Controller
 
             return back()->with('message', 'User updated successfully!');
         };
-        // return back()->with('message', 'User updated successfully!');
     }
 
     //show single user

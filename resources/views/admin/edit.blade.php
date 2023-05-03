@@ -18,7 +18,7 @@
                 <select name="role_id">
                     <option value="1">Admin</option>
                     <option value="2">User</option>
-                    {{-- <option value="fiat">Fiat</option> --}}
+                    <option value="3">Moderator</option>
                 </select>
                 @error('role_id')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -33,14 +33,3 @@
     </div>
 
 </x-layout>
-
-{{-- <p>1: Admin 2: User</p>
-                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="role_id"
-                    placeholder="E.g. Jane" value="{{ $users->role_id }}" />
-
-<select id="cars" name="cars">
-    <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="fiat">Fiat</option>
-    <option value="audi">Audi</option>
-  </select> --}}

@@ -26,7 +26,8 @@
                         @enderror
 
                         <div class="flex self-center mt-2"><br>
-                            <button type="submit" name="role">Submit 1</button>
+                            <button class="h-8 w-20 bg-gray-500 rounded-full hover:bg-gray-600"  type="submit" name="role">Confirm</button>
+                            {{-- <button type="submit" name="role">Submit 1</button> --}}
                             {{-- <x-button-create>Save Changes</x-button-create> --}}
                         </div>
                     </div>
@@ -68,7 +69,8 @@
                         @enderror
 
                         <div class="flex self-center mt-2"><br>
-                            <button type="submit" name="delete">Submit 2</button>
+                            <button class="h-8 w-20 bg-gray-500 rounded-full hover:bg-gray-600" type="submit" name="delete">Confirm</button>
+                            {{-- <button type="submit" name="delete">Submit 2</button> --}}
                             {{-- <x-button-create>Save Changes</x-button-create> --}}
                         </div>
                     </div>
