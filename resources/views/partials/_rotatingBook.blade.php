@@ -60,35 +60,24 @@
       authorLink.attr('href', '/authors/' + authorId);
       // for the "truncate"
       var shorterDescription = book.description.substr(0, 200) + '...';
-      showBookDescription.text(shorterDescription);
-
+      showBookDescription.text(shorterDescription);   
+    
       if (book.average_rating) 
       {
         var rating = parseFloat(book.average_rating);
         var stars = "";
-        for (var i = 0; i < 5; i++) 
+        for (var i = 0; i < Math.ceil(rating); i++) 
         {
-          if (rating >= 1) 
-          {
-            stars += '<img class="w-5 inline-block pb-2" src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">';
-            rating--;
-          } 
-          else if (rating >= 0.5) 
-          {
-            stars += '<img class="w-5 inline-block pb-2" src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">';
-            rating -= 0.5;
-          } 
-          else 
-          {
-            stars += '<img class="w-5 inline-block pb-2" src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">';
-          }
+          stars += '<img class="w-5 inline-block pb-2" src="{{asset('images/elephpant-running-78x48.gif')}}" alt="star">';
         }
+        
         showBookRating.html(stars);
       } 
       else 
       {
-        showBookRating.html('No ratings yet.');
+          showBookRating.html('No ratings yet.');
       }
+
     }
 
     function loadBooks() 

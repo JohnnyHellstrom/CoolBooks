@@ -35,7 +35,7 @@ class HomeController extends Controller
         ->select('*', DB::raw('ROUND((SELECT AVG(rating) FROM reviews WHERE reviews.book_id = books.id), 1) as average_rating'))
         ->inRandomOrder()->take(5)->get();
         $response = response()->json($bookForRotating);        
-
+        
         return $response;
     }
 
