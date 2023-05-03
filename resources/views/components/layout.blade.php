@@ -51,7 +51,7 @@
         
     @endauth
     {{-- <div class="flex w-full"> --}}
-    <nav class="mb-4 bg-nav grid-container">
+    <nav class="pb-4 bg-nav grid-container">
 
             <div class="justify-self-end gap-4">
  
