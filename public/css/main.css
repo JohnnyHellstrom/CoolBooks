@@ -114,6 +114,11 @@
 .tooltip:hover .tooltiptext_top {
     visibility: visible;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 58% auto;
+}
 /*
 .tooltip .tooltiptext_right {
     visibility: hidden;

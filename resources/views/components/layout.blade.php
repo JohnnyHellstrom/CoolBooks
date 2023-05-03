@@ -43,61 +43,62 @@
     <span class="flex justify-center mb-4 bg-main">
         <a href="/"><img class="w-32 " src="{{ asset('images/logo.png') }}" alt="" class="logo" /></a>
     </span>
-    <nav class="m-auto flex justify-end mb-4 bg-nav">
-        <ul class="flex items-end space-x-6 mr-6 text-lg">
-            @auth
-                <li>
-                    <span>
-                        Welcome to CoolBooks, {{ auth()->user()->user_name }}
-                    </span>
-                </li>
-            @endauth
-            <li>
-                <a href="/books" class="hover:text-laravel"><i class="fa fa-book p-1"></i>Books</a>
-            </li>
-            <li>
-                <a href="/authors" class="hover:text-laravel"><i class="fa-solid fa-pen-nib p-1"></i>Authors</a>
-            </li>
-            <li>
-                <a href="/quotes" class="hover:text-laravel"><i class="fa-solid fa-quote-right p-1"></i>Quotes</a>
-            </li>
-            <li>
-                <a href="/toplist/index" class="hover:text-laravel"><i class="fa-solid fa-arrow-up-right-dots p-1"></i>Toplists</a>
-            </li>
-            @can('view-button-for-moderator')
-            <li>
-                <a href="/reviews" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square p-1"></i>Reviews</a>
-            </li>
-            @endcan
-            
-            @can('view-button-for-admin')
-                <li>
-                    <a href="/genres" class="hover:text-laravel"><i class="fa-solid fa-masks-theater p-1"></i>Genres</a>
-                </li>
-                <li>
-                    <a href="/charts" class="hover:text-laravel"><i class="fa-solid fa-chart-simple p-1"></i>Statistics</a>
-                </li>
-                <li>
-                    <a href="/admin" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square p-1"></i>Admin</a>
-                </li>
-            @endcan
-            @auth
-                <li>
+    @auth
+      
+            <span class="flex justify-center mb-4 bg-nav font-bold text-xl">
+                Welcome to CoolBooks, {{ auth()->user()->user_name }}
+            </span>
+        
+    @endauth
+    {{-- <div class="flex w-full"> --}}
+    <nav class="mb-4 bg-nav grid-container">
+
+            <div class="justify-self-end gap-4">
+ 
+                <a class="pl-2" href="/books" class="hover:text-laravel"><i class="fa fa-book p-1"></i>Books</a>
+
+                
+                <a class="pl-2" href="/authors" class="hover:text-laravel"><i class="fa-solid fa-pen-nib p-1"></i>Authors</a>
+                
+                <a class="pl-2" href="/quotes" class="hover:text-laravel"><i class="fa-solid fa-quote-right p-1"></i>Quotes</a>
+                
+                <a class="pl-2" href="/toplist/index" class="hover:text-laravel"><i class="fa-solid fa-arrow-up-right-dots p-1"></i>Toplists</a>
+                
+                @can('view-button-for-moderator')
+                
+                <a class="pl-2" href="/reviews" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square p-1"></i>Reviews</a>
+                
+                @endcan
+                
+                @can('view-button-for-admin')
+                
+                <a class="pl-2" href="/genres" class="hover:text-laravel"><i class="fa-solid fa-masks-theater p-1"></i>Genres</a>
+                
+                <a class="pl-2" href="/charts" class="hover:text-laravel"><i class="fa-solid fa-chart-simple p-1"></i>Statistics</a>
+                
+                <a class="pl-2" href="/admin" class="hover:text-laravel"><i class="fa-solid fa-pen-to-square p-1"></i>Admin</a>
+                
+                @endcan
+            </div>
+            <div class="justify-self-end mr-4">
+                @auth
+
                     <form method="post" class="inline" action="/logout">
                         @csrf
                         <button type="submit"><i class="fa-solid fa-door-closed p-1"></i>Logout</button>
                     </form>
-                </li>
-            @else
-                <li>
-                    <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus p-1"></i> Register</a>
-                </li>
-                <li>
-                    <a href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket p-1"></i>Login</a>
-                </li>
-            @endauth
-        </ul>
+
+                @else
+
+                    <a class="pl-2" href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus p-1"></i> Register</a>
+
+                    <a class="pl-2" href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket p-1"></i>Login</a>
+
+                @endauth
+            </div>
+ 
     </nav>
+{{-- </div> --}}
     <main class="w-2/3 flex flex-col bg-gray-400 p-4 m-auto mb-5">
         {{ $slot }}
     </main>
