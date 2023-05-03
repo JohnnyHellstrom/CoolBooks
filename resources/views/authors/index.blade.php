@@ -1,16 +1,36 @@
 <x-layout>
 
+    @php
+        $sortOrders = ['Last name, A to Ö', 'Last name, Ö to A', 'First name, A to Ö', 'First name, Ö to A', 'Last updated'];
+    @endphp
+
     <form action="/authors">
-    <div class="relative border-2 border-gray-100 m-4 rounded-lg">
-        <div class="absolute top-4 left-3">
-            <i class="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
+        <div class="relative border-2 border-gray-100 m-4 rounded-lg">
+            <div class="absolute top-4 left-3">
+                <i class="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
+            </div>
+            <input type="text" name="search" class="h-14 w-full pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none" placeholder="Search Author Information..."/>
+            <div class="absolute top-2 right-2">
+                <button type="submit" class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600">Search</button>
+            </div>
         </div>
-        <input type="text" name="search" class="h-14 w-full pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none" placeholder="Search Author Information..."/>
-        <div class="absolute top-2 right-2">
+    </form>
+    <form action="/authors">
+        <div class="relative border-2 border-gray-100 m-4 rounded-lg">
+            {{-- <div class="mb-4"> --}}
+                <select name="sortOrder" class="bg-gray-50 border border-gray-300 text-gray-900 block w-full p-1 mb-1 rounded">
+                    @foreach ($sortOrders as $sortOrder)
+                        <option value="{{$sortOrder}}" {{$selected == $sortOrder ? 'selected' : '' }}>{{$sortOrder}}</option>
+                    @endforeach    
+                </select>    
+            {{-- </div> --}}
+        </div>
+        <div class="mb-6">
             <button type="submit" class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600">Search</button>
         </div>
-    </div>
+
     </form>
+
 
     <header>
         <h2 class="text-3xl text-center font-bold my-6 uppercase">Authors</h2>
@@ -59,9 +79,9 @@
         </tbody>
    </table>
 
-   {{-- Pagination --}}
+   {{-- Pagination, send $selected to keep selected dropdown when requesting next page --}}
    <div class="mt-6 p-4">
-        {{$authors->onEachSide(0)->links()}}
+        {{$authors->appends(['sortOrder' => $selected])->onEachSide(0)->links()}}
     </div>
 
 </x-layout>

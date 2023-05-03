@@ -11,11 +11,42 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {        
+        //Save request to keep selected dropdown when reloading chart page
+        $selected = $request->sortOrder;
+
+        //Set orderBy parameters
+        switch ($request->sortOrder) {
+            case 'Last name, A to Ö':
+                $sortBy = 'last_name';
+                $order = 'asc';
+                break;
+            case 'Last name, Ö to A':
+                $sortBy = 'last_name';
+                $order = 'desc';
+                break;
+            case 'First name, A to Ö':
+                $sortBy = 'first_name';
+                $order = 'asc';
+                break;
+            case 'First name, Ö to A':
+                $sortBy = 'first_name';
+                $order = 'desc';
+                break;
+            case 'Last updated':
+                $sortBy = 'updated_at';
+                $order = 'desc';
+                break;
+            default:    //Same as 'Last name, A to Ö'
+                $sortBy = 'last_name';
+                $order = 'asc';
+                break;
+        }
+
         // returns authors, that are not set as deleted, in a sorted order and paginated
-        $authors = Author::where('is_deleted', false)->filter(request(['search']))->orderBy('last_name', 'asc')->paginate(5);
-        return view('authors.index', ['authors' => $authors]);
+        $authors = Author::where('is_deleted', false)->filter(request(['search']))->orderBy($sortBy, $order)->paginate(5);
+        return view('authors.index', ['authors' =>$authors, 'selected' => $selected]);
     }
 
     /**
