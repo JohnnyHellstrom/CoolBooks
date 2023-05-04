@@ -36,6 +36,8 @@
             },
         };
     </script>
+    @livewireStyles
+
     <title>CoolBooks</title>
 </head>
 
@@ -126,6 +128,7 @@
         <a href="/" class="absolute top-1/4 right-10 bg-black text-white py-2 px-5">Home page</a>
     </footer>
     <x-flash-message />
+    @livewireScripts
 </body>
 
 </html>
