@@ -3,8 +3,7 @@
    <header class="text-center">
        <h2 class="text-2xl font-bold uppercase mb-1">Edit Quote</h2>        
    </header>
- 
-    {{-- {{dd($quote->id)}} --}}
+
 
    <div class="flex justify-center md:justify-center">
        <form method="POST" action="/quotes/{{$quote->id}}" >

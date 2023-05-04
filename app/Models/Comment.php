@@ -51,8 +51,5 @@ class Comment extends Model
     public function subcomments(){
         return $this->hasMany(Subcomment::class, 'comment_id')->orderBy('created_at', 'desc');
     }
-    // Is called from review to return a collection of subcomments to the collection of comments
-    // public function commentRecursive(){
-    //     return $this->comments()->with('subcomments');
-    // }
+
 }

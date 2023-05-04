@@ -37,7 +37,7 @@ class Subcomment extends Model
                 $diffYears = $postedAt->diffInYears($now);
                 return "{$diffYears}y";
             }
-        //return "for {$diff} hours ago";
+        
     }
 
     // Relationships

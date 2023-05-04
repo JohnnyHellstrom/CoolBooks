@@ -15,7 +15,6 @@
                     <span>
                         <p class=" flex"><br>
                             <x-rating :rating="round($book->getAverageRating())" />
-                            {{-- <x-rating :rating="$book->reviews[0]['rating']" /> --}}
                         </p>
                     </span>
                 @else
