@@ -14,6 +14,16 @@ After downloading files from github to VS Code via Github desktop
 To install Laravel Charts package (Chartsjs)
 1. In terminal, run "composer require consoletvs/charts"
 
+To install livewire
+1. composer require livewire/livewire
+
+To add pictures to book an d authors
+1. Make och map named book_images in public/storage folder
+2. Copy the pictures 1-20 in det folder Bilder till seeden and paste them in to the new book_images folder
+3. Make och map named authors in public/storage folder
+4. Copy the pictures a1-a20 in det folder Bilder till seeden and paste them in to the new authors folder
+
 To refresh and seed DB in terminal
 1. php artisan migrate:fresh
-2. php artisan db:seed    
+2. php artisan db:seed  
+
