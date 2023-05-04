@@ -7,13 +7,21 @@
             <img src="{{$books->image ? asset('storage/' . $books->image) : asset('images/no-image.png')}}" class="h-2/3">            
         </div>         
         <div class="flex flex-col w-full">
-            <h3 class="text-3xl font-bold mb-4 text-center">Book Information</h3>
             <div class="flex flex-col text-lg items-center justify-center">
-                @foreach($books->authors as $bookauthor)                  
-                    <a href="/authors/{{$bookauthor->id}}">{{$bookauthor->first_name . " " . $bookauthor->last_name}}</a>                                 
-                @endforeach      
-                <p>Genre: {{$books->genres['name']}} </p>            
-                <p>Description: {{$books->description}}  </p> 
+                @foreach($books->authors as $bookauthor)
+                    <div class="inline-block">
+                        <span class="font-bold">Author: </span>
+                        <span><a href="/authors/{{$bookauthor->id}}">{{$bookauthor->first_name . " " . $bookauthor->last_name}}</a></span>
+                    </div>
+                @endforeach
+                <div class="inline-block">
+                    <span class="font-bold">Genre: </span>
+                    <span>{{$books->genres['name']}}</span>
+                </div>
+                <div class="inline-block mt-6">
+                    <span class="font-bold">Description: </span>
+                    <span>{{$books->description}}</span>
+                </div>
                                   
                 <x-books-tags :tagsCsv="$books->tags"/>   
             </div>                

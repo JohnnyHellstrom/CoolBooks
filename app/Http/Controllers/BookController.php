@@ -12,13 +12,33 @@ use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
-    public function index()
-    {     
+    public function index(Request $request)
+    {
+        //Save request to keep selected dropdown when reloading chart page
+        $selected = $request->sortOrder;
+
+        //Set orderBy parameters
+        switch ($request->sortOrder) {
+            case 'Title, A to Ö':
+                $sortBy = 'title';
+                $order = 'asc';
+                break;
+            case 'Title, Ö to A':
+                $sortBy = 'title';
+                $order = 'desc';
+                break;
+            case 'Last updated':
+                $sortBy = 'updated_at';
+                $order = 'desc';
+                break;
+            default:    //Same as 'Title, A to Ö'
+                $sortBy = 'title';
+                $order = 'asc';
+                break;
+        }
         // only returns the books that are not set "deleted" in the database...
-        return view('books.index', 
-        [                        
-            'books' => Book::with('authors')->with('genres')->where('is_deleted', false)->latest()->paginate(10)            
-        ]);
+        $books = Book::with('authors')->with('genres')->where('is_deleted', false)->orderBy($sortBy, $order)->paginate(10);
+        return view('books.index', ['books' => $books, 'selected' => $selected]);
     }
 
     public function create(Genre $genre, Author $author)
@@ -113,20 +133,33 @@ class BookController extends Controller
       
         return back()->with('message', 'Book updated successfully!');
     }
-    // public function destroy(Book $book)
-    // {        
-    //     $book->delete();
-    //     return redirect('/')->with('message', 'Book deleted successfully');
-    // }
-        // for now this is the softdelete
+
+    public function confirm_delete(Book $book)
+    {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
+        return view('books.delete', ['book' => $book]);
+    }
+
     public function destroy(Book $book)
     {
         abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
-
-        $book->update(['is_deleted' => '1']);
-
-        return redirect('/')->with('message', 'Book deleted successfully');
+        $book->delete();
+        return redirect('/books')->with('message', 'Book deleted successfully!');
     }
+
+    public function confirm_hide(Book $book)
+    {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
+        return view('books.hide', ['book' => $book]);
+    }
+
+    public function hide(Book $book)
+    {
+        abort_if(auth()->user()->role_id != Role::IS_ADMIN, 403, 'Page doesnt exist');
+        $book->update(['is_deleted' => '1']);
+        return redirect('/books')->with('message', 'Book hidden successfully!');
+    }
+
 
     public function livesearch(Request $request)
     {

@@ -37,6 +37,11 @@ Route::middleware(['auth', 'checkUserRoleAdmin'])->group(function ()
     'edit' => 'books.edit',
     'create' => 'books.create'
   ]);
+  //Books
+  Route::get('/books/{book}/delete', [bookController::class, 'confirm_delete']);          //Show delete book form
+  Route::delete('/books/{book}', [bookController::class, 'destroy']);                     //Delete book
+  Route::get('/books/{book}/hide', [bookController::class, 'confirm_hide']);              //Show hide book form
+  Route::put('/books/{book}/hide', [bookController::class, 'hide']);                      //Hide book
   //Authors
   Route::get('/authors/create', [AuthorController::class, 'create']);                     //Show create author form
   Route::post('/authors', [AuthorController::class, 'store']);                            //Store new author

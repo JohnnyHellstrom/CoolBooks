@@ -1,5 +1,23 @@
 <x-layout>
     
+    @php
+        $sortOrders = ['Title, A to Ö', 'Title, Ö to A', 'Last updated'];
+    @endphp
+
+    {{-- OrderBy bar --}}
+    <form action="/books" method="get">
+        <div class="relative border-2 border-gray-100 m-4 rounded-lg flex items-center">
+            <select name="sortOrder" class="h-14 w-full pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none text-center">
+                @foreach ($sortOrders as $sortOrder)
+                    <option value="{{$sortOrder}}" {{$selected == $sortOrder ? 'selected' : '' }}>{{$sortOrder}}</option>
+                @endforeach    
+            </select>
+            <div class="absolute top-2 left-2">
+                <button type="submit" class="w-48 text-white font-bold py-2 px-4 rounded-full bg-gray-500 hover:bg-emerald-700">Sort</button>
+            </div>
+        </div>
+    </form>
+
     <header>
         <h2 class="text-3xl text-center font-bold my-2 uppercase">Books</h2>
         <div class="flex justify-center md:justify-center mt-1 mb-2">
@@ -38,20 +56,14 @@
                             <p>{{ $book->genres['name'] }}<p>
                         </td>
 
-                        <td class="px-2 py-4 border-t border-b border-gray-300 text-lg text-right">
-                            @can('view-button-for-admin')
-                                <a a href="/books/{{ $book->id }}/edit">
-                                    <x-button-edit>Edit</x-button-edit>
-                                </a> |
-                                <form method="POST" action="/books/{{ $book->id }}">
-                                    @csrf
-                                    @method('delete')
-                                    <x-button-delete>Delete</x-button-delete>
-                                </form> |
+                        <td class="px-4 py-8 border-t border-b border-gray-300 text-lg text-right">
+                            <a href="/books/{{$book->id}}"><x-button-view>View</x-button-view></a> 
+                            @can('view-button-for-admin')|
+                            <a href="/books/{{$book->id}}/edit"><x-button-edit>Edit</x-button-edit></a> |
+                            <br>
+                            <a href="/books/{{$book->id}}/hide"><x-button-hide>Hide</x-button-hide></a> |
+                            <a href="/books/{{$book->id}}/delete"><x-button-delete>Delete</x-button-delete></a> |
                             @endcan
-                            <a href="/books/{{ $book->id }}">
-                                <x-button-view>View</x-button-view>
-                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -66,6 +78,6 @@
     </table>
 
     <div class="mt-6 p-4">
-        {{ $books->links() }}
+        {{ $books->appends(['sortOrder' => $selected])->links() }}
     </div>
 </x-layout>
