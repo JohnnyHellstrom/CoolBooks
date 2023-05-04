@@ -1,5 +1,5 @@
 <div class="grid justify-self-center">
-    <button class="m-auto p-3 jusitfy-self-center bg-gray-500 rounded-full hover:bg-gray-600 mb-4" wire:click="getRandomBook()"><b>Give me something i have to reed!</b></button>
+    <button class="m-auto p-3 jusitfy-self-center bg-gray-500 rounded-full hover:bg-gray-600 mb-4" wire:click="getRandomBook()"><b>Give me something i have to read!</b></button>
 
     @if ($isOpen)
         <div class="justify-self-center">
