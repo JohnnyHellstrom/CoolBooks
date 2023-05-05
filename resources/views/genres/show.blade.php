@@ -5,7 +5,8 @@
     </header>
         
     <div class="mx-4 flex flex-col items-center justify-center text-center">      
-        <p class="font-bold mt-5">Include any more information?</p>
+        <p class="mt-5">{{$genre->description}}</p>
+        <p class="font-bold mt-5">Delete this view or add more info, eg highest ranked book in this genre</p>
 
         <a href="/genres" class="text-black text-2xl m-10 ml-4"><i class="fa-solid fa-arrow-left"></i> Back to Genres</a>
     </div>
