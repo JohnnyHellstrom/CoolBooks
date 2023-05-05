@@ -10,7 +10,7 @@ class SearchController extends Controller
 {
     public function search(Request $request)
     {       
-        abort_if(auth()->user()->role_id != Role::IS_USER, 403, 'Page doesnt exist');
+        abort_if(auth()->id() === null, 403, 'Page doesnt exist');
 
         $searchTerm = $request->input('search');
         $searchType = $request->input('type');        
