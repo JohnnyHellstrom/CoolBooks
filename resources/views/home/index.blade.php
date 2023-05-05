@@ -12,7 +12,7 @@
         @if (!$three_book->isEmpty())
             <div class="grid gap-2 grid-cols-4 grid-rows-1 justify-items-center mt-10 ">
                 <span>
-                    <a href="/genres/{{ $three_book[0]->genres->id }}">
+                    <a href="/genres">
                         <h2><b>{{ $three_book[0]->genres->name }}</b></h2>
                     </a>
                     <br>
